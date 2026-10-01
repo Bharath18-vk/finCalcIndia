@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#064e3b" />
+      <stop offset="50%" stop-color="#047857" />
+      <stop offset="100%" stop-color="#022c22" />
+    </linearGradient>
+    <linearGradient id="arrowGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#34d399" />
+      <stop offset="100%" stop-color="#10b981" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Squircle Base for High Contrast on both Light & Dark Browser Tabs -->
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#bgGrad)"/>
+
+  <!-- Stylized Rupee (₹) Symbol in Crisp White -->
+  <!-- Top horizontal bar -->
+  <path d="M14 17h17" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round"/>
+  <!-- Second horizontal bar -->
+  <path d="M14 23.5h14" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round"/>
+  <!-- Rupee upper curve and vertical spine -->
+  <path d="M20 17v19c4.5 0 8.5-2.5 8.5-7.5s-4-6.5-8.5-6.5" fill="none" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Rupee diagonal leg -->
+  <path d="M19 36l10 12" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round"/>
+
+  <!-- Upward Financial Growth Arrow in Neon Mint -->
+  <path d="M31 35l7-7l4 4l10-14" fill="none" stroke="url(#arrowGrad)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M43 18h9v9" fill="none" stroke="url(#arrowGrad)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Calculator Keypad Matrix Dots -->
+  <circle cx="34" cy="46" r="2.8" fill="#ffffff" opacity="0.95"/>
+  <circle cx="42" cy="46" r="2.8" fill="#ffffff" opacity="0.95"/>
+  <circle cx="50" cy="46" r="2.8" fill="#ffffff" opacity="0.95"/>
+</svg>
