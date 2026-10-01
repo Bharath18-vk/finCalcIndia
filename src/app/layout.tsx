@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import "./globals.css";
-import { Calculator } from "lucide-react";
 
 export const viewport: Viewport = {
   themeColor: "#0f172a",
@@ -12,6 +12,10 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://fincalcindia.in"),
+  icons: {
+    icon: "/logo.png",
+    apple: "/apple-icon.png",
+  },
   title: {
     default: "FinCalc India - Fast, Accurate Indian Financial Calculators",
     template: "%s | FinCalc India",
@@ -36,6 +40,14 @@ export const metadata: Metadata = {
     title: "FinCalc India - Fast, Accurate Indian Financial Calculators",
     description:
       "Accurate Indian financial calculators with full amortization schedules, sensitivity tables, and Indian rupee formatting.",
+    images: [
+      {
+        url: "/images/logo.png",
+        width: 1024,
+        height: 1024,
+        alt: "FinCalc India - Indian Financial Calculators",
+      },
+    ],
   },
   robots: {
     index: true,
@@ -110,8 +122,15 @@ export default function RootLayout({
               href="/"
               className="flex items-center gap-2.5 font-extrabold text-lg sm:text-xl text-slate-900 hover:opacity-90 transition-opacity"
             >
-              <div className="w-8 h-8 rounded-lg bg-emerald-600 flex items-center justify-center text-white shadow-xs">
-                <Calculator className="w-5 h-5" />
+              <div className="w-9 h-9 rounded-xl overflow-hidden shadow-xs border border-slate-200/90 bg-white shrink-0 flex items-center justify-center p-0.5">
+                <Image
+                  src="/logo.png"
+                  alt="FinCalc India Logo"
+                  width={34}
+                  height={34}
+                  className="w-full h-full object-contain rounded-lg"
+                  priority
+                />
               </div>
               <span className="tracking-tight">
                 FinCalc<span className="text-emerald-600">India</span>
@@ -161,9 +180,15 @@ export default function RootLayout({
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
               <div className="space-y-3 sm:col-span-2 lg:col-span-1">
-                <div className="flex items-center gap-2 font-bold text-white text-base">
-                  <div className="w-6 h-6 rounded bg-emerald-600 flex items-center justify-center text-white text-xs">
-                    ₹
+                <div className="flex items-center gap-2.5 font-bold text-white text-base">
+                  <div className="w-8 h-8 rounded-lg overflow-hidden bg-white/10 p-0.5 border border-slate-700 shrink-0 flex items-center justify-center">
+                    <Image
+                      src="/logo.png"
+                      alt="FinCalc India"
+                      width={28}
+                      height={28}
+                      className="w-full h-full object-contain rounded-sm"
+                    />
                   </div>
                   <span>FinCalc India</span>
                 </div>
