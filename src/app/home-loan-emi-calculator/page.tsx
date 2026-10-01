@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     title: "Home Loan EMI Calculator - Housing Loan Interest & Repayment Schedule",
     description:
       "Estimate housing loan monthly installments and yearly amortization using official bank benchmark rates.",
-    url: "https://fincalcindia.com/home-loan-emi-calculator",
+    url: "https://fincalcindia.in/home-loan-emi-calculator",
   },
 };
 

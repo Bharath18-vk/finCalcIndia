@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     title: "Step-Up SIP Calculator - Top-Up Mutual Fund Investment Calculator",
     description:
       "Calculate how an annual top-up increases your mutual fund corpus compared to a flat SIP.",
-    url: "https://fincalcindia.com/step-up-sip-calculator",
+    url: "https://fincalcindia.in/step-up-sip-calculator",
   },
 };
 

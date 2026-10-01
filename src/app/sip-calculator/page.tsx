@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     title: "SIP Calculator - Mutual Fund Systematic Investment Plan Wealth Calculator",
     description:
       "Simulate mutual fund wealth growth, growth multiples, and yearly portfolio progression with accurate monthly compounding.",
-    url: "https://fincalcindia.com/sip-calculator",
+    url: "https://fincalcindia.in/sip-calculator",
   },
 };
 

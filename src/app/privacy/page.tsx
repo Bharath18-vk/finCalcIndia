@@ -49,7 +49,7 @@ export default function PrivacyPage() {
 
         <h2 className="text-lg font-bold text-slate-900 pt-3">5. Contact Information</h2>
         <p>
-          If you have questions regarding our privacy practices, please contact us at contact@fincalcindia.com.
+          If you have questions regarding our privacy practices, please contact us at contact@fincalcindia.in.
         </p>
       </section>
     </article>

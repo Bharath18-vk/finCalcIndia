@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     title: "EMI Calculator - Loan Equated Monthly Installment & Amortization",
     description:
       "Calculate monthly EMI, total interest payable, and complete repayment amortization schedule formatted in Indian Rupees.",
-    url: "https://fincalcindia.com/emi-calculator",
+    url: "https://fincalcindia.in/emi-calculator",
   },
 };
 

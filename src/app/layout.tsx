@@ -11,7 +11,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://fincalcindia.com"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://fincalcindia.in"),
   title: {
     default: "FinCalc India - Fast, Accurate Indian Financial Calculators",
     template: "%s | FinCalc India",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://fincalcindia.com",
+    url: process.env.NEXT_PUBLIC_SITE_URL || "https://fincalcindia.in",
     siteName: "FinCalc India",
     title: "FinCalc India - Fast, Accurate Indian Financial Calculators",
     description:
@@ -55,11 +55,12 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://fincalcindia.in";
   const webAppSchema = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     name: "FinCalc India",
-    url: "https://fincalcindia.com",
+    url: siteUrl,
     applicationCategory: "FinanceApplication",
     operatingSystem: "All",
     offers: {

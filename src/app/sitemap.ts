@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 import { getLiveRoutes } from "@/data/site-map";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://fincalcindia.com";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://fincalcindia.in";
   const liveRoutes = getLiveRoutes();
 
   return liveRoutes.map((route) => ({

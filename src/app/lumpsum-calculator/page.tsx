@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     title: "Lumpsum Calculator - One-Time Mutual Fund Return & Wealth Growth",
     description:
       "Estimate one-time mutual fund investment returns, wealth multiples, and holding period sensitivity.",
-    url: "https://fincalcindia.com/lumpsum-calculator",
+    url: "https://fincalcindia.in/lumpsum-calculator",
   },
 };
 

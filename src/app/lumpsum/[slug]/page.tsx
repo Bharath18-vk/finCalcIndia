@@ -21,7 +21,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const page = getLongtailPage("lumpsum", slug);
   if (!page) return {};
 
-  const url = `https://fincalcindia.com${page.baseRoute}/${page.slug}`;
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://fincalcindia.in";
+  const url = `${siteUrl}${page.baseRoute}/${page.slug}`;
 
   return {
     title: page.title,

@@ -36,7 +36,7 @@ export default function ContactPage() {
             For technical feedback, mathematical verification, bug reports, or rate updates, reach out to our team at:
           </p>
           <div className="p-3 bg-slate-50 rounded-lg border border-slate-200 font-mono text-xs font-semibold text-emerald-800">
-            contact@fincalcindia.com
+            contact@fincalcindia.in
           </div>
         </div>
 

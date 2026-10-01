@@ -14,7 +14,7 @@ export interface BreadcrumbsProps {
 
 export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
   items,
-  siteUrl = "https://fincalcindia.com",
+  siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://fincalcindia.in",
 }) => {
   const fullItems = [
     { label: "Home", href: "/" },

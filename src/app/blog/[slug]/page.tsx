@@ -59,6 +59,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   }
 
   // Article JSON-LD Schema
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://fincalcindia.in";
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -67,18 +68,18 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     author: {
       "@type": "Organization",
       name: post.author,
-      url: "https://fincalcindia.com",
+      url: siteUrl,
     },
     publisher: {
       "@type": "Organization",
       name: "FinCalc India",
-      url: "https://fincalcindia.com",
+      url: siteUrl,
     },
     datePublished: post.publishedAt,
     dateModified: post.updatedAt,
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `https://fincalcindia.com/blog/${post.slug}`,
+      "@id": `${siteUrl}/blog/${post.slug}`,
     },
   };
 

@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     title: "Car Loan EMI Calculator - Auto Loan Monthly Payment & Amortization",
     description:
       "Calculate car loan EMIs, interest cost, and amortization schedule with current auto loan interest rates.",
-    url: "https://fincalcindia.com/car-loan-emi-calculator",
+    url: "https://fincalcindia.in/car-loan-emi-calculator",
   },
 };
 

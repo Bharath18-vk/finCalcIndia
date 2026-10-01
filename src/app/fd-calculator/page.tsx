@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     title: "FD Calculator - Fixed Deposit Maturity & Quarterly Interest Calculator",
     description:
       "Accurate bank fixed deposit calculator with quarterly compounding and senior citizen rates.",
-    url: "https://fincalcindia.com/fd-calculator",
+    url: "https://fincalcindia.in/fd-calculator",
   },
 };
 

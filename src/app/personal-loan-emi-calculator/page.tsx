@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     title: "Personal Loan EMI Calculator - Monthly Payment & Interest Schedule",
     description:
       "Accurate personal loan EMI calculator with instant amortization schedules and rate sensitivity.",
-    url: "https://fincalcindia.com/personal-loan-emi-calculator",
+    url: "https://fincalcindia.in/personal-loan-emi-calculator",
   },
 };
 
