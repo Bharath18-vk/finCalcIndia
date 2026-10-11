@@ -253,6 +253,11 @@ export default function RootLayout({
                       Car Loan EMI
                     </Link>
                   </li>
+                  <li>
+                    <Link href="/loan-comparison-calculator" className="hover:text-emerald-400 transition-colors font-medium text-emerald-400">
+                      Loan Comparison
+                    </Link>
+                  </li>
                 </ul>
               </div>
 
@@ -287,6 +292,11 @@ export default function RootLayout({
                     </Link>
                   </li>
                   <li>
+                    <Link href="/inflation-calculator" className="hover:text-emerald-400 transition-colors font-medium text-emerald-400">
+                      Inflation Calculator (CII)
+                    </Link>
+                  </li>
+                  <li>
                     <Link href="/fd-calculator" className="hover:text-emerald-400 transition-colors">
                       Fixed Deposit (FD)
                     </Link>
@@ -314,6 +324,11 @@ export default function RootLayout({
                   Tax, Salary & Govt
                 </h4>
                 <ul className="space-y-2 text-xs">
+                  <li>
+                    <Link href="/gst-calculator" className="hover:text-emerald-400 transition-colors font-medium text-emerald-400">
+                      GST Calculator (CBIC)
+                    </Link>
+                  </li>
                   <li>
                     <Link href="/income-tax-calculator" className="hover:text-emerald-400 transition-colors">
                       Income Tax (New vs Old)
@@ -352,6 +367,11 @@ export default function RootLayout({
                   <li>
                     <Link href="/epf-calculator" className="hover:text-emerald-400 transition-colors">
                       EPF Calculator (8.25%)
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/nps-vs-epf-calculator" className="hover:text-emerald-400 transition-colors font-medium text-emerald-400">
+                      NPS vs EPF Comparison
                     </Link>
                   </li>
                 </ul>
@@ -438,6 +458,11 @@ export default function RootLayout({
                   <li>
                     <Link href="/bmi-calculator" className="hover:text-emerald-400 transition-colors font-medium text-emerald-400">
                       BMI Calculator (Indian)
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/calorie-calculator" className="hover:text-emerald-400 transition-colors font-medium text-emerald-400">
+                      Calorie & Macro Calculator
                     </Link>
                   </li>
                   <li>

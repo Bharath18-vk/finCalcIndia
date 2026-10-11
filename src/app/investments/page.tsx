@@ -64,6 +64,20 @@ export default function InvestmentsHubPage() {
       icon: TrendingUp,
       badge: "Retirement",
     },
+    {
+      title: "Inflation Calculator (CII)",
+      description: "Project future purchasing power erosion and index capital gains with the official CBDT Cost Inflation Index.",
+      href: "/inflation-calculator",
+      icon: TrendingUp,
+      badge: "Purchasing Power",
+    },
+    {
+      title: "NPS vs EPF Calculator",
+      description: "Compare 8.25% sovereign EPF vs 10.5% market NPS, 60% lump-sum rules, and Section 80CCD(1B) tax savings.",
+      href: "/nps-vs-epf-calculator",
+      icon: TrendingUp,
+      badge: "Retirement Strategy",
+    },
   ];
 
   const popularScenarios = [

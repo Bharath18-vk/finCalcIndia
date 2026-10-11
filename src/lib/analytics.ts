@@ -55,6 +55,11 @@ export type CalculatorId =
   | "tip"
   | "ssy"
   | "scss"
+  | "gst"
+  | "inflation"
+  | "loan-comparison"
+  | "calorie"
+  | "nps-vs-epf"
   | (string & {});
 
 export function trackCalculatorUsed(calculatorId: CalculatorId, inputField: string): void {

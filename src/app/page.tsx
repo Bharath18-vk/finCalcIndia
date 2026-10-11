@@ -173,6 +173,41 @@ export default function HomePage() {
       category: "Government",
       badge: "EEE Sovereign",
     },
+    {
+      title: "GST Calculator India",
+      description: "Add or remove GST with forward exclusive and reverse inclusive math across statutory 5%, 12%, 18%, 28% slabs.",
+      href: "/gst-calculator",
+      category: "Tax & Business",
+      badge: "CBIC Slabs",
+    },
+    {
+      title: "Inflation Calculator (CII)",
+      description: "Measure future purchasing power loss and calculate capital gains indexation using official CBDT Cost Inflation Index table.",
+      href: "/inflation-calculator",
+      category: "Investment",
+      badge: "CBDT CII",
+    },
+    {
+      title: "Loan Comparison Calculator",
+      description: "Compare two loans side-by-side with interest rate differentials, processing fees, and overall lifetime savings.",
+      href: "/loan-comparison-calculator",
+      category: "Loans",
+      badge: "Side-by-Side",
+    },
+    {
+      title: "Calorie & Macro Calculator",
+      description: "Clinical Mifflin-St Jeor BMR, TDEE maintenance burn, and daily macro partition targets for Indian diets.",
+      href: "/calorie-calculator",
+      category: "Health",
+      badge: "Mifflin-St Jeor",
+    },
+    {
+      title: "NPS vs EPF Calculator",
+      description: "Compare 8.25% sovereign EPF vs 10.5% market NPS, 60% lump-sum tax exemption, and Section 80CCD(1B) savings.",
+      href: "/nps-vs-epf-calculator",
+      category: "Retirement",
+      badge: "Retirement Strategy",
+    },
   ];
 
   return (

@@ -64,6 +64,13 @@ export default function LoansHubPage() {
       icon: Calculator,
       badge: "Full Schedule",
     },
+    {
+      title: "Loan Comparison Calculator",
+      description: "Compare two loans side-by-side with interest rate differentials, processing fees, and overall savings.",
+      href: "/loan-comparison-calculator",
+      icon: Calculator,
+      badge: "Side-by-Side",
+    },
   ];
 
   const popularScenarios = [
