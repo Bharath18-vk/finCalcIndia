@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "finalize",
+  "status": "fail",
+  "type": "architecture",
+  "quality": "showcase",
+  "specification": {
+    "path": "C:\\Users\\admin\\Desktop\\financial calculator\\.archify\\architecture-fincalc-platform-20261011-113219\\candidate.json",
+    "sha256": "98d209cda4bf32e0b49abbac6b2908c2223cb0c76b3e665fcf563220785f9ebd",
+    "bytes": 11299
+  },
+  "artifact": {
+    "path": "C:\\Users\\admin\\Desktop\\financial calculator\\.archify\\architecture-fincalc-platform-20261011-113219\\fincalc-platform.html"
+  },
+  "gates": {
+    "validate": "fail",
+    "deliver": "not-run",
+    "check": "not-run",
+    "browser-check": "not-run"
+  },
+  "failedStage": "validate",
+  "diagnostics": [
+    {
+      "code": "repository-evidence/root-required",
+      "severity": "error",
+      "message": "This diagram declares source evidence. Pass --repo-root <repository> so Archify can verify it before rendering.",
+      "subject": {
+        "surface": "repository-evidence",
+        "path": "/meta/repository"
+      },
+      "supportedFixes": [
+        "pass --repo-root with the matching local Git checkout"
+      ]
+    }
+  ],
+  "diagnosticSummary": {
+    "total": 1,
+    "shown": 1,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "C:\\Users\\admin\\Desktop\\financial calculator\\.archify\\architecture-fincalc-platform-20261011-113219\\fincalc-platform.finalize.json",
+    "summaryReceipt": "C:\\Users\\admin\\Desktop\\financial calculator\\.archify\\architecture-fincalc-platform-20261011-113219\\fincalc-platform.finalize-summary.json"
+  },
+  "update": {
+    "status": "current",
+    "installedVersion": "3.0.1",
+    "availableVersion": "3.0.1",
+    "releaseNotes": null,
+    "checkedAt": "2026-10-11T07:35:40.462Z",
+    "source": "network",
+    "noticeRequired": false,
+    "noticeText": null
+  },
+  "visualReview": "not-requested",
+  "durationMs": 3886,
+  "nextAction": {
+    "action": "edit-in-place",
+    "candidate": "C:\\Users\\admin\\Desktop\\financial calculator\\.archify\\architecture-fincalc-platform-20261011-113219\\candidate.json",
+    "constraint": "Preserve all semantics and user-fixed geometry. Use references/architecture-layout-repair.md to choose a local repair or connected-scene reflow; edit the existing candidate.",
+    "then": "finalize-once"
+  }
+}

@@ -1,13 +1,14 @@
 import { describe, it, expect } from "vitest";
 import { calculateFD } from "@/lib/calculators/fd";
+import { formatINR } from "@/lib/formatters";
 
 describe("Fixed Deposit (FD) Calculation Engine (Independently Computed Reference Tests)", () => {
   // Independent benchmark fixture 1: ₹5,00,000 at 6.8% for 5 years (Quarterly compounding)
   // Formula: A = P * (1 + r/4)^(4*t)
   // r = 0.068, n = 4, t = 5 => 4*t = 20 periods
-  // (1 + 0.068/4)^20 = (1.017)^20 = 1.399508
-  // A = 500000 * 1.399508 = 6,99,754
-  // Interest = 699754 - 500000 = 1,99,754
+  // (1 + 0.068/4)^20 = (1.017)^20 = 1.400938
+  // A = 500000 * 1.400938 = 7,00,469
+  // Interest = 700469 - 500000 = 2,00,469
   it("matches independently verified quarterly compounding FD fixture (₹5 Lakh, 6.8%, 5 years)", () => {
     const result = calculateFD({
       principal: 500000,
@@ -83,5 +84,20 @@ describe("Fixed Deposit (FD) Calculation Engine (Independently Computed Referenc
     const resZeroT = calculateFD({ principal: 100000, annualRate: 7, tenureYears: 0 });
     expect(resZeroT.maturityAmount).toBe(100000);
     expect(resZeroT.totalInterest).toBe(0);
+  });
+
+  it("verifies Savings Hub popular scenario (₹5 Lakh, 5 Years, 6.8% quarterly) yields ₹7,00,469 (Regression Test)", () => {
+    const result = calculateFD({
+      principal: 500000,
+      annualRate: 6.8,
+      tenureYears: 5,
+      compoundingFrequency: "quarterly",
+      isSeniorCitizen: false,
+    });
+
+    expect(result.maturityAmount).toBe(700469);
+    expect(formatINR(result.maturityAmount)).toBe("₹7,00,469");
+    expect(result.totalInterest).toBe(200469);
+    expect(formatINR(result.totalInterest)).toBe("₹2,00,469");
   });
 });

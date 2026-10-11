@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "command": "deliver",
+  "status": "pending",
+  "receiptId": "6650c8f2-f4d8-4ba9-9725-4e5bfa00930d",
+  "input": "C:\\Users\\admin\\Desktop\\financial calculator\\.archify\\architecture-fincalc-platform-20261011-113219\\candidate.json",
+  "output": "C:\\Users\\admin\\Desktop\\financial calculator\\.archify\\architecture-fincalc-platform-20261011-113219\\fincalc-platform.html"
+}

@@ -62,4 +62,28 @@ describe("Loan Eligibility Calculation Engine", () => {
     const thirtyYear = result.tenureComparisonTable.find((s) => s.tenureYears === 30);
     expect(thirtyYear!.eligibleLoanAmount).toBeGreaterThan(tenYear!.eligibleLoanAmount);
   });
+
+  it("handles 0% promotional interest rate without falling back to 8.5% (Regression Test)", () => {
+    const result = calculateLoanEligibility({
+      netMonthlyIncome: 100000,
+      existingMonthlyEMIs: 0,
+      annualRate: 0,
+      tenureYears: 20,
+      foirPercentage: 50,
+    });
+
+    expect(result.annualRate).toBe(0);
+    expect(result.maxAllowableTotalEMI).toBe(50000);
+    expect(result.availableNewEMI).toBe(50000);
+    // At 0% interest: Eligible loan = 50,000 * 240 months = 1,20,00,000 (₹1.2 Crore)
+    expect(result.eligibleLoanAmount).toBe(12000000);
+    expect(result.totalRepaymentAmount).toBe(12000000);
+    expect(result.totalInterestPayable).toBe(0);
+
+    // Verify comparison table at 0%
+    const fiveYearScenario = result.tenureComparisonTable.find((s) => s.tenureYears === 5);
+    expect(fiveYearScenario?.eligibleLoanAmount).toBe(50000 * 60);
+    expect(fiveYearScenario?.totalInterest).toBe(0);
+    expect(fiveYearScenario?.totalRepayment).toBe(50000 * 60);
+  });
 });

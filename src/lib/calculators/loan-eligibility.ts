@@ -49,7 +49,10 @@ export interface LoanEligibilityResult {
 export function calculateLoanEligibility(input: LoanEligibilityInput): LoanEligibilityResult {
   const netMonthlyIncome = Math.max(0, input.netMonthlyIncome || 0);
   const existingMonthlyEMIs = Math.max(0, input.existingMonthlyEMIs || 0);
-  const annualRate = Math.max(0, input.annualRate || 8.5);
+  const annualRate =
+    input.annualRate !== undefined && !isNaN(Number(input.annualRate))
+      ? Math.max(0, Number(input.annualRate))
+      : 8.5;
   const tenureYears = Math.max(1, Math.min(30, Math.round(input.tenureYears || 20)));
   const foirPercentage = Math.max(10, Math.min(80, input.foirPercentage || 50));
 

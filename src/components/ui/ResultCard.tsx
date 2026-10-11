@@ -16,6 +16,7 @@ export interface ResultCardProps {
   // Legacy / full-panel mode
   primaryTitle?: string;
   primaryValue?: number;
+  primaryFormattedValue?: string;
   primarySubtitle?: string;
   secondaryMetrics?: MetricItem[];
   ratioNote?: string;
@@ -62,6 +63,7 @@ export const ResultCard: React.FC<ResultCardProps> = (props) => {
   const {
     primaryTitle = "Result",
     primaryValue = 0,
+    primaryFormattedValue,
     primarySubtitle,
     secondaryMetrics = [],
     ratioNote,
@@ -69,8 +71,9 @@ export const ResultCard: React.FC<ResultCardProps> = (props) => {
   } = props;
 
   const handleCopySummary = async () => {
+    const primaryDisplay = primaryFormattedValue || formatINR(primaryValue);
     const summaryLines = [
-      `${primaryTitle}: ${formatINR(primaryValue)}`,
+      `${primaryTitle}: ${primaryDisplay}`,
       ...secondaryMetrics.map((m) => `${m.label}: ${m.formattedValue || formatINR(m.value)}`),
     ];
     try {
@@ -90,7 +93,7 @@ export const ResultCard: React.FC<ResultCardProps> = (props) => {
             {primaryTitle}
           </span>
           <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-emerald-400 tracking-tight">
-            {formatINR(primaryValue)}
+            {primaryFormattedValue || formatINR(primaryValue)}
           </div>
           {primarySubtitle && (
             <p className="mt-1 text-xs sm:text-sm text-slate-300 font-medium">

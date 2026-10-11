@@ -135,4 +135,67 @@ describe("Income Tax Calculator (AY 2026-27 & AY 2025-26 Statutory Rules)", () =
       expect(result.recommendedRegime).toBe("new");
     });
   });
+
+  describe("Old Regime Senior Citizen Surcharge Marginal Relief Edge Cases (Regression Tests)", () => {
+    it("computes accurate marginal relief for senior citizen (60-80 yrs) earning ₹51 Lakhs under Old Regime", () => {
+      // Senior citizen basic exemption: ₹3,00,000
+      // Tax at ₹50 Lakh threshold:
+      // 0-3L: 0
+      // 3-5L (2L @ 5%): 10,000
+      // 5-10L (5L @ 20%): 1,00,000
+      // 10-50L (40L @ 30%): 12,00,000
+      // Total tax at 50L = 13,10,000
+      // Tax on 51L (Non-salaried, 0 deductions): 13,10,000 + 30% of 1L = 13,40,000
+      // 10% Surcharge = 1,34,000 -> Total = 14,74,000
+      // Max allowable tax: Tax at 50L (13,10,000) + excess income (1,00,000) = 14,10,000
+      // Marginal relief = 14,74,000 - 14,10,000 = 64,000
+      // Surcharge payable = 1,34,000 - 64,000 = 70,000
+      // Tax + Surcharge before cess = 14,10,000
+      // Cess @ 4% = 56,400
+      // Total Old Regime Tax = 14,66,400
+      const result = calculateIncomeTax({
+        grossAnnualIncome: 5100000,
+        isSalaried: false,
+        ageGroup: "senior",
+        assessmentYear: "2026-27",
+      });
+
+      expect(result.oldRegime.taxableIncome).toBe(5100000);
+      expect(result.oldRegime.slabTax).toBe(1340000);
+      expect(result.oldRegime.marginalReliefSurcharge).toBe(64000);
+      expect(result.oldRegime.surcharge).toBe(70000);
+      expect(result.oldRegime.cess).toBe(56400);
+      expect(result.oldRegime.totalTax).toBe(1466400);
+    });
+
+    it("computes accurate marginal relief for super senior citizen (80+ yrs) earning ₹51 Lakhs under Old Regime", () => {
+      // Super Senior citizen basic exemption: ₹5,00,000
+      // Tax at ₹50 Lakh threshold:
+      // 0-5L: 0
+      // 5-10L (5L @ 20%): 1,00,000
+      // 10-50L (40L @ 30%): 12,00,000
+      // Total tax at 50L = 13,00,000
+      // Tax on 51L (Non-salaried, 0 deductions): 13,00,000 + 30% of 1L = 13,30,000
+      // 10% Surcharge = 1,33,000 -> Total = 14,63,000
+      // Max allowable tax: Tax at 50L (13,00,000) + excess income (1,00,000) = 14,00,000
+      // Marginal relief = 14,63,000 - 14,00,000 = 63,000
+      // Surcharge payable = 1,33,000 - 63,000 = 70,000
+      // Tax + Surcharge before cess = 14,00,000
+      // Cess @ 4% = 56,000
+      // Total Old Regime Tax = 14,56,000
+      const result = calculateIncomeTax({
+        grossAnnualIncome: 5100000,
+        isSalaried: false,
+        ageGroup: "superSenior",
+        assessmentYear: "2026-27",
+      });
+
+      expect(result.oldRegime.taxableIncome).toBe(5100000);
+      expect(result.oldRegime.slabTax).toBe(1330000);
+      expect(result.oldRegime.marginalReliefSurcharge).toBe(63000);
+      expect(result.oldRegime.surcharge).toBe(70000);
+      expect(result.oldRegime.cess).toBe(56000);
+      expect(result.oldRegime.totalTax).toBe(1456000);
+    });
+  });
 });

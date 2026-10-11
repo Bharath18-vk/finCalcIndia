@@ -64,7 +64,7 @@ export default function SavingsHubPage() {
       title: "Interest on ₹5 Lakh FD for 5 Years",
       href: "/fd/5-lakh-5-years",
       rate: "6.80% (Quarterly)",
-      maturity: "₹6,99,754",
+      maturity: "₹7,00,469",
     },
   ];
 

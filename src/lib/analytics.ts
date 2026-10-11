@@ -38,7 +38,24 @@ export type CalculatorId =
   | "hra"
   | "gratuity"
   | "nps"
-  | "epf";
+  | "epf"
+  | "percentage"
+  | "fraction"
+  | "simple-interest"
+  | "discount"
+  | "average"
+  | "ratio"
+  | "probability"
+  | "standard-deviation"
+  | "square-root"
+  | "permutation-combination"
+  | "lcm-gcd"
+  | "age"
+  | "bmi"
+  | "tip"
+  | "ssy"
+  | "scss"
+  | (string & {});
 
 export function trackCalculatorUsed(calculatorId: CalculatorId, inputField: string): void {
   if (typeof window === "undefined" || !window.gtag) return;

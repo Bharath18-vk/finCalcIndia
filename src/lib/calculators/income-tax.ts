@@ -109,7 +109,8 @@ function computeSurchargeWithMarginalRelief(
   taxableIncome: number,
   taxAfterRebate: number,
   regime: "new" | "old",
-  rules: TaxRuleSet
+  rules: TaxRuleSet,
+  ageGroup: "general" | "senior" | "superSenior" = "general"
 ): { surcharge: number; marginalRelief: number } {
   const tiers = regime === "new" ? rules.newRegime.surcharges : rules.oldRegime.surcharges;
 
@@ -130,7 +131,16 @@ function computeSurchargeWithMarginalRelief(
   const totalTaxWithSurcharge = taxAfterRebate + rawSurcharge;
 
   // Compute tax on threshold
-  const slabs = regime === "new" ? rules.newRegime.slabs : rules.oldRegime.slabsGeneral;
+  let slabs = rules.newRegime.slabs;
+  if (regime === "old") {
+    if (ageGroup === "senior") {
+      slabs = rules.oldRegime.slabsSeniorCitizen;
+    } else if (ageGroup === "superSenior") {
+      slabs = rules.oldRegime.slabsSuperSeniorCitizen;
+    } else {
+      slabs = rules.oldRegime.slabsGeneral;
+    }
+  }
   const { totalTax: taxAtThreshold } = computeSlabTax(applicableTier.threshold, slabs);
 
   // If there was a lower tier surcharge at threshold
@@ -250,7 +260,8 @@ export function calculateIncomeTax(inputs: IncomeTaxInputs): IncomeTaxResult {
     taxableOld,
     taxAfterRebateOld,
     "old",
-    rules
+    rules,
+    ageGroup
   );
 
   const cessOld = Math.round((taxAfterRebateOld + surchargeOld) * rules.oldRegime.cessRate);

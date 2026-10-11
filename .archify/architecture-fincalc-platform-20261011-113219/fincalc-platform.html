@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Archify 3.0.1 for FinCalc India">
+  <title>FinCalc India — Interactive Architecture Diagram</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090d16;
+      --bg-panel: rgba(15, 23, 42, 0.85);
+      --bg-card: rgba(30, 41, 59, 0.7);
+      --border: rgba(51, 65, 85, 0.7);
+      --border-highlight: #38bdf8;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --accent-cyan: #38bdf8;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-indigo: #818cf8;
+      --accent-rose: #f43f5e;
+      --accent-teal: #14b8a6;
+      --grid-color: rgba(255, 255, 255, 0.04);
+    }
+
+    [data-theme="light"] {
+      --bg: #f8fafc;
+      --bg-panel: rgba(255, 255, 255, 0.9);
+      --bg-card: #ffffff;
+      --border: #e2e8f0;
+      --border-highlight: #0284c7;
+      --text: #0f172a;
+      --text-muted: #475569;
+      --text-dim: #94a3b8;
+      --accent-cyan: #0284c7;
+      --accent-emerald: #059669;
+      --accent-amber: #d97706;
+      --accent-indigo: #6366f1;
+      --accent-rose: #e11d48;
+      --accent-teal: #0d9488;
+      --grid-color: rgba(0, 0, 0, 0.04);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      user-select: none;
+    }
+
+    /* Top Navigation Toolbar */
+    header {
+      height: 58px;
+      background: var(--bg-panel);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 50;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #10b981, #0284c7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 800;
+      font-size: 16px;
+      box-shadow: 0 2px 10px rgba(16, 185, 129, 0.3);
+    }
+    .brand-title {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .brand-subtitle {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-family: 'Fira Code', monospace;
+    }
+
+    /* Views selector */
+    .view-tabs {
+      display: flex;
+      background: rgba(0,0,0,0.15);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 3px;
+      gap: 4px;
+    }
+    .view-btn {
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .view-btn:hover { color: var(--text); }
+    .view-btn.active {
+      background: var(--bg-card);
+      color: var(--text);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+
+    .toolbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .search-box {
+      position: relative;
+    }
+    .search-box input {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 12px;
+      padding: 6px 12px 6px 28px;
+      border-radius: 6px;
+      outline: none;
+      width: 170px;
+      transition: width 0.2s;
+    }
+    .search-box input:focus {
+      width: 230px;
+      border-color: var(--accent-cyan);
+    }
+    .search-icon {
+      position: absolute;
+      left: 9px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+    .btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 500;
+      transition: background 0.15s;
+    }
+    .btn:hover { background: rgba(255,255,255,0.08); }
+
+    /* Canvas Area */
+    #canvas-container {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      cursor: grab;
+      background-image: 
+        radial-gradient(circle at 1px 1px, var(--grid-color) 1px, transparent 0);
+      background-size: 24px 24px;
+    }
+    #canvas-container.panning {
+      cursor: grabbing;
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* Node Styling */
+    .node {
+      cursor: pointer;
+      transition: transform 0.15s ease, filter 0.15s ease;
+    }
+    .node:hover .node-rect {
+      filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.4));
+      stroke: var(--accent-cyan);
+      stroke-width: 2px;
+    }
+    .node.active .node-rect {
+      stroke: var(--accent-emerald) !important;
+      stroke-width: 2.5px !important;
+      filter: drop-shadow(0 0 16px rgba(16, 185, 129, 0.5));
+    }
+    .node.dimmed {
+      opacity: 0.2;
+    }
+    .node-rect {
+      rx: 8px;
+      ry: 8px;
+      stroke-width: 1.2px;
+      transition: all 0.2s ease;
+    }
+
+    /* Node Themes */
+    .node-external .node-rect { fill: #1e293b; stroke: #475569; }
+    .node-cloud .node-rect    { fill: #082f49; stroke: #0284c7; }
+    .node-frontend .node-rect { fill: #2e1065; stroke: #7c3aed; }
+    .node-security .node-rect { fill: #451a03; stroke: #d97706; }
+    .node-backend .node-rect  { fill: #064e3b; stroke: #059669; }
+    .node-database .node-rect { fill: #172554; stroke: #2563eb; }
+
+    [data-theme="light"] .node-external .node-rect { fill: #f1f5f9; stroke: #94a3b8; }
+    [data-theme="light"] .node-cloud .node-rect    { fill: #e0f2fe; stroke: #0284c7; }
+    [data-theme="light"] .node-frontend .node-rect { fill: #f5f3ff; stroke: #7c3aed; }
+    [data-theme="light"] .node-security .node-rect { fill: #fef3c7; stroke: #d97706; }
+    [data-theme="light"] .node-backend .node-rect  { fill: #ecfdf5; stroke: #059669; }
+    [data-theme="light"] .node-database .node-rect { fill: #eff6ff; stroke: #2563eb; }
+
+    .node-title {
+      font-size: 13px;
+      font-weight: 700;
+      fill: var(--text);
+    }
+    .node-subtitle {
+      font-size: 10px;
+      fill: var(--text-muted);
+      font-family: 'Fira Code', monospace;
+    }
+    .node-tag {
+      font-size: 9px;
+      font-family: 'Fira Code', monospace;
+      font-weight: 600;
+      fill: var(--accent-cyan);
+    }
+
+    /* Boundary styling */
+    .boundary {
+      fill: rgba(15, 23, 42, 0.45);
+      stroke: rgba(148, 163, 184, 0.25);
+      stroke-width: 1.5px;
+      stroke-dasharray: 6 4;
+      rx: 16px;
+      ry: 16px;
+    }
+    [data-theme="light"] .boundary {
+      fill: rgba(241, 245, 249, 0.5);
+      stroke: rgba(100, 116, 139, 0.3);
+    }
+    .boundary-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      fill: var(--text-dim);
+      font-family: 'Fira Code', monospace;
+    }
+
+    /* Connection Lines */
+    .edge {
+      stroke: #64748b;
+      stroke-width: 1.5px;
+      fill: none;
+      transition: stroke 0.2s, stroke-width 0.2s, opacity 0.2s;
+    }
+    .edge.highlight {
+      stroke: var(--accent-cyan) !important;
+      stroke-width: 2.5px !important;
+      stroke-dasharray: 6 3;
+      animation: dashFlow 1s linear infinite;
+    }
+    .edge.dimmed {
+      opacity: 0.15;
+    }
+    .edge-label {
+      font-size: 9.5px;
+      font-family: 'Fira Code', monospace;
+      fill: var(--text-muted);
+      paint-order: stroke;
+      stroke: var(--bg);
+      stroke-width: 4px;
+    }
+    @keyframes dashFlow {
+      to { stroke-dashoffset: -18; }
+    }
+
+    /* Zoom Controls Floating Bar */
+    .zoom-toolbar {
+      position: absolute;
+      bottom: 24px;
+      right: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      background: var(--bg-panel);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 6px;
+      z-index: 40;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .zoom-btn {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: none;
+      color: var(--text);
+      font-size: 15px;
+      font-weight: 700;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .zoom-btn:hover { background: rgba(255,255,255,0.1); }
+
+    /* Architecture Inspector Drawer */
+    .inspector {
+      position: absolute;
+      top: 58px;
+      right: 0;
+      bottom: 0;
+      width: 380px;
+      background: var(--bg-panel);
+      backdrop-filter: blur(16px);
+      border-left: 1px solid var(--border);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      transform: translateX(100%);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 45;
+      overflow-y: auto;
+      box-shadow: -10px 0 30px rgba(0,0,0,0.4);
+    }
+    .inspector.open {
+      transform: translateX(0);
+    }
+    .inspector-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 14px;
+    }
+    .inspector-badge {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-family: 'Fira Code', monospace;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--accent-cyan);
+    }
+    .inspector-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-top: 6px;
+    }
+    .inspector-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-family: 'Fira Code', monospace;
+      margin-top: 2px;
+    }
+    .inspector-close {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 18px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .inspector-close:hover { color: var(--text); }
+
+    .section-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+    }
+    .info-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+    .file-path {
+      font-family: 'Fira Code', monospace;
+      font-size: 11px;
+      color: var(--accent-emerald);
+      word-break: break-all;
+      background: rgba(16, 185, 129, 0.1);
+      padding: 4px 6px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 4px;
+    }
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+    .tag-pill {
+      font-size: 10px;
+      font-family: 'Fira Code', monospace;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      padding: 2px 7px;
+      border-radius: 4px;
+      color: var(--text-muted);
+    }
+
+    /* Bottom Info Card Deck */
+    .bottom-cards {
+      position: absolute;
+      bottom: 24px;
+      left: 24px;
+      display: flex;
+      gap: 12px;
+      z-index: 40;
+      pointer-events: none;
+    }
+    .deck-card {
+      pointer-events: auto;
+      background: var(--bg-panel);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      width: 260px;
+      font-size: 11.5px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .deck-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+      font-weight: 700;
+      font-size: 12px;
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+    .dot-cyan { background: var(--accent-cyan); box-shadow: 0 0 6px var(--accent-cyan); }
+    .dot-emerald { background: var(--accent-emerald); box-shadow: 0 0 6px var(--accent-emerald); }
+    .dot-rose { background: var(--accent-rose); box-shadow: 0 0 6px var(--accent-rose); }
+    .deck-items {
+      list-style: none;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .deck-items li::before {
+      content: "•";
+      color: var(--text-dim);
+      display: inline-block;
+      width: 10px;
+    }
+
+    /* Marker definition */
+    defs marker path {
+      fill: #64748b;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="brand-logo">₹</div>
+      <div>
+        <div class="brand-title">FinCalc India — Architecture Topology</div>
+        <div class="brand-subtitle">Interactive Archify Specification • Phase A Batch 3 (34 Calculators)</div>
+      </div>
+    </div>
+
+    <!-- Guided Perspective Views -->
+    <div class="view-tabs">
+      <button class="view-btn active" onclick="switchView('full')">Full Topology</button>
+      <button class="view-btn" onclick="switchView('contract')">Engine Contract Pipeline</button>
+      <button class="view-btn" onclick="switchView('seo')">SEO & Edge Delivery</button>
+      <button class="view-btn" onclick="switchView('clusters')">Calculator Clusters</button>
+    </div>
+
+    <!-- Actions -->
+    <div class="toolbar-actions">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Search components..." oninput="handleSearch(this.value)">
+      </div>
+      <button class="btn" onclick="toggleTheme()" title="Toggle Theme (T)">
+        <span id="theme-icon">☀️</span> Theme
+      </button>
+      <button class="btn" onclick="resetZoom()" title="Reset Zoom (0)">
+        🎯 Fit
+      </button>
+    </div>
+  </header>
+
+  <main id="canvas-container">
+    <svg id="arch-svg" viewBox="0 0 1340 640" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 9 5 L 0 9 z" fill="#64748b" />
+        </marker>
+        <marker id="arrow-highlight" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 9 5 L 0 9 z" fill="#38bdf8" />
+        </marker>
+        <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="3" result="glow" />
+          <feComposite in="SourceGraphic" in2="glow" operator="over" />
+        </filter>
+      </defs>
+
+      <!-- Pan/Zoom Group -->
+      <g id="viewport-group">
+        <!-- ================= BOUNDARIES ================= -->
+        <!-- Layer 1: Presentation & Edge Delivery -->
+        <rect class="boundary" x="210" y="70" width="390" height="490" />
+        <text class="boundary-label" x="226" y="94">1. Presentation & Next.js 15 App Router Edge</text>
+
+        <!-- Layer 2: Core Middleware & Engine Contract -->
+        <rect class="boundary" x="620" y="70" width="380" height="490" />
+        <text class="boundary-label" x="636" y="94">2. Unified CalculatorEngine Contract & State</text>
+
+        <!-- Layer 3: Pure Computation Engines -->
+        <rect class="boundary" x="1020" y="70" width="290" height="490" />
+        <text class="boundary-label" x="1036" y="94">3. Pure Functional Math Engines (34)</text>
+
+        <!-- ================= CONNECTIONS ================= -->
+        <g id="connections-group">
+          <!-- External -> Edge -->
+          <path id="edge-users-routing" class="edge" d="M 170 290 L 230 290" marker-end="url(#arrow)" />
+          <path id="edge-crawlers-seo" class="edge" d="M 170 450 L 230 450" marker-end="url(#arrow)" />
+          
+          <!-- Edge -> Views -->
+          <path id="edge-routing-views" class="edge" d="M 370 290 L 430 290" marker-end="url(#arrow)" />
+          <path id="edge-seo-routing" class="edge" d="M 300 420 L 300 320" marker-end="url(#arrow)" />
+          
+          <!-- Layout & UI Primitives -->
+          <path id="edge-layout-views" class="edge" d="M 500 220 L 500 260" marker-end="url(#arrow)" />
+          <path id="edge-views-ui" class="edge" d="M 500 320 L 500 360" marker-end="url(#arrow)" />
+          
+          <!-- Views -> Middleware -->
+          <path id="edge-views-url" class="edge" d="M 570 280 C 600 280, 600 190, 630 190" marker-end="url(#arrow)" />
+          <path id="edge-views-validator" class="edge" d="M 570 290 L 630 290" marker-end="url(#arrow)" />
+          <path id="edge-views-analytics" class="edge" d="M 570 300 C 600 300, 600 480, 630 480" marker-end="url(#arrow)" />
+
+          <!-- Middleware Interconnections -->
+          <path id="edge-url-validator" class="edge" d="M 700 220 L 700 260" marker-end="url(#arrow)" />
+          <path id="edge-validator-engine" class="edge" d="M 770 290 L 830 290" marker-end="url(#arrow)" />
+          <path id="edge-engine-registry" class="edge" d="M 900 260 L 900 220" marker-end="url(#arrow)" />
+          <path id="edge-benchmarks-engine" class="edge" d="M 900 360 L 900 320" marker-end="url(#arrow)" />
+          <path id="edge-engine-formatters" class="edge" d="M 830 310 C 800 310, 800 380, 770 380" marker-end="url(#arrow)" />
+
+          <!-- Engine Contract -> Domain Engines -->
+          <path id="edge-engine-loans" class="edge" d="M 970 280 C 1000 280, 1000 135, 1040 135" marker-end="url(#arrow)" />
+          <path id="edge-engine-invest" class="edge" d="M 970 285 C 1000 285, 1000 205, 1040 205" marker-end="url(#arrow)" />
+          <path id="edge-engine-govt" class="edge" d="M 970 290 L 1040 275" marker-end="url(#arrow)" />
+          <path id="edge-engine-tax" class="edge" d="M 970 295 L 1040 345" marker-end="url(#arrow)" />
+          <path id="edge-engine-math" class="edge" d="M 970 300 C 1000 300, 1000 415, 1040 415" marker-end="url(#arrow)" />
+          <path id="edge-tests-engine" class="edge" d="M 1040 485 C 1000 485, 1000 310, 970 310" marker-end="url(#arrow)" />
+        </g>
+
+        <!-- ================= COMPONENTS ================= -->
+        <g id="components-group">
+          <!-- 1. External: Users -->
+          <g class="node node-external" id="node-users" data-id="users" onclick="inspectNode('users')">
+            <rect class="node-rect" x="40" y="260" width="130" height="60" />
+            <text class="node-title" x="52" y="284">Web & Mobile Users</text>
+            <text class="node-subtitle" x="52" y="302">Direct & Organic Traffic</text>
+          </g>
+
+          <!-- 2. External: Search Bots -->
+          <g class="node node-external" id="node-crawlers" data-id="crawlers" onclick="inspectNode('crawlers')">
+            <rect class="node-rect" x="40" y="420" width="130" height="60" />
+            <text class="node-title" x="52" y="444">Search Bots & AI</text>
+            <text class="node-subtitle" x="52" y="462">Googlebot, Perplexity</text>
+          </g>
+
+          <!-- 3. Cloud: Next.js App Router -->
+          <g class="node node-cloud" id="node-edge_routing" data-id="edge_routing" onclick="inspectNode('edge_routing')">
+            <rect class="node-rect" x="230" y="260" width="140" height="60" />
+            <text class="node-tag" x="242" y="278">NEXT.JS 15</text>
+            <text class="node-title" x="242" y="296">App Router Edge</text>
+            <text class="node-subtitle" x="242" y="310">Static SSG & ISR CDN</text>
+          </g>
+
+          <!-- 4. Cloud: SEO & Metadata -->
+          <g class="node node-cloud" id="node-metadata_engine" data-id="metadata_engine" onclick="inspectNode('metadata_engine')">
+            <rect class="node-rect" x="230" y="420" width="140" height="60" />
+            <text class="node-tag" x="242" y="438">SCHEMA.ORG</text>
+            <text class="node-title" x="242" y="456">Metadata Engine</text>
+            <text class="node-subtitle" x="242" y="470">JSON-LD & Canonical</text>
+          </g>
+
+          <!-- 5. Frontend: CalculatorLayout -->
+          <g class="node node-frontend" id="node-calc_layout" data-id="calc_layout" onclick="inspectNode('calc_layout')">
+            <rect class="node-rect" x="430" y="160" width="140" height="60" />
+            <text class="node-title" x="442" y="186">CalculatorLayout</text>
+            <text class="node-subtitle" x="442" y="204">Grid, Sticky Summary</text>
+          </g>
+
+          <!-- 6. Frontend: Reactive Calculator Views -->
+          <g class="node node-frontend" id="node-reactive_views" data-id="reactive_views" onclick="inspectNode('reactive_views')">
+            <rect class="node-rect" x="430" y="260" width="140" height="60" />
+            <text class="node-tag" x="442" y="278">CLIENT COMPONENT</text>
+            <text class="node-title" x="442" y="296">Reactive Views</text>
+            <text class="node-subtitle" x="442" y="310">Age, BMI, SSY, SCSS</text>
+          </g>
+
+          <!-- 7. Frontend: UI Primitives -->
+          <g class="node node-frontend" id="node-ui_primitives" data-id="ui_primitives" onclick="inspectNode('ui_primitives')">
+            <rect class="node-rect" x="430" y="360" width="140" height="60" />
+            <text class="node-title" x="442" y="386">UI Design System</text>
+            <text class="node-subtitle" x="442" y="404">CurrencyInput, ResultCard</text>
+          </g>
+
+          <!-- 8. Backend: useCalculatorUrlState -->
+          <g class="node node-backend" id="node-url_state_hook" data-id="url_state_hook" onclick="inspectNode('url_state_hook')">
+            <rect class="node-rect" x="630" y="160" width="140" height="60" />
+            <text class="node-tag" x="642" y="178">REACT HOOK</text>
+            <text class="node-title" x="642" y="196">useCalculatorUrlState</text>
+            <text class="node-subtitle" x="642" y="210">2-Way Query Sync</text>
+          </g>
+
+          <!-- 9. Security: Validator -->
+          <g class="node node-security" id="node-validator" data-id="validator" onclick="inspectNode('validator')">
+            <rect class="node-rect" x="630" y="260" width="140" height="60" />
+            <text class="node-tag" x="642" y="278">ZOD 3.24</text>
+            <text class="node-title" x="642" y="296">Unified Validation</text>
+            <text class="node-subtitle" x="642" y="310">coerceAndValidate</text>
+          </g>
+
+          <!-- 10. Backend: Formatters -->
+          <g class="node node-backend" id="node-formatters" data-id="formatters" onclick="inspectNode('formatters')">
+            <rect class="node-rect" x="630" y="360" width="140" height="60" />
+            <text class="node-title" x="642" y="386">Indian Formatters</text>
+            <text class="node-subtitle" x="642" y="404">formatINR (₹ L/Cr)</text>
+          </g>
+
+          <!-- 11. Security: Privacy Analytics -->
+          <g class="node node-security" id="node-analytics" data-id="analytics" onclick="inspectNode('analytics')">
+            <rect class="node-rect" x="630" y="460" width="140" height="60" />
+            <text class="node-tag" x="642" y="478">ZERO PII</text>
+            <text class="node-title" x="642" y="496">Privacy Analytics</text>
+            <text class="node-subtitle" x="642" y="510">GA4 Event Dispatches</text>
+          </g>
+
+          <!-- 12. Backend: Engine Contract -->
+          <g class="node node-backend" id="node-engine_contract" data-id="engine_contract" onclick="inspectNode('engine_contract')">
+            <rect class="node-rect" x="830" y="260" width="140" height="60" />
+            <text class="node-tag" x="842" y="278">TYPESCRIPT CORE</text>
+            <text class="node-title" x="842" y="296">Engine Contract</text>
+            <text class="node-subtitle" x="842" y="310">calculate, formatResult</text>
+          </g>
+
+          <!-- 13. Database: Central Registry -->
+          <g class="node node-database" id="node-registry" data-id="registry" onclick="inspectNode('registry')">
+            <rect class="node-rect" x="830" y="160" width="140" height="60" />
+            <text class="node-tag" x="842" y="178">CATALOG</text>
+            <text class="node-title" x="842" y="196">Central Registry</text>
+            <text class="node-subtitle" x="842" y="210">Decoupled Engine Map</text>
+          </g>
+
+          <!-- 14. Database: Statutory Rates -->
+          <g class="node node-database" id="node-rate_benchmarks" data-id="rate_benchmarks" onclick="inspectNode('rate_benchmarks')">
+            <rect class="node-rect" x="830" y="360" width="140" height="60" />
+            <text class="node-tag" x="842" y="378">SOVEREIGN RATES</text>
+            <text class="node-title" x="842" y="396">Statutory Rates</text>
+            <text class="node-subtitle" x="842" y="410">SSY/SCSS 8.2%, PPF 7.1%</text>
+          </g>
+
+          <!-- 15-19. Calculation Engines -->
+          <g class="node node-backend" id="node-loan_engines" data-id="loan_engines" onclick="inspectNode('loan_engines')">
+            <rect class="node-rect" x="1040" y="110" width="140" height="50" />
+            <text class="node-title" x="1052" y="132" style="font-size:12px;">Loan Engines (7)</text>
+            <text class="node-subtitle" x="1052" y="148">EMI, Prepayment, Amort</text>
+          </g>
+
+          <g class="node node-backend" id="node-invest_engines" data-id="invest_engines" onclick="inspectNode('invest_engines')">
+            <rect class="node-rect" x="1040" y="180" width="140" height="50" />
+            <text class="node-title" x="1052" y="202" style="font-size:12px;">Investment (6)</text>
+            <text class="node-subtitle" x="1052" y="218">SIP, Step-Up, CAGR, SWP</text>
+          </g>
+
+          <g class="node node-backend" id="node-govt_engines" data-id="govt_engines" onclick="inspectNode('govt_engines')">
+            <rect class="node-rect" x="1040" y="250" width="140" height="50" />
+            <text class="node-title" x="1052" y="272" style="font-size:12px;">Govt Savings (5)</text>
+            <text class="node-subtitle" x="1052" y="288">SSY 8.2%, SCSS 8.2%, PPF</text>
+          </g>
+
+          <g class="node node-backend" id="node-tax_engines" data-id="tax_engines" onclick="inspectNode('tax_engines')">
+            <rect class="node-rect" x="1040" y="320" width="140" height="50" />
+            <text class="node-title" x="1052" y="342" style="font-size:12px;">Tax & Salary (5)</text>
+            <text class="node-subtitle" x="1052" y="358">115BAC, Gratuity, EPF</text>
+          </g>
+
+          <g class="node node-backend" id="node-math_engines" data-id="math_engines" onclick="inspectNode('math_engines')">
+            <rect class="node-rect" x="1040" y="390" width="140" height="50" />
+            <text class="node-title" x="1052" y="412" style="font-size:12px;">Math & Life (11)</text>
+            <text class="node-subtitle" x="1052" y="428">Age, BMI, Tip, Stats, LCM</text>
+          </g>
+
+          <!-- 20. Verification: Vitest Suite -->
+          <g class="node node-security" id="node-test_suite" data-id="test_suite" onclick="inspectNode('test_suite')">
+            <rect class="node-rect" x="1040" y="460" width="140" height="50" />
+            <text class="node-tag" x="1052" y="478">100% PASS (350+)</text>
+            <text class="node-title" x="1052" y="494" style="font-size:12px;">Vitest Test Suite</text>
+          </g>
+        </g>
+      </g>
+    </svg>
+
+    <!-- Zoom Toolbar -->
+    <div class="zoom-toolbar">
+      <button class="zoom-btn" onclick="zoomIn()" title="Zoom In (+)">+</button>
+      <button class="zoom-btn" onclick="zoomOut()" title="Zoom Out (-)">−</button>
+      <button class="zoom-btn" onclick="resetZoom()" title="Reset Zoom (0)">⤢</button>
+    </div>
+
+    <!-- Bottom Architectural Cards -->
+    <div class="bottom-cards">
+      <div class="deck-card">
+        <div class="deck-header">
+          <span class="dot dot-cyan"></span>
+          <span>Next.js 15 SSG Edge</span>
+        </div>
+        <ul class="deck-items">
+          <li>Pre-rendered static HTML routes</li>
+          <li>Schema.org JSON-LD structured data</li>
+          <li>Zero client hydration lag</li>
+        </ul>
+      </div>
+
+      <div class="deck-card">
+        <div class="deck-header">
+          <span class="dot dot-emerald"></span>
+          <span>CalculatorEngine Contract</span>
+        </div>
+        <ul class="deck-items">
+          <li>Strict TypeScript interface contract</li>
+          <li>Bi-directional URL query sync</li>
+          <li>Zod runtime validation schemas</li>
+        </ul>
+      </div>
+
+      <div class="deck-card">
+        <div class="deck-header">
+          <span class="dot dot-rose"></span>
+          <span>Statutory Precision & QA</span>
+        </div>
+        <ul class="deck-items">
+          <li>SSY & SCSS 8.2% sovereign rates</li>
+          <li>Indian formatters (₹ Lakhs & Crores)</li>
+          <li>7 mandatory contract regression tests</li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <!-- Sliding Inspector Panel -->
+  <aside id="inspector" class="inspector">
+    <div class="inspector-header">
+      <div>
+        <span id="inspect-badge" class="inspector-badge">COMPONENT</span>
+        <h2 id="inspect-title" class="inspector-title">Component Name</h2>
+        <div id="inspect-sub" class="inspector-sub">Category / Layer</div>
+      </div>
+      <button class="inspector-close" onclick="closeInspector()">✕</button>
+    </div>
+
+    <div>
+      <div class="section-title">Description & Architectural Role</div>
+      <div id="inspect-desc" class="info-card">Detailed role and function within the FinCalc India platform architecture.</div>
+    </div>
+
+    <div>
+      <div class="section-title">Repository Source Artifacts</div>
+      <div id="inspect-sources" class="info-card">
+        <!-- populated dynamically -->
+      </div>
+    </div>
+
+    <div>
+      <div class="section-title">Upstream Inputs / Dependencies</div>
+      <div id="inspect-inputs" class="info-card">
+        <!-- populated dynamically -->
+      </div>
+    </div>
+
+    <div>
+      <div class="section-title">Downstream Consumers / Targets</div>
+      <div id="inspect-outputs" class="info-card">
+        <!-- populated dynamically -->
+      </div>
+    </div>
+
+    <div>
+      <div class="section-title">Key Capabilities & Features</div>
+      <div id="inspect-tags" class="tag-list">
+        <!-- populated dynamically -->
+      </div>
+    </div>
+  </aside>
+
+  <script>
+    /* ============================================================
+       Component Metadata Registry
+       ============================================================ */
+    const COMPONENT_DATA = {
+      users: {
+        badge: "TRAFFIC CHANNEL",
+        title: "Web & Mobile Users",
+        sub: "Direct, Organic Search & Referral Traffic",
+        desc: "End users across India accessing financial, math, and everyday calculators on mobile, desktop, and tablets. Interactions update query params for link sharing.",
+        sources: ["src/app", "public/robots.txt"],
+        inputs: ["User input actions (typing, slider drag, preset clicks)"],
+        outputs: ["HTTP requests to Edge Pages", "Bi-directional query string sync"],
+        tags: ["Mobile Responsive", "Cross-Browser", "Zero Install", "Instant PWA Ready"]
+      },
+      crawlers: {
+        badge: "DISCOVERY & INDEXING",
+        title: "Search Bots & AEO Agents",
+        sub: "Googlebot, Bingbot, Perplexity, OpenAI",
+        desc: "Search engine web crawlers and AI answer engines parsing pre-rendered pages, JSON-LD microdata, OpenGraph headers, and XML sitemaps.",
+        sources: ["src/app/sitemap.ts", "src/data/site-map.ts", "src/data/keyword-map.ts"],
+        inputs: ["Canonical URLs from sitemap.xml"],
+        outputs: ["Search Engine Indexation", "Rich Snippets in SERP", "Direct AI Answers"],
+        tags: ["SEO Quality-Approved", "AEO Snippets", "Sitemap Indexing"]
+      },
+      edge_routing: {
+        badge: "ROUTING & SSG",
+        title: "Next.js App Router (v15)",
+        sub: "src/app/*",
+        desc: "Next.js 15 App Router providing ultra-fast Static Site Generation (SSG). 76 static routes pre-rendered at build time with 0ms server compute latency.",
+        sources: ["src/app/page.tsx", "src/app/age-calculator/page.tsx", "src/app/ssy-calculator/page.tsx"],
+        inputs: ["Incoming HTTP requests", "Static Route Definitions"],
+        outputs: ["Hydrates Reactive Views", "Injects SEO metadata & scripts"],
+        tags: ["App Router", "Static Site Generation", "Zero Server Latency", "Edge Caching"]
+      },
+      metadata_engine: {
+        badge: "SEO / AEO ENGINE",
+        title: "Metadata & JSON-LD Engine",
+        sub: "src/data/site-map.ts",
+        desc: "Generates high-precision Schema.org SoftwareApplication JSON-LD blocks, OpenGraph tags, meta descriptions, and canonical URL alternates for every calculator.",
+        sources: ["src/data/site-map.ts", "src/data/keyword-map.ts"],
+        inputs: ["CalculatorMetadata definitions from engines"],
+        outputs: ["HTML <head> metadata", "Structured LD+JSON application schemas"],
+        tags: ["SoftwareApplication Schema", "Canonical URLs", "OpenGraph Protocol"]
+      },
+      calc_layout: {
+        badge: "LAYOUT CONTAINER",
+        title: "CalculatorLayout Component",
+        sub: "src/components/layout/CalculatorLayout.tsx",
+        desc: "Standard layout wrapper for all calculators. Implements 2-column responsive layout, breadcrumb navigation, sticky result cards, formula explanations, and FAQs.",
+        sources: ["src/components/layout/CalculatorLayout.tsx"],
+        inputs: ["inputsSlot, resultsSlot, formulaExplanationSlot, faqSlot"],
+        outputs: ["Standardized responsive page grid with mobile drawer"],
+        tags: ["Tailwind CSS", "Sticky Results", "Responsive 2-Column", "Accessibility"]
+      },
+      reactive_views: {
+        badge: "PRESENTATION TIER",
+        title: "Reactive Calculator Views",
+        sub: "src/components/calculators/*",
+        desc: "Client components managing real-time input modifications, preset triggers (e.g. ₹1.5L max in SSY), inline validation error banners, and share link generation.",
+        sources: ["src/components/calculators/AgeCalculatorView.tsx", "src/components/calculators/SsyCalculatorView.tsx"],
+        inputs: ["User input changes", "URL query param state"],
+        outputs: ["Rendered UI controls", "Analytics event triggers"],
+        tags: ["React 19 Client Component", "URL Permalinks", "Validation Feedback"]
+      },
+      ui_primitives: {
+        badge: "DESIGN SYSTEM",
+        title: "UI Design Primitives",
+        sub: "src/components/ui/*",
+        desc: "Accessible, keyboard-navigable UI components tailored for Indian finance: CurrencyInput (₹ formatting), NumberInput, ResultCard, FormulaExplanation, and FAQs.",
+        sources: ["src/components/ui/CurrencyInput.tsx", "src/components/ui/NumberInput.tsx", "src/components/ui/ResultCard.tsx"],
+        inputs: ["Raw numeric values & validation errors"],
+        outputs: ["Formatted inputs with step buttons and helper text"],
+        tags: ["Accessible", "Touch Friendly", "Micro-Interactions"]
+      },
+      url_state_hook: {
+        badge: "STATE MIDDLEWARE",
+        title: "useCalculatorUrlState Hook",
+        sub: "src/hooks/useCalculatorUrlState.ts",
+        desc: "Custom React hook synchronizing calculator form state with window.location.search. Automatically generates shareable permalinks and reads incoming query parameters.",
+        sources: ["src/hooks/useCalculatorUrlState.ts"],
+        inputs: ["Browser URL query string", "Default calculator inputs"],
+        outputs: ["Validated inputs object", "shareableUrl string", "updateInput function"],
+        tags: ["URL Synchronization", "Permalinks", "History API", "Share Link"]
+      },
+      validator: {
+        badge: "SECURITY & QUALITY",
+        title: "Unified Validation Engine",
+        sub: "src/lib/validation/validator.ts",
+        desc: "Zod runtime validator enforcing field constraints (e.g. min/max amounts, required dates, positive integers). Maps schema issues into field-level error messages.",
+        sources: ["src/lib/validation/validator.ts"],
+        inputs: ["Raw string/numeric input from user or URL"],
+        outputs: ["Type-safe validated payload", "Field error map: Record<string, string>"],
+        tags: ["Zod 3.24", "Type Safety", "Coercion", "Defensive Fallbacks"]
+      },
+      formatters: {
+        badge: "FINANCIAL FORMATTING",
+        title: "Indian Financial Formatters",
+        sub: "src/lib/formatters.ts",
+        desc: "Implements official Indian numbering format with Lakhs and Crores (e.g. ₹1,50,000, ₹71,82,119) rather than Western millions. Handles percentages, dates, and tenures.",
+        sources: ["src/lib/formatters.ts"],
+        inputs: ["Raw numeric calculation results"],
+        outputs: ["Formatted INR strings: ₹1,50,000 / ₹1.5 Crore"],
+        tags: ["en-IN Locale", "Lakhs & Crores", "Currency Formatting"]
+      },
+      analytics: {
+        badge: "TELEMETRY & PRIVACY",
+        title: "Privacy-Conscious Analytics",
+        sub: "src/lib/analytics.ts",
+        desc: "GA4 telemetry dispatching interaction and calculation events without transmitting any financial values, salary figures, or PII. Preserves 100% user data privacy.",
+        sources: ["src/lib/analytics.ts"],
+        inputs: ["CalculatorId", "Action / Modified Field"],
+        outputs: ["gtag('event', 'calculator_used', ...)"],
+        tags: ["Zero PII", "GA4 Ready", "Privacy First", "Strict Event Schema"]
+      },
+      engine_contract: {
+        badge: "ARCHITECTURAL CORE",
+        title: "CalculatorEngine Contract",
+        sub: "src/lib/calculators/types.ts",
+        desc: "The foundational contract powering FinCalc India. Enforces consistent id, metadata, Zod schema, defaultInputs, pure calculate function, and formatResult model.",
+        sources: ["src/lib/calculators/types.ts"],
+        inputs: ["Validated TInput"],
+        outputs: ["TResult + Standard Formatted View Model"],
+        tags: ["TypeScript Generics", "Decoupled Logic", "Pure Functional", "Scalable to 300+"]
+      },
+      registry: {
+        badge: "CENTRAL CATALOG",
+        title: "Central Calculator Registry",
+        sub: "src/lib/calculators/registry.ts",
+        desc: "Singleton registry maintaining all active calculator engines. Allows lookup by ID or category, powering dynamic sitemaps and hubs without UI bundle bloat.",
+        sources: ["src/lib/calculators/registry.ts"],
+        inputs: ["CalculatorEngine instances via registerCalculator()"],
+        outputs: ["getCalculatorById(id)", "getCalculatorsByCategory(cat)"],
+        tags: ["Registry Pattern", "Singleton", "Category Discovery", "Tree-Shakeable"]
+      },
+      rate_benchmarks: {
+        badge: "STATUTORY DATA",
+        title: "Statutory Benchmark Engine",
+        sub: "src/data/rates/benchmarks.ts",
+        desc: "Central repository of official Indian interest rates with government notification sources, effective dates, and review schedules: SSY/SCSS 8.2%, PPF 7.1%, EPF 8.25%, Repo 6.5%.",
+        sources: ["src/data/rates/benchmarks.ts"],
+        inputs: ["Ministry of Finance / RBI Gazette Notifications"],
+        outputs: ["Default rates & compliance audit metadata"],
+        tags: ["Govt Notified", "Quarterly Reviews", "Ministry of Finance", "RBI Benchmark"]
+      },
+      loan_engines: {
+        badge: "CALCULATION ENGINE",
+        title: "Loan Calculation Cluster (7)",
+        sub: "src/lib/calculators/emi.ts, etc.",
+        desc: "Calculators for debt management: EMI, Home Loan, Personal Loan, Car Loan, Prepayment (Tenure vs EMI reduction), Eligibility (FOIR), and Monthly Amortization Schedule.",
+        sources: ["src/lib/calculators/emi.ts", "src/lib/calculators/loan-eligibility.ts"],
+        inputs: ["Principal, Interest Rate, Tenure"],
+        outputs: ["Monthly EMI, Total Interest, Amortization Schedule"],
+        tags: ["Reducing Balance EMI", "Prepayment Savings", "Banking FOIR Ratios"]
+      },
+      invest_engines: {
+        badge: "CALCULATION ENGINE",
+        title: "Investment Cluster (6)",
+        sub: "src/lib/calculators/sip.ts, etc.",
+        desc: "Calculators for wealth generation: Mutual Fund SIP, Step-Up SIP (annual percentage increment), Lumpsum Compound Interest, CAGR, and SWP (retiree monthly pension drawdown).",
+        sources: ["src/lib/calculators/sip.ts", "src/lib/calculators/step-up-sip.ts", "src/lib/calculators/cagr.ts"],
+        inputs: ["Monthly investment, Expected return, Investment tenure"],
+        outputs: ["Total invested, Wealth gain, Maturity corpus"],
+        tags: ["Compound Interest", "Step-Up Compounding", "Inflation Adjusted"]
+      },
+      govt_engines: {
+        badge: "CALCULATION ENGINE",
+        title: "Government Savings Cluster (5)",
+        sub: "src/lib/calculators/ssy.ts, scss.ts, etc.",
+        desc: "Sovereign schemes backed by Government of India: Sukanya Samriddhi Yojana (8.2% rate, 15yr deposit / 21yr maturity), SCSS (8.2% quarterly payout, ₹30L limit), PPF (15yr EEE), EPF, and FD.",
+        sources: ["src/lib/calculators/ssy.ts", "src/lib/calculators/scss.ts", "src/lib/calculators/ppf.ts"],
+        inputs: ["Annual deposit, Tenure, Age parameters"],
+        outputs: ["Maturity corpus, Quarterly payouts, Tax-free interest"],
+        tags: ["Triple Tax Exemption (EEE)", "Section 80C", "Section 80TTB", "Sovereign Guarantee"]
+      },
+      tax_engines: {
+        badge: "CALCULATION ENGINE",
+        title: "Tax & Employment Cluster (5)",
+        sub: "src/lib/calculators/income-tax.ts, etc.",
+        desc: "Direct taxation & retirement benefits: Income Tax (FY 24-25 & 25-26 New Sec 115BAC vs Old Regime), CTC to Take-Home Salary, HRA Exemption Rule 2A, Gratuity Act 1972, and NPS.",
+        sources: ["src/lib/calculators/income-tax.ts", "src/lib/calculators/salary.ts", "src/lib/calculators/gratuity.ts"],
+        inputs: ["CTC salary, Rent paid, Basic DA, Service years"],
+        outputs: ["Net Take-home, Tax payable, HRA exemption, Gratuity"],
+        tags: ["Section 115BAC", "Payment of Gratuity Act", "HRA Rule 2A"]
+      },
+      math_engines: {
+        badge: "CALCULATION ENGINE",
+        title: "Math & Everyday Cluster (11)",
+        sub: "src/lib/calculators/age.ts, bmi.ts, tip.ts, etc.",
+        desc: "Phase A Math & Lifestyle batch: Chronological Age (astronomical calendar borrowing), BMI (WHO vs Asian-Indian ICMR standards), Tip & Split (with restaurant GST), Fraction, Stats, LCM/GCD.",
+        sources: ["src/lib/calculators/age.ts", "src/lib/calculators/bmi.ts", "src/lib/calculators/tip.ts"],
+        inputs: ["Dates, Heights, Weights, Mathematical sets"],
+        outputs: ["Exact age, Clinical classification, Split shares, Prime factors"],
+        tags: ["Asian-Indian ICMR BMI", "Leap Year Age Engine", "Bill Splitter"]
+      },
+      test_suite: {
+        badge: "TESTING & QUALITY",
+        title: "Vitest Regression Test Suite",
+        sub: "tests/calculators/*.test.ts",
+        desc: "Automated regression harness running 37 test files and 350+ unit tests with 100% pass rate. Every calculator is strictly verified against the 7 mandatory contract gates.",
+        sources: ["tests/calculators/age.test.ts", "tests/calculators/bmi.test.ts", "tests/calculators/ssy.test.ts"],
+        inputs: ["Engine calculations vs expected mathematical fixtures"],
+        outputs: ["Passing Test Receipts", "Build Verification"],
+        tags: ["Vitest 3.2", "7 Contract Gates", "Boundary Tests", "Zero Regression"]
+      }
+    };
+
+    /* ============================================================
+       Interactive Pan & Zoom Controller
+       ============================================================ */
+    const svg = document.getElementById('arch-svg');
+    const container = document.getElementById('canvas-container');
+    const viewportGroup = document.getElementById('viewport-group');
+
+    let currentScale = 1;
+    let currentX = 0;
+    let currentY = 0;
+    let isDragging = false;
+    let startX = 0;
+    let startY = 0;
+
+    function updateTransform() {
+      viewportGroup.setAttribute(
+        'transform',
+        `translate(${currentX}, ${currentY}) scale(${currentScale})`
+      );
+    }
+
+    container.addEventListener('mousedown', (e) => {
+      if (e.target.closest('.node') || e.target.closest('.inspector') || e.target.closest('.deck-card') || e.target.closest('.zoom-toolbar')) return;
+      isDragging = true;
+      startX = e.clientX - currentX;
+      startY = e.clientY - currentY;
+      container.classList.add('panning');
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      currentX = e.clientX - startX;
+      currentY = e.clientY - startY;
+      updateTransform();
+    });
+
+    window.addEventListener('mouseup', () => {
+      isDragging = false;
+      container.classList.remove('panning');
+    });
+
+    container.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      const zoomFactor = e.deltaY < 0 ? 1.1 : 0.9;
+      currentScale = Math.min(Math.max(currentScale * zoomFactor, 0.4), 3.0);
+      updateTransform();
+    }, { passive: false });
+
+    function zoomIn() {
+      currentScale = Math.min(currentScale * 1.2, 3.0);
+      updateTransform();
+    }
+    function zoomOut() {
+      currentScale = Math.max(currentScale / 1.2, 0.4);
+      updateTransform();
+    }
+    function resetZoom() {
+      currentScale = 1;
+      currentX = 0;
+      currentY = 0;
+      updateTransform();
+    }
+
+    /* ============================================================
+       Node Inspection & Edge Route Highlighting
+       ============================================================ */
+    let selectedNodeId = null;
+
+    function inspectNode(id) {
+      const data = COMPONENT_DATA[id];
+      if (!data) return;
+
+      selectedNodeId = id;
+
+      // Update Node active state
+      document.querySelectorAll('.node').forEach(n => {
+        if (n.dataset.id === id) {
+          n.classList.add('active');
+          n.classList.remove('dimmed');
+        } else {
+          n.classList.remove('active');
+          n.classList.remove('dimmed');
+        }
+      });
+
+      // Highlight Connected Edges
+      highlightConnectionsForNode(id);
+
+      // Populate Inspector Drawer
+      document.getElementById('inspect-badge').innerText = data.badge;
+      document.getElementById('inspect-title').innerText = data.title;
+      document.getElementById('inspect-sub').innerText = data.sub;
+      document.getElementById('inspect-desc').innerText = data.desc;
+
+      // Sources
+      const sourcesContainer = document.getElementById('inspect-sources');
+      sourcesContainer.innerHTML = data.sources.map(s => 
+        `<div><span class="file-path">${s}</span></div>`
+      ).join('');
+
+      // Inputs & Outputs
+      document.getElementById('inspect-inputs').innerHTML = data.inputs.map(i => `<div>• ${i}</div>`).join('');
+      document.getElementById('inspect-outputs').innerHTML = data.outputs.map(o => `<div>• ${o}</div>`).join('');
+
+      // Tags
+      document.getElementById('inspect-tags').innerHTML = data.tags.map(t => 
+        `<span class="tag-pill">${t}</span>`
+      ).join('');
+
+      document.getElementById('inspector').classList.add('open');
+    }
+
+    function closeInspector() {
+      document.getElementById('inspector').classList.remove('open');
+      selectedNodeId = null;
+      document.querySelectorAll('.node').forEach(n => {
+        n.classList.remove('active');
+        n.classList.remove('dimmed');
+      });
+      document.querySelectorAll('.edge').forEach(e => {
+        e.classList.remove('highlight');
+        e.classList.remove('dimmed');
+      });
+    }
+
+    function highlightConnectionsForNode(nodeId) {
+      document.querySelectorAll('.edge').forEach(edge => {
+        const edgeId = edge.id;
+        if (edgeId.includes(nodeId)) {
+          edge.classList.add('highlight');
+          edge.classList.remove('dimmed');
+          edge.setAttribute('marker-end', 'url(#arrow-highlight)');
+        } else {
+          edge.classList.remove('highlight');
+          edge.classList.add('dimmed');
+          edge.setAttribute('marker-end', 'url(#arrow)');
+        }
+      });
+    }
+
+    /* ============================================================
+       Guided Perspective Views
+       ============================================================ */
+    function switchView(viewName) {
+      document.querySelectorAll('.view-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      const allNodes = document.querySelectorAll('.node');
+      const allEdges = document.querySelectorAll('.edge');
+
+      if (viewName === 'full') {
+        allNodes.forEach(n => n.classList.remove('dimmed'));
+        allEdges.forEach(e => {
+          e.classList.remove('dimmed');
+          e.classList.remove('highlight');
+          e.setAttribute('marker-end', 'url(#arrow)');
+        });
+        resetZoom();
+      } else if (viewName === 'contract') {
+        const focusIds = ['reactive_views', 'url_state_hook', 'validator', 'formatters', 'engine_contract', 'registry', 'rate_benchmarks'];
+        allNodes.forEach(n => {
+          if (focusIds.includes(n.dataset.id)) {
+            n.classList.remove('dimmed');
+          } else {
+            n.classList.add('dimmed');
+          }
+        });
+      } else if (viewName === 'seo') {
+        const focusIds = ['crawlers', 'edge_routing', 'metadata_engine', 'calc_layout', 'reactive_views'];
+        allNodes.forEach(n => {
+          if (focusIds.includes(n.dataset.id)) {
+            n.classList.remove('dimmed');
+          } else {
+            n.classList.add('dimmed');
+          }
+        });
+      } else if (viewName === 'clusters') {
+        const focusIds = ['engine_contract', 'loan_engines', 'invest_engines', 'govt_engines', 'tax_engines', 'math_engines', 'test_suite'];
+        allNodes.forEach(n => {
+          if (focusIds.includes(n.dataset.id)) {
+            n.classList.remove('dimmed');
+          } else {
+            n.classList.add('dimmed');
+          }
+        });
+      }
+    }
+
+    /* ============================================================
+       Search Component Filtering
+       ============================================================ */
+    function handleSearch(query) {
+      const q = query.trim().toLowerCase();
+      if (!q) {
+        document.querySelectorAll('.node').forEach(n => n.classList.remove('dimmed'));
+        return;
+      }
+      document.querySelectorAll('.node').forEach(n => {
+        const id = n.dataset.id;
+        const data = COMPONENT_DATA[id];
+        const match = id.toLowerCase().includes(q) || 
+                      data.title.toLowerCase().includes(q) || 
+                      data.desc.toLowerCase().includes(q) ||
+                      data.tags.some(t => t.toLowerCase().includes(q));
+        if (match) {
+          n.classList.remove('dimmed');
+        } else {
+          n.classList.add('dimmed');
+        }
+      });
+    }
+
+    /* ============================================================
+       Theme Toggle (Dark / Light)
+       ============================================================ */
+    function toggleTheme() {
+      const html = document.documentElement;
+      const current = html.getAttribute('data-theme') || 'dark';
+      const next = current === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      document.getElementById('theme-icon').innerText = next === 'dark' ? '☀️' : '🌙';
+    }
+
+    // Keyboard Shortcuts
+    document.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'INPUT') return;
+      if (e.key === 't' || e.key === 'T') toggleTheme();
+      if (e.key === '0') resetZoom();
+      if (e.key === '+' || e.key === '=') zoomIn();
+      if (e.key === '-') zoomOut();
+      if (e.key === 'Escape') closeInspector();
+    });
+  </script>
+</body>
+</html>

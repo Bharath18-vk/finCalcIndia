@@ -1,0 +1,297 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "FinCalc India - Production Platform & Calculator Engine Architecture",
+    "output": ".archify/architecture-fincalc-platform-20261011-113219/fincalc-platform.html",
+    "visual_preset": "signal-flow",
+    "animation": "trace",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/Bharath18-vk/finCalcIndia",
+      "provider": "github",
+      "link_mode": "web",
+      "revision": "f2192f9aeea5dec3e66688d32312f7af25637ea8"
+    },
+    "viewBox": [1300, 620],
+    "views": [
+      {
+        "id": "full-system",
+        "label": "Full System Topology",
+        "focus": ["users", "crawlers", "edge_routing", "reactive_views", "engine_contract", "registry"],
+        "note": "End-to-end request lifecycle from web visitors and search crawlers to pure computation engines."
+      },
+      {
+        "id": "contract-pipeline",
+        "label": "CalculatorEngine Contract Pipeline",
+        "focus": ["reactive_views", "url_state_hook", "validator", "formatters", "engine_contract", "registry", "rate_benchmarks"],
+        "note": "Uniform contract powering 34+ calculators across Finance, Government, Math, Health, and Everyday."
+      },
+      {
+        "id": "seo-metadata",
+        "label": "SEO, Schema.org & AEO Engine",
+        "focus": ["crawlers", "edge_routing", "metadata_engine", "calc_layout"],
+        "note": "Static Site Generation (SSG), JSON-LD SoftwareApplication schemas, and OpenGraph optimization."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "users",
+      "type": "external",
+      "label": "Web & Mobile Users",
+      "sublabel": "Direct, Organic, Social Traffic",
+      "pos": [40, 260],
+      "size": [130, 60]
+    },
+    {
+      "id": "crawlers",
+      "type": "external",
+      "label": "Search Engine Bots",
+      "sublabel": "Googlebot, Bingbot, AI Indexers",
+      "pos": [40, 420],
+      "size": [130, 60]
+    },
+    {
+      "id": "edge_routing",
+      "type": "cloud",
+      "label": "Next.js App Router",
+      "sublabel": "SSG Pages / Static CDN Edge",
+      "pos": [230, 260],
+      "size": [140, 60],
+      "tag": "Next.js 15.5",
+      "sources": [{ "path": "src/app", "label": "App Router" }]
+    },
+    {
+      "id": "metadata_engine",
+      "type": "cloud",
+      "label": "SEO & JSON-LD Engine",
+      "sublabel": "Static Route Index & Schemas",
+      "pos": [230, 420],
+      "size": [140, 60],
+      "tag": "Schema.org",
+      "sources": [{ "path": "src/data/site-map.ts", "label": "Site Map" }]
+    },
+    {
+      "id": "calc_layout",
+      "type": "frontend",
+      "label": "CalculatorLayout",
+      "sublabel": "Responsive Grid, Sticky Results",
+      "pos": [430, 160],
+      "size": [140, 60],
+      "sources": [{ "path": "src/components/layout/CalculatorLayout.tsx", "label": "Layout" }]
+    },
+    {
+      "id": "reactive_views",
+      "type": "frontend",
+      "label": "Reactive View Tier",
+      "sublabel": "Age, BMI, SSY, SCSS, EMI, SIP Views",
+      "pos": [430, 260],
+      "size": [140, 60],
+      "tag": "Client Components",
+      "sources": [{ "path": "src/components/calculators", "label": "Calculator Views" }]
+    },
+    {
+      "id": "ui_primitives",
+      "type": "frontend",
+      "label": "UI Design Primitives",
+      "sublabel": "CurrencyInput, ResultCard, FAQs",
+      "pos": [430, 360],
+      "size": [140, 60],
+      "sources": [{ "path": "src/components/ui", "label": "UI Components" }]
+    },
+    {
+      "id": "url_state_hook",
+      "type": "backend",
+      "label": "useCalculatorUrlState",
+      "sublabel": "Shareable Link Query Param Sync",
+      "pos": [630, 160],
+      "size": [140, 60],
+      "tag": "State Sync",
+      "sources": [{ "path": "src/hooks/useCalculatorUrlState.ts", "label": "URL State Hook" }]
+    },
+    {
+      "id": "validator",
+      "type": "security",
+      "label": "Unified Validation",
+      "sublabel": "Zod Schemas & Error Mapping",
+      "pos": [630, 260],
+      "size": [140, 60],
+      "tag": "Zod 3.24",
+      "sources": [{ "path": "src/lib/validation/validator.ts", "label": "Validation Engine" }]
+    },
+    {
+      "id": "formatters",
+      "type": "backend",
+      "label": "Indian Formatters",
+      "sublabel": "formatINR (₹ Lakhs/Crores), Rates",
+      "pos": [630, 360],
+      "size": [140, 60],
+      "sources": [{ "path": "src/lib/formatters.ts", "label": "Formatters" }]
+    },
+    {
+      "id": "engine_contract",
+      "type": "backend",
+      "label": "Engine Contract",
+      "sublabel": "CalculatorEngine<TInput, TResult>",
+      "pos": [830, 260],
+      "size": [140, 60],
+      "tag": "Core Contract",
+      "sources": [{ "path": "src/lib/calculators/types.ts", "label": "Contract Definition" }]
+    },
+    {
+      "id": "registry",
+      "type": "database",
+      "label": "Central Registry",
+      "sublabel": "Decoupled Engine Map & Discovery",
+      "pos": [830, 160],
+      "size": [140, 60],
+      "tag": "Singleton",
+      "sources": [{ "path": "src/lib/calculators/registry.ts", "label": "Calculator Registry" }]
+    },
+    {
+      "id": "rate_benchmarks",
+      "type": "database",
+      "label": "Statutory Benchmarks",
+      "sublabel": "SSY/SCSS 8.2%, PPF 7.1%, RBI Repo",
+      "pos": [830, 360],
+      "size": [140, 60],
+      "tag": "Sovereign Rates",
+      "sources": [{ "path": "src/data/rates/benchmarks.ts", "label": "Benchmark Rates" }]
+    },
+    {
+      "id": "analytics",
+      "type": "security",
+      "label": "Privacy Analytics",
+      "sublabel": "Zero PII, Event Classification",
+      "pos": [630, 460],
+      "size": [140, 60],
+      "sources": [{ "path": "src/lib/analytics.ts", "label": "Analytics" }]
+    },
+    {
+      "id": "loan_engines",
+      "type": "backend",
+      "label": "Loan Engines (7)",
+      "sublabel": "EMI, Prepayment, Amortization",
+      "pos": [1040, 110],
+      "size": [140, 50],
+      "sources": [{ "path": "src/lib/calculators/emi.ts", "label": "EMI Engine" }]
+    },
+    {
+      "id": "invest_engines",
+      "type": "backend",
+      "label": "Investment Engines (6)",
+      "sublabel": "SIP, Step-Up SIP, CAGR, SWP",
+      "pos": [1040, 180],
+      "size": [140, 50],
+      "sources": [{ "path": "src/lib/calculators/sip.ts", "label": "SIP Engine" }]
+    },
+    {
+      "id": "govt_engines",
+      "type": "backend",
+      "label": "Govt Schemes (5)",
+      "sublabel": "SSY (8.2%), SCSS (8.2%), PPF, EPF",
+      "pos": [1040, 250],
+      "size": [140, 50],
+      "sources": [{ "path": "src/lib/calculators/ssy.ts", "label": "SSY Engine" }]
+    },
+    {
+      "id": "tax_engines",
+      "type": "backend",
+      "label": "Tax & Employment (5)",
+      "sublabel": "Income Tax (115BAC), Gratuity, HRA",
+      "pos": [1040, 320],
+      "size": [140, 50],
+      "sources": [{ "path": "src/lib/calculators/income-tax.ts", "label": "Tax Engine" }]
+    },
+    {
+      "id": "math_engines",
+      "type": "backend",
+      "label": "Math & Lifestyle (11)",
+      "sublabel": "Age, BMI, Tip, Stats, Fraction, LCM",
+      "pos": [1040, 390],
+      "size": [140, 50],
+      "sources": [{ "path": "src/lib/calculators/age.ts", "label": "Age Engine" }]
+    },
+    {
+      "id": "test_suite",
+      "type": "security",
+      "label": "Vitest Test Suite",
+      "sublabel": "350+ Tests / 37 Suites Passing",
+      "pos": [1040, 460],
+      "size": [140, 50],
+      "tag": "100% Pass Rate",
+      "sources": [{ "path": "tests", "label": "Tests Suite" }]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Presentation & Edge Delivery (Next.js 15 App Router)",
+      "wraps": ["edge_routing", "metadata_engine", "calc_layout", "reactive_views", "ui_primitives"],
+      "pad": 16
+    },
+    {
+      "kind": "security-group",
+      "label": "Calculator Core Architecture & Middleware Tier",
+      "wraps": ["url_state_hook", "validator", "formatters", "engine_contract", "registry", "rate_benchmarks", "analytics"],
+      "pad": 16
+    },
+    {
+      "kind": "region",
+      "label": "Pure Computational Domain Engines & Verification (Zero UI Coupling)",
+      "wraps": ["loan_engines", "invest_engines", "govt_engines", "tax_engines", "math_engines", "test_suite"],
+      "pad": 16
+    }
+  ],
+  "connections": [
+    { "from": "users", "to": "edge_routing", "label": "HTTPS Request", "variant": "emphasis" },
+    { "from": "crawlers", "to": "metadata_engine", "label": "Index Schemas", "variant": "dashed" },
+    { "from": "edge_routing", "to": "reactive_views", "label": "Hydrates View", "variant": "emphasis" },
+    { "from": "metadata_engine", "to": "edge_routing", "label": "Injects Metadata", "variant": "dashed" },
+    { "from": "calc_layout", "to": "reactive_views", "label": "Frames View" },
+    { "from": "reactive_views", "to": "ui_primitives", "label": "Composes Inputs" },
+    { "from": "reactive_views", "to": "url_state_hook", "label": "Syncs Query Params", "variant": "emphasis" },
+    { "from": "url_state_hook", "to": "validator", "label": "Validates Input", "variant": "security" },
+    { "from": "validator", "to": "engine_contract", "label": "Typed Payload", "variant": "security" },
+    { "from": "engine_contract", "to": "registry", "label": "Registers Engine" },
+    { "from": "rate_benchmarks", "to": "engine_contract", "label": "Injects Official Rates", "variant": "dashed" },
+    { "from": "engine_contract", "to": "formatters", "label": "Formats Output", "variant": "dashed" },
+    { "from": "reactive_views", "to": "analytics", "label": "Anonymous Event", "variant": "dashed" },
+    { "from": "engine_contract", "to": "loan_engines", "label": "Invokes", "variant": "emphasis" },
+    { "from": "engine_contract", "to": "invest_engines", "label": "Invokes", "variant": "emphasis" },
+    { "from": "engine_contract", "to": "govt_engines", "label": "Invokes", "variant": "emphasis" },
+    { "from": "engine_contract", "to": "tax_engines", "label": "Invokes", "variant": "emphasis" },
+    { "from": "engine_contract", "to": "math_engines", "label": "Invokes", "variant": "emphasis" },
+    { "from": "test_suite", "to": "engine_contract", "label": "Validates 7 Contract Cases", "variant": "security" }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Presentation & Edge Tier",
+      "items": [
+        "Next.js 15 App Router serves pre-rendered static HTML via CDN edge",
+        "JSON-LD SoftwareApplication schemas and OpenGraph cards drive SEO / AEO indexing",
+        "CalculatorLayout provides uniform responsive grid with sticky calculation cards"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "CalculatorEngine Contract & Middleware",
+      "items": [
+        "Unified TypeScript contract: id, metadata, schema, calculate, formatResult",
+        "Bi-directional URL state synchronization enables shareable calculation permalinks",
+        "Central registry maps all calculators without coupling to UI components"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Domain Engines & Rigorous Verification",
+      "items": [
+        "Pure functional mathematical calculations with zero side-effects",
+        "Official Indian statutory rates (SSY 8.2%, SCSS 8.2%, PPF 7.1%, IT Section 115BAC)",
+        "Automated regression suite enforces 7 mandatory contract verification gates per engine"
+      ]
+    }
+  ]
+}
