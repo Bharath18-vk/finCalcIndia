@@ -37,6 +37,20 @@ export default function SavingsHubPage() {
       badge: "EEE Sovereign",
     },
     {
+      title: "Sukanya Samriddhi Yojana (SSY)",
+      description: "Model 21-year sovereign-backed girl child savings at 8.2% p.a. with 100% tax-free EEE maturity.",
+      href: "/ssy-calculator",
+      icon: ShieldCheck,
+      badge: "8.20% Sovereign",
+    },
+    {
+      title: "Senior Citizen Savings Scheme (SCSS)",
+      description: "Quarterly regular income scheme for retirees with ₹30 Lakh limit and Section 80TTB tax benefits.",
+      href: "/scss-calculator",
+      icon: ShieldCheck,
+      badge: "Quarterly Payout",
+    },
+    {
       title: "Employees' Provident Fund (EPF)",
       description: "Estimate retirement corpus and monthly interest with official 8.25% EPFO statutory returns.",
       href: "/epf-calculator",

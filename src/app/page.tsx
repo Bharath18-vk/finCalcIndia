@@ -1,13 +1,26 @@
 import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Calculator, IndianRupee, TrendingUp, PiggyBank, ReceiptText } from "lucide-react";
+import {
+  ArrowRight,
+  Calculator,
+  IndianRupee,
+  TrendingUp,
+  PiggyBank,
+  ReceiptText,
+  Binary,
+  Percent,
+  Dice5,
+  Calendar,
+  Activity,
+  ShieldCheck,
+} from "lucide-react";
 import { formatINR } from "@/lib/formatters";
 
 export const metadata: Metadata = {
-  title: "FinCalc India - Fast, Accurate Indian Financial Calculators",
+  title: "FinCalc India - Fast, Accurate Indian Financial & Math Calculators",
   description:
-    "Free, fast, and mathematically accurate Indian financial calculators for Loans (EMI, Home, Personal, Car), Investments (SIP, Step-Up SIP, Lumpsum), and Fixed Deposits.",
+    "Free, fast, and mathematically accurate Indian calculators for Loans (EMI, Home, Personal, Car), Investments (SIP, Step-Up SIP, Lumpsum), Math & Stats (Percentage, Probability, LCM/GCD), and Government Savings (PPF, SSY, SCSS).",
   alternates: {
     canonical: "/",
   },
@@ -76,26 +89,113 @@ export default function HomePage() {
     },
   ];
 
+  const mathCalculators = [
+    {
+      title: "Percentage Calculator",
+      description: "Find percentages, percentage increase or decrease, and calculate base changes with step-by-step math.",
+      href: "/percentage-calculator",
+      category: "Arithmetic",
+      badge: "High Intent",
+    },
+    {
+      title: "Probability Calculator",
+      description: "Analyze single events, complementary odds, independent intersections, and binomial distributions.",
+      href: "/probability-calculator",
+      category: "Statistics",
+      badge: "Distributions",
+    },
+    {
+      title: "LCM & GCD Calculator",
+      description: "Find Least Common Multiple and Greatest Common Divisor for up to 10 numbers with prime factorization.",
+      href: "/lcm-gcd-calculator",
+      category: "Number Theory",
+      badge: "Step-by-Step",
+    },
+    {
+      title: "Simple Interest Calculator",
+      description: "Calculate linear simple interest (I = P × R × T) with exact day-basis Indian commercial banking conventions.",
+      href: "/simple-interest-calculator",
+      category: "Commercial Math",
+    },
+    {
+      title: "Average (Mean & Median)",
+      description: "Compute Mean, Median, Mode, Range, geometric mean, and harmonic mean with step-by-step math.",
+      href: "/average-calculator",
+      category: "Statistics",
+    },
+    {
+      title: "Discount & GST Calculator",
+      description: "Compute single discounts, stacked double discounts, and final invoice prices with applicable GST rates.",
+      href: "/discount-calculator",
+      category: "Commercial Math",
+    },
+  ];
+
+  const everydayAndGovtCalculators = [
+    {
+      title: "Age Calculator",
+      description: "Exact chronological age in years, months, and days with astronomical calendar day borrowing and birthday countdown.",
+      href: "/age-calculator",
+      category: "Everyday",
+      badge: "Astronomical",
+    },
+    {
+      title: "BMI Calculator (Indian Standard)",
+      description: "Body Mass Index assessment with official ICMR/API Asian-Indian cutoffs alongside WHO global criteria.",
+      href: "/bmi-calculator",
+      category: "Health",
+      badge: "ICMR & WHO",
+    },
+    {
+      title: "Tip & Split Bill Calculator",
+      description: "Calculate restaurant tips, split bills across diners, and account for 5% or 18% restaurant GST in India.",
+      href: "/tip-calculator",
+      category: "Everyday",
+    },
+    {
+      title: "Sukanya Samriddhi Yojana (SSY)",
+      description: "Model 21-year sovereign-backed girl child savings at 8.2% p.a. with 100% tax-free EEE maturity.",
+      href: "/ssy-calculator",
+      category: "Government",
+      badge: "8.20% Sovereign",
+    },
+    {
+      title: "Senior Citizen Savings Scheme (SCSS)",
+      description: "Calculate regular quarterly income with official 8.2% p.a. payout and Section 80TTB ₹50,000 tax deduction.",
+      href: "/scss-calculator",
+      category: "Government",
+      badge: "Quarterly Payout",
+    },
+    {
+      title: "Public Provident Fund (PPF)",
+      description: "15 to 30 year government guaranteed tax-free wealth at 7.10% with EEE sovereign status.",
+      href: "/ppf-calculator",
+      category: "Government",
+      badge: "EEE Sovereign",
+    },
+  ];
+
   return (
     <div className="w-full space-y-12 py-10 sm:py-16">
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold uppercase tracking-wider">
           <IndianRupee className="w-3.5 h-3.5" />
-          <span>Engineered for Indian Financial Planning</span>
+          <span>Engineered for Indian Financial & Mathematical Planning</span>
         </div>
 
         <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-slate-900 tracking-tight max-w-4xl mx-auto leading-tight">
           Clear, Fast & Mathematically Precise{" "}
-          <span className="text-emerald-600">Financial Calculators</span>
+          <span className="text-emerald-600">Financial & Math Calculators</span>
         </h1>
 
         <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
-          Accurate calculations formatted in Indian Rupees (Lakhs & Crores). Transparent formulas, zero lag, and comprehensive amortization breakdowns.
+          Accurate calculations formatted natively in Indian Rupees, verified financial schedules, step-by-step
+          math engines, and instant URL sharing.
         </p>
 
         {/* Quick Hub Navigation Cards */}
-        <div className="pt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+        <div className="pt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 max-w-6xl mx-auto">
           <Link
             href="/loans"
             className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-sm hover:border-emerald-500 hover:shadow-md transition-all text-left group"
@@ -137,7 +237,7 @@ export default function HomePage() {
               Savings Hub
             </h2>
             <p className="text-xs text-slate-500 mt-1">
-              Fixed Deposits, PPF, RD & guaranteed interest.
+              FD, RD, PPF, SSY & SCSS savings.
             </p>
           </Link>
 
@@ -152,13 +252,28 @@ export default function HomePage() {
               Tax & Salary
             </h2>
             <p className="text-xs text-slate-500 mt-1">
-              Budget 2024 Tax, Take-Home Salary, HRA & NPS.
+              Budget Tax, Take-Home Pay, HRA & NPS.
+            </p>
+          </Link>
+
+          <Link
+            href="/math"
+            className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-sm hover:border-blue-500 hover:shadow-md transition-all text-left group"
+          >
+            <div className="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
+              <Binary className="w-5 h-5" />
+            </div>
+            <h2 className="text-base font-bold text-slate-900 group-hover:text-indigo-700">
+              Math & Stats Hub
+            </h2>
+            <p className="text-xs text-slate-500 mt-1">
+              Probability, LCM/GCD, Percentage & Stats.
             </p>
           </Link>
         </div>
       </section>
 
-      {/* Popular Calculators Grid */}
+      {/* Featured Financial Calculators Grid */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         <div className="flex items-end justify-between border-b border-slate-200 pb-4">
           <div>
@@ -173,6 +288,115 @@ export default function HomePage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {popularCalculators.map((calc) => (
+            <Link
+              key={calc.href}
+              href={calc.href}
+              className="group p-6 rounded-2xl bg-white border border-slate-200/90 shadow-xs hover:border-emerald-400 hover:shadow-md transition-all flex flex-col justify-between"
+            >
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-semibold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-md">
+                    {calc.category}
+                  </span>
+                  {calc.badge && (
+                    <span className="text-[11px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-full">
+                      {calc.badge}
+                    </span>
+                  )}
+                </div>
+
+                <h3 className="text-lg font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
+                  {calc.title}
+                </h3>
+
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  {calc.description}
+                </p>
+              </div>
+
+              <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-end text-xs font-bold text-emerald-700 group-hover:translate-x-1 transition-transform">
+                <span className="mr-1">Open Calculator</span>
+                <ArrowRight className="w-4 h-4" />
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Math & Statistics Section */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+        <div className="flex items-end justify-between border-b border-slate-200 pb-4">
+          <div>
+            <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
+              <Binary className="w-5 h-5 text-blue-600" />
+              Math & Statistics Calculators
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
+              Step-by-step arithmetic, combinatorics, probabilities, and statistical analysis.
+            </p>
+          </div>
+          <Link
+            href="/math"
+            className="text-xs font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1 transition-colors"
+          >
+            <span>View All 11 Math Tools</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {mathCalculators.map((calc) => (
+            <Link
+              key={calc.href}
+              href={calc.href}
+              className="group p-6 rounded-2xl bg-white border border-slate-200/90 shadow-xs hover:border-blue-400 hover:shadow-md transition-all flex flex-col justify-between"
+            >
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-semibold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-md">
+                    {calc.category}
+                  </span>
+                  {calc.badge && (
+                    <span className="text-[11px] font-bold text-blue-800 bg-blue-100 px-2 py-0.5 rounded-full">
+                      {calc.badge}
+                    </span>
+                  )}
+                </div>
+
+                <h3 className="text-lg font-bold text-slate-900 group-hover:text-blue-700 transition-colors">
+                  {calc.title}
+                </h3>
+
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  {calc.description}
+                </p>
+              </div>
+
+              <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-end text-xs font-bold text-blue-700 group-hover:translate-x-1 transition-transform">
+                <span className="mr-1">Open Calculator</span>
+                <ArrowRight className="w-4 h-4" />
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Everyday Tools & Government Schemes Section */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+        <div className="flex items-end justify-between border-b border-slate-200 pb-4">
+          <div>
+            <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
+              <Activity className="w-5 h-5 text-emerald-600" />
+              Everyday Tools & Sovereign Schemes
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
+              Life utilities, health benchmarks, and Government of India small savings schemes.
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {everydayAndGovtCalculators.map((calc) => (
             <Link
               key={calc.href}
               href={calc.href}
@@ -230,10 +454,10 @@ export default function HomePage() {
             </div>
             <div className="space-y-2">
               <h3 className="text-base font-bold text-emerald-400">
-                Verified Banking Conventions
+                Verified Standards & Rules
               </h3>
               <p className="text-xs text-slate-300 leading-relaxed">
-                Formulas conform strictly to RBI guidelines, quarterly FD compounding rules, and mutual fund annuity-due standards.
+                Formulas conform strictly to RBI guidelines, quarterly FD compounding rules, ICMR Asian-Indian health metrics, and statutory Post Office saving rates.
               </p>
             </div>
           </div>

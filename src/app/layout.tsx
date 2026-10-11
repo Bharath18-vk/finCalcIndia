@@ -173,6 +173,12 @@ export default function RootLayout({
                 Tax & Salary
               </Link>
               <Link
+                href="/math"
+                className="px-3 py-1.5 text-xs sm:text-sm font-semibold text-slate-700 hover:text-emerald-700 hover:bg-slate-100/70 rounded-lg transition-colors"
+              >
+                Math & Stats
+              </Link>
+              <Link
                 href="/blog"
                 className="px-3 py-1.5 text-xs sm:text-sm font-semibold text-slate-700 hover:text-emerald-700 hover:bg-slate-100/70 rounded-lg transition-colors"
               >
@@ -188,8 +194,8 @@ export default function RootLayout({
         {/* Global Footer */}
         <footer className="bg-slate-900 text-slate-300 border-t border-slate-800 mt-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
-              <div className="space-y-3 sm:col-span-2 lg:col-span-1">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
+              <div className="space-y-3 sm:col-span-2 md:col-span-3 lg:col-span-1">
                 <div className="flex items-center gap-2.5 font-bold text-white text-base">
                   <div className="w-8 h-8 rounded-lg overflow-hidden bg-white/10 p-0.5 border border-slate-700 shrink-0 flex items-center justify-center">
                     <Image
@@ -203,7 +209,7 @@ export default function RootLayout({
                   <span>FinCalc India</span>
                 </div>
                 <p className="text-xs text-slate-400 leading-relaxed">
-                  FinCalc India provides clear, fast, and independent financial calculators formatted specifically for the Indian currency system.
+                  FinCalc India provides clear, fast, and independent financial, math, and everyday calculators formatted specifically for the Indian ecosystem.
                 </p>
               </div>
 
@@ -305,7 +311,7 @@ export default function RootLayout({
 
               <div>
                 <h4 className="text-xs font-bold uppercase tracking-wider text-slate-200 mb-3">
-                  Tax, Salary & Retirement
+                  Tax, Salary & Govt
                 </h4>
                 <ul className="space-y-2 text-xs">
                   <li>
@@ -321,6 +327,16 @@ export default function RootLayout({
                   <li>
                     <Link href="/hra-calculator" className="hover:text-emerald-400 transition-colors">
                       HRA Exemption (Rule 2A)
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/ssy-calculator" className="hover:text-emerald-400 transition-colors font-medium text-emerald-400">
+                      Sukanya Samriddhi (SSY)
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/scss-calculator" className="hover:text-emerald-400 transition-colors font-medium text-emerald-400">
+                      Senior Citizens (SCSS)
                     </Link>
                   </li>
                   <li>
@@ -343,27 +359,105 @@ export default function RootLayout({
 
               <div>
                 <h4 className="text-xs font-bold uppercase tracking-wider text-slate-200 mb-3">
-                  Guides & Legal
+                  Math & Statistics
                 </h4>
                 <ul className="space-y-2 text-xs">
                   <li>
+                    <Link href="/math" className="hover:text-blue-400 transition-colors font-semibold text-blue-400">
+                      All Math Tools (11) →
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/percentage-calculator" className="hover:text-emerald-400 transition-colors">
+                      Percentage Calculator
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/probability-calculator" className="hover:text-emerald-400 transition-colors">
+                      Probability Calculator
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/lcm-gcd-calculator" className="hover:text-emerald-400 transition-colors">
+                      LCM and GCD / HCF
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/fraction-calculator" className="hover:text-emerald-400 transition-colors">
+                      Fraction Calculator
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/simple-interest-calculator" className="hover:text-emerald-400 transition-colors">
+                      Simple Interest
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/discount-calculator" className="hover:text-emerald-400 transition-colors">
+                      Discount Calculator
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/average-calculator" className="hover:text-emerald-400 transition-colors">
+                      Average (Mean/Median)
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/ratio-calculator" className="hover:text-emerald-400 transition-colors">
+                      Ratio & Proportions
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/standard-deviation-calculator" className="hover:text-emerald-400 transition-colors">
+                      Standard Deviation
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/square-root-calculator" className="hover:text-emerald-400 transition-colors">
+                      Square Root & Exponents
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/permutation-combination-calculator" className="hover:text-emerald-400 transition-colors">
+                      Permutations (nPr/nCr)
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-200 mb-3">
+                  Everyday & Guides
+                </h4>
+                <ul className="space-y-2 text-xs">
+                  <li>
+                    <Link href="/age-calculator" className="hover:text-emerald-400 transition-colors font-medium text-emerald-400">
+                      Age Calculator
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/bmi-calculator" className="hover:text-emerald-400 transition-colors font-medium text-emerald-400">
+                      BMI Calculator (Indian)
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/tip-calculator" className="hover:text-emerald-400 transition-colors font-medium text-emerald-400">
+                      Tip & Split Bill (GST)
+                    </Link>
+                  </li>
+                  <li className="pt-2 border-t border-slate-800">
                     <Link href="/blog" className="hover:text-emerald-400 transition-colors font-medium">
                       All Financial Guides
                     </Link>
                   </li>
                   <li>
                     <Link href="/blog/home-loan-prepayment-guide" className="hover:text-emerald-400 transition-colors">
-                      Home Loan Prepayment Guide
+                      Home Loan Prepayment
                     </Link>
                   </li>
                   <li>
                     <Link href="/blog/ppf-vs-mutual-fund-sip" className="hover:text-emerald-400 transition-colors">
                       PPF vs Mutual Fund SIP
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/blog/how-rd-interest-calculated" className="hover:text-emerald-400 transition-colors">
-                      How RD Interest is Calculated
                     </Link>
                   </li>
                   <li>

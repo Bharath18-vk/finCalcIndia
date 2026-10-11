@@ -51,6 +51,15 @@ const STATIC_ROUTES: SiteRoute[] = [
     priority: 0.9,
     status: "live",
   },
+  {
+    path: "/math",
+    title: "Math & Statistics Calculators Online | FinCalc India",
+    category: "hub",
+    primaryKeyword: "math calculators online",
+    changeFreq: "weekly",
+    priority: 0.9,
+    status: "live",
+  },
 
   // Core Head Calculators
   {
