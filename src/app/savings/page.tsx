@@ -71,6 +71,13 @@ export default function SavingsHubPage() {
       icon: PiggyBank,
       badge: "Rule 2A",
     },
+    {
+      title: "Dual Tax Exemption Optimizer",
+      description: "Evaluate simultaneous claims for HRA Section 10(13A) and Home Loan Section 24(b) interest deduction.",
+      href: "/dual-exemption-calculator",
+      icon: ShieldCheck,
+      badge: "HRA + Home Loan",
+    },
   ];
 
   const popularScenarios = [

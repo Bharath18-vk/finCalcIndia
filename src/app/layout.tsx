@@ -267,6 +267,21 @@ export default function RootLayout({
                 </h4>
                 <ul className="space-y-2 text-xs">
                   <li>
+                    <Link href="/fire-calculator" className="hover:text-emerald-400 transition-colors font-medium text-emerald-400">
+                      FIRE Calculator
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/step-up-swp-calculator" className="hover:text-emerald-400 transition-colors font-medium text-emerald-400">
+                      Step-Up SWP
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/portfolio-rebalance-calculator" className="hover:text-emerald-400 transition-colors font-medium text-emerald-400">
+                      Portfolio Rebalancing
+                    </Link>
+                  </li>
+                  <li>
                     <Link href="/sip-calculator" className="hover:text-emerald-400 transition-colors">
                       SIP Calculator
                     </Link>
@@ -311,11 +326,6 @@ export default function RootLayout({
                       PPF Calculator
                     </Link>
                   </li>
-                  <li>
-                    <Link href="/compound-interest-calculator" className="hover:text-emerald-400 transition-colors">
-                      Compound Interest
-                    </Link>
-                  </li>
                 </ul>
               </div>
 
@@ -324,6 +334,16 @@ export default function RootLayout({
                   Tax, Salary & Govt
                 </h4>
                 <ul className="space-y-2 text-xs">
+                  <li>
+                    <Link href="/capital-gains-tax-calculator" className="hover:text-emerald-400 transition-colors font-medium text-emerald-400">
+                      Capital Gains Tax (Budget 2024)
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/dual-exemption-calculator" className="hover:text-emerald-400 transition-colors font-medium text-emerald-400">
+                      Dual Exemption (HRA + Loan)
+                    </Link>
+                  </li>
                   <li>
                     <Link href="/gst-calculator" className="hover:text-emerald-400 transition-colors font-medium text-emerald-400">
                       GST Calculator (CBIC)

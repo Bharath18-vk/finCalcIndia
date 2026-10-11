@@ -6,7 +6,7 @@ import { Check, Copy } from "lucide-react";
 
 export interface MetricItem {
   label: string;
-  value: number;
+  value: number | string;
   color?: string; // e.g. text-emerald-600 or dot indicator
   formattedValue?: string;
   subtext?: string;
@@ -14,6 +14,7 @@ export interface MetricItem {
 
 export interface ResultCardProps {
   // Legacy / full-panel mode
+  title?: string;
   primaryTitle?: string;
   primaryValue?: number;
   primaryFormattedValue?: string;
@@ -61,7 +62,8 @@ export const ResultCard: React.FC<ResultCardProps> = (props) => {
   }
 
   const {
-    primaryTitle = "Result",
+    title,
+    primaryTitle = props.title || "Result",
     primaryValue = 0,
     primaryFormattedValue,
     primarySubtitle,
@@ -74,7 +76,10 @@ export const ResultCard: React.FC<ResultCardProps> = (props) => {
     const primaryDisplay = primaryFormattedValue || formatINR(primaryValue);
     const summaryLines = [
       `${primaryTitle}: ${primaryDisplay}`,
-      ...secondaryMetrics.map((m) => `${m.label}: ${m.formattedValue || formatINR(m.value)}`),
+      ...secondaryMetrics.map((m) => {
+        const valStr = m.formattedValue || (typeof m.value === "number" ? formatINR(m.value) : String(m.value));
+        return `${m.label}: ${valStr}`;
+      }),
     ];
     try {
       await navigator.clipboard.writeText(summaryLines.join("\n"));
@@ -139,7 +144,7 @@ export const ResultCard: React.FC<ResultCardProps> = (props) => {
               <span>{metric.label}</span>
             </div>
             <div className="text-base sm:text-lg font-bold text-white tracking-tight">
-              {metric.formattedValue || formatINR(metric.value)}
+              {metric.formattedValue || (typeof metric.value === "number" ? formatINR(metric.value) : metric.value)}
             </div>
             {metric.subtext && (
               <div className="text-[11px] text-slate-400 font-medium">

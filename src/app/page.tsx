@@ -208,6 +208,41 @@ export default function HomePage() {
       category: "Retirement",
       badge: "Retirement Strategy",
     },
+    {
+      title: "Capital Gains Tax (Budget 2024)",
+      description: "Compute revised 12.5% LTCG, 20% STCG, ₹1.25L exemption, and property grandfathering indexation choices.",
+      href: "/capital-gains-tax-calculator",
+      category: "Tax & Wealth",
+      badge: "Budget 2024",
+    },
+    {
+      title: "FIRE Calculator (Early Retirement)",
+      description: "Calculate your exact FIRE corpus, Safe Withdrawal Rate (SWR), and Lean/Fat/Coast FIRE milestone targets.",
+      href: "/fire-calculator",
+      category: "Wealth & FIRE",
+      badge: "Early Retirement",
+    },
+    {
+      title: "Step-Up SWP Calculator",
+      description: "Model inflation-adjusted monthly pension payouts, portfolio longevity, and safe starting withdrawals.",
+      href: "/step-up-swp-calculator",
+      category: "Retirement",
+      badge: "Inflation-Adjusted",
+    },
+    {
+      title: "Dual Tax Exemption Optimizer",
+      description: "Evaluate simultaneous legal claims for HRA Section 10(13A) and Home Loan Section 24(b) interest deduction.",
+      href: "/dual-exemption-calculator",
+      category: "Tax Strategy",
+      badge: "HRA + Home Loan",
+    },
+    {
+      title: "Portfolio Rebalancing Calculator",
+      description: "Measure asset allocation drift and execute tax-smart cash flow rebalancing with zero capital gains friction.",
+      href: "/portfolio-rebalance-calculator",
+      category: "Investment",
+      badge: "Tax-Smart",
+    },
   ];
 
   return (

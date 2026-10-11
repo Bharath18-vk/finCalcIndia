@@ -15,15 +15,18 @@ export interface RelatedLink {
 export interface RelatedCalculatorsProps {
   currentSlug?: string;
   title?: string;
-  links: RelatedLink[];
+  links?: RelatedLink[];
+  calculators?: RelatedLink[];
 }
 
 export const RelatedCalculators: React.FC<RelatedCalculatorsProps> = ({
   currentSlug = "calculator",
   title = "Related Calculators & Scenarios",
   links,
+  calculators,
 }) => {
-  if (!links || links.length === 0) return null;
+  const displayLinks = links || calculators || [];
+  if (!displayLinks || displayLinks.length === 0) return null;
 
   return (
     <section className="w-full bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-sm space-y-4">
@@ -33,7 +36,7 @@ export const RelatedCalculators: React.FC<RelatedCalculatorsProps> = ({
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3.5 pt-1">
-        {links.map((link) => (
+        {displayLinks.map((link) => (
           <Link
             key={link.href}
             href={link.href}

@@ -645,4 +645,52 @@ export const KEYWORD_MAP: Record<string, KeywordEntry> = {
     intent: "calculational",
     notes: "Hypothesis: starter SIP query. Search demand unvalidated.",
   },
+
+  // Phase B Calculators
+  "capital-gains-tax-calculator": {
+    keyword: "capital gains tax calculator",
+    status: "quality-approved",
+    searchDemandStatus: "unvalidated",
+    qualityReviewStatus: "quality-approved",
+    targetUrl: "/capital-gains-tax-calculator",
+    intent: "calculational",
+    notes: "Budget 2024 revised capital gains tax calculations (12.5% LTCG, 20% STCG).",
+  },
+  "fire-calculator": {
+    keyword: "fire calculator india",
+    status: "quality-approved",
+    searchDemandStatus: "unvalidated",
+    qualityReviewStatus: "quality-approved",
+    targetUrl: "/fire-calculator",
+    intent: "calculational",
+    notes: "Early retirement corpus and safe withdrawal rate calculator for India.",
+  },
+  "step-up-swp-calculator": {
+    keyword: "step up swp calculator",
+    status: "quality-approved",
+    searchDemandStatus: "unvalidated",
+    qualityReviewStatus: "quality-approved",
+    targetUrl: "/step-up-swp-calculator",
+    intent: "calculational",
+    notes: "Inflation-adjusted systematic withdrawal plan cashflow and longevity calculations.",
+  },
+  "dual-exemption-calculator": {
+    keyword: "dual tax exemption calculator",
+    status: "quality-approved",
+    searchDemandStatus: "unvalidated",
+    qualityReviewStatus: "quality-approved",
+    targetUrl: "/dual-exemption-calculator",
+    intent: "calculational",
+    notes: "Simultaneous HRA and Section 24(b) home loan deduction rules and savings optimizer.",
+  },
+  "portfolio-rebalance-calculator": {
+    keyword: "portfolio rebalancing calculator",
+    status: "quality-approved",
+    searchDemandStatus: "unvalidated",
+    qualityReviewStatus: "quality-approved",
+    targetUrl: "/portfolio-rebalance-calculator",
+    intent: "calculational",
+    notes: "Asset allocation drift analysis and tax-smart cash flow rebalancing.",
+  },
 };
+
