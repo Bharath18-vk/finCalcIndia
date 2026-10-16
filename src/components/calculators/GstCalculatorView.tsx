@@ -14,6 +14,7 @@ import { ResultCard } from "@/components/ui/ResultCard";
 import { FormulaExplanation } from "@/components/ui/FormulaExplanation";
 import { FAQSection } from "@/components/ui/FAQSection";
 import { RelatedCalculators } from "@/components/ui/RelatedCalculators";
+import { FinancialBreakdownChart } from "@/components/ui/Chart";
 import { formatINR } from "@/lib/formatters";
 import { trackCalculatorResultGenerated } from "@/lib/analytics";
 import {
@@ -363,6 +364,24 @@ export const GstCalculatorView: React.FC<GstCalculatorViewProps> = ({
           result.supplyType === "intra-state" ? "CGST + SGST" : "IGST"
         })`}
         secondaryMetrics={metrics}
+      />
+
+      {/* Visual Invoice Tax Breakdown Chart */}
+      <FinancialBreakdownChart
+        title="Invoice Amount Composition"
+        totalLabel="Gross Invoice Value"
+        slices={
+          result.supplyType === "intra-state"
+            ? [
+                { label: "Net Taxable Value", value: result.netAmount, color: "#3b82f6" },
+                { label: `CGST (${result.gstRate / 2}%)`, value: result.cgstAmount, color: "#10b981" },
+                { label: `SGST (${result.gstRate / 2}%)`, value: result.sgstAmount, color: "#06b6d4" },
+              ]
+            : [
+                { label: "Net Taxable Value", value: result.netAmount, color: "#3b82f6" },
+                { label: `IGST (${result.gstRate}%)`, value: result.igstAmount, color: "#10b981" },
+              ]
+        }
       />
 
       {/* Itemized Invoice Breakdown */}

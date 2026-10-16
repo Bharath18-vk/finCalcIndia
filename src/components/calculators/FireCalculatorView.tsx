@@ -15,6 +15,7 @@ import { FormulaExplanation } from "@/components/ui/FormulaExplanation";
 import { FAQSection } from "@/components/ui/FAQSection";
 import { RelatedCalculators } from "@/components/ui/RelatedCalculators";
 import { formatINR } from "@/lib/formatters";
+import { GrowthAreaChart } from "@/components/ui/GrowthChart";
 import {
   Flame,
   Share2,
@@ -57,6 +58,14 @@ export const FireCalculatorView: React.FC<FireCalculatorViewProps> = ({
 
   const [copiedShare, setCopiedShare] = useState(false);
   const [showFullSchedule, setShowFullSchedule] = useState(false);
+
+  const growthChartData = useMemo(() => {
+    return result.schedule.map((s) => ({
+      age: `Age ${s.age}`,
+      portfolio: s.portfolioBalance,
+      target: s.fireTargetCorpusAtAge,
+    }));
+  }, [result.schedule]);
 
   const handleCopyShareLink = async () => {
     if (!shareableUrl) return;
@@ -352,6 +361,18 @@ export const FireCalculatorView: React.FC<FireCalculatorViewProps> = ({
           </div>
         </div>
       </div>
+
+      {/* Compounding Visualizer Chart */}
+      <GrowthAreaChart
+        title="Net Worth Compounding vs FIRE Target Trajectory"
+        subtitle={`Visualizing wealth accumulation from Age ${inputs.currentAge} to target early retirement`}
+        data={growthChartData}
+        xAxisKey="age"
+        series={[
+          { key: "portfolio", label: "Projected Net Worth", color: "#10b981", fillColor: "#10b981" },
+          { key: "target", label: "Required FIRE Target", color: "#6366f1", fillColor: "#6366f1" },
+        ]}
+      />
 
       {/* Yearly Accumulation Schedule Table */}
       <div className="p-4 rounded-xl border border-slate-200 bg-white space-y-3">

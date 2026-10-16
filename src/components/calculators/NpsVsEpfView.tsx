@@ -17,6 +17,7 @@ import { FormulaExplanation } from "@/components/ui/FormulaExplanation";
 import { FAQSection } from "@/components/ui/FAQSection";
 import { RelatedCalculators, RelatedLink } from "@/components/ui/RelatedCalculators";
 import { BreadcrumbItem } from "@/components/ui/Breadcrumbs";
+import { ComparisonBarChart } from "@/components/ui/ComparisonBarChart";
 import { formatINR } from "@/lib/formatters";
 import {
   Share2,
@@ -389,6 +390,30 @@ export const NpsVsEpfView: React.FC<NpsVsEpfViewProps> = ({
           </div>
         </div>
       </div>
+
+      {/* Visual Corpus Comparison Bar Chart */}
+      <ComparisonBarChart
+        title="Terminal Wealth & Liquidity Comparison"
+        subtitle="Comparing total accumulated retirement corpus and upfront tax-free lump sum"
+        data={[
+          {
+            category: "Total Corpus",
+            epf: result.epfTotalCorpus,
+            nps: result.npsTotalCorpus,
+          },
+          {
+            category: "Tax-Free Lump Sum",
+            epf: result.epfLumpSum,
+            nps: result.npsLumpSum,
+          },
+        ]}
+        bars={[
+          { key: "epf", label: `EPF (${inputs.epfInterestRate}% Guaranteed)`, color: "#10b981" },
+          { key: "nps", label: `NPS (${inputs.npsExpectedReturn}% CAGR)`, color: "#6366f1" },
+        ]}
+        xAxisKey="category"
+        isCurrency={true}
+      />
     </div>
   );
 

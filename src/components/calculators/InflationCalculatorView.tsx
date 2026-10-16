@@ -15,6 +15,7 @@ import { ResultCard } from "@/components/ui/ResultCard";
 import { FormulaExplanation } from "@/components/ui/FormulaExplanation";
 import { FAQSection } from "@/components/ui/FAQSection";
 import { RelatedCalculators } from "@/components/ui/RelatedCalculators";
+import { GrowthAreaChart } from "@/components/ui/GrowthChart";
 import { formatINR } from "@/lib/formatters";
 import { trackCalculatorResultGenerated } from "@/lib/analytics";
 import {
@@ -285,6 +286,22 @@ export const InflationCalculatorView: React.FC<InflationCalculatorViewProps> = (
         primaryFormattedValue={formatINR(result.futureCost)}
         primarySubtitle={`At ${result.inflationRate}% annual inflation, prices multiply by ${result.effectiveMultiplier}x`}
         secondaryMetrics={metrics}
+      />
+
+      {/* Visual Escalation vs Purchasing Power Chart */}
+      <GrowthAreaChart
+        title="Price Inflation Escalation vs. Purchasing Power Decay"
+        subtitle="Escalating future cost of living vs real purchasing value of today's rupee"
+        data={result.annualSchedule.map((row) => ({
+          year: `Yr ${row.year}`,
+          futureCost: row.futureCost,
+          purchasingPower: row.purchasingPowerEquivalent,
+        }))}
+        series={[
+          { key: "futureCost", label: "Future Escalated Cost", color: "#f59e0b" },
+          { key: "purchasingPower", label: "Purchasing Power of Today's Rupee", color: "#64748b" },
+        ]}
+        xAxisKey="year"
       />
 
       {/* Common Indian Goals Inflation Escalation */}

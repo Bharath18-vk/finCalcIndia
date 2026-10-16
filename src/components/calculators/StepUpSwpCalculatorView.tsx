@@ -15,6 +15,7 @@ import { FormulaExplanation } from "@/components/ui/FormulaExplanation";
 import { FAQSection } from "@/components/ui/FAQSection";
 import { RelatedCalculators } from "@/components/ui/RelatedCalculators";
 import { formatINR } from "@/lib/formatters";
+import { GrowthAreaChart } from "@/components/ui/GrowthChart";
 import {
   TrendingUp,
   Share2,
@@ -55,6 +56,18 @@ export const StepUpSwpCalculatorView: React.FC<StepUpSwpCalculatorViewProps> = (
 
   const [copiedShare, setCopiedShare] = useState(false);
   const [showFullSchedule, setShowFullSchedule] = useState(false);
+
+  const swpChartData = useMemo(() => {
+    let cumulative = 0;
+    return result.annualSchedule.map((row) => {
+      cumulative += row.totalAnnualWithdrawal;
+      return {
+        year: `Yr ${row.year}`,
+        balance: row.closingBalance,
+        cumulativeWithdrawal: cumulative,
+      };
+    });
+  }, [result.annualSchedule]);
 
   const handleCopyShareLink = async () => {
     if (!shareableUrl) return;
@@ -278,6 +291,18 @@ export const StepUpSwpCalculatorView: React.FC<StepUpSwpCalculatorViewProps> = (
         )}
         <p className="text-xs leading-relaxed font-medium">{result.verdictNote}</p>
       </div>
+
+      {/* Step-Up SWP Depletion & Cashflow Chart */}
+      <GrowthAreaChart
+        title="Remaining Corpus vs Cumulative Cashflow Withdrawn"
+        subtitle={`Tracking portfolio capital longevity over ${inputs.tenureYears} years with ${inputs.annualStepUpPercent}% annual step-up`}
+        data={swpChartData}
+        xAxisKey="year"
+        series={[
+          { key: "balance", label: "Remaining Balance", color: "#10b981", fillColor: "#10b981" },
+          { key: "cumulativeWithdrawal", label: "Cumulative Cashflow Payout", color: "#3b82f6", fillColor: "#3b82f6" },
+        ]}
+      />
 
       {/* Year-by-Year Schedule */}
       <div className="p-4 rounded-xl border border-slate-200 bg-white space-y-3">

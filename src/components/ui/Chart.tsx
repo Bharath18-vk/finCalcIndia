@@ -15,6 +15,8 @@ export interface ChartProps {
   slices?: { label: string; value: number; color: string }[];
   title?: string;
   totalLabel?: string;
+  valueFormatter?: (value: number) => string;
+  isCurrency?: boolean;
 }
 
 // Lazy load Recharts to keep initial JS payload minimal and prevent SSR hydration mismatch
@@ -23,7 +25,20 @@ const DynamicPieChart = dynamic(
     import("recharts").then((mod) => {
       const { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, Legend } = mod;
 
-      return function InnerPieChart({ data }: { data: ChartSlice[] }) {
+      return function InnerPieChart({
+        data,
+        valueFormatter,
+        isCurrency = true,
+      }: {
+        data: ChartSlice[];
+        valueFormatter?: (val: number) => string;
+        isCurrency?: boolean;
+      }) {
+        const formatVal = (v: number) => {
+          if (valueFormatter) return valueFormatter(v);
+          return isCurrency ? formatINR(v) : v.toLocaleString("en-IN");
+        };
+
         return (
           <ResponsiveContainer width="100%" height={260}>
             <PieChart>
@@ -42,7 +57,7 @@ const DynamicPieChart = dynamic(
                 ))}
               </Pie>
               <Tooltip
-                formatter={(val: unknown) => [formatINR(Number(val)), ""]}
+                formatter={(val: unknown) => [formatVal(Number(val)), ""]}
                 contentStyle={{
                   backgroundColor: "#0f172a",
                   borderColor: "#334155",
@@ -84,6 +99,9 @@ export const FinancialBreakdownChart: React.FC<ChartProps> = ({
   data,
   slices,
   title = "Breakdown",
+  totalLabel = "Total",
+  valueFormatter,
+  isCurrency = true,
 }) => {
   const [isMounted, setIsMounted] = useState(false);
   const normalizedData: ChartSlice[] =
@@ -92,6 +110,11 @@ export const FinancialBreakdownChart: React.FC<ChartProps> = ({
       ? slices.map((s) => ({ name: s.label, value: s.value, color: s.color }))
       : []);
   const total = normalizedData.reduce((acc, curr) => acc + curr.value, 0);
+
+  const formatVal = (v: number) => {
+    if (valueFormatter) return valueFormatter(v);
+    return isCurrency ? formatINR(v) : v.toLocaleString("en-IN");
+  };
 
   useEffect(() => {
     setIsMounted(true);
@@ -102,12 +125,20 @@ export const FinancialBreakdownChart: React.FC<ChartProps> = ({
       <div className="flex items-center justify-between pb-3 border-b border-slate-100">
         <h3 className="text-sm font-bold text-slate-800">{title}</h3>
         <span className="text-xs font-semibold text-slate-500">
-          Total: {formatINR(total)}
+          {totalLabel}: {formatVal(total)}
         </span>
       </div>
 
       <div className="mt-3">
-        {isMounted ? <DynamicPieChart data={normalizedData} /> : <ChartFallback />}
+        {isMounted ? (
+          <DynamicPieChart
+            data={normalizedData}
+            valueFormatter={valueFormatter}
+            isCurrency={isCurrency}
+          />
+        ) : (
+          <ChartFallback />
+        )}
       </div>
 
       {/* Accessible data table for screen readers and search engines */}
@@ -126,7 +157,7 @@ export const FinancialBreakdownChart: React.FC<ChartProps> = ({
             return (
               <tr key={item.name}>
                 <th scope="row">{item.name}</th>
-                <td>{formatINR(item.value)}</td>
+                <td>{formatVal(item.value)}</td>
                 <td>{pct}%</td>
               </tr>
             );

@@ -12,6 +12,7 @@ import { NumberInput } from "@/components/ui/NumberInput";
 import { FormulaExplanation } from "@/components/ui/FormulaExplanation";
 import { FAQSection } from "@/components/ui/FAQSection";
 import { RelatedCalculators } from "@/components/ui/RelatedCalculators";
+import { ComparisonBarChart } from "@/components/ui/ComparisonBarChart";
 import { formatINR } from "@/lib/formatters";
 import { trackCalculatorResultGenerated } from "@/lib/analytics";
 import {
@@ -310,6 +311,33 @@ export const LoanComparisonView: React.FC<LoanComparisonViewProps> = ({
           </div>
         )}
       </div>
+
+      {/* Visual Cost Comparison Chart */}
+      <ComparisonBarChart
+        title="Total Lifetime Cost Composition"
+        subtitle="Principal borrowed vs total interest vs processing fees (stacked)"
+        data={[
+          {
+            category: "Option A",
+            principal: inputs.loanA.principal,
+            interest: result.optionA.totalInterest,
+            fees: result.optionA.processingFee,
+          },
+          {
+            category: "Option B",
+            principal: inputs.loanB.principal,
+            interest: result.optionB.totalInterest,
+            fees: result.optionB.processingFee,
+          },
+        ]}
+        bars={[
+          { key: "principal", label: "Principal", color: "#3b82f6", stackId: "cost" },
+          { key: "interest", label: "Total Interest", color: "#f59e0b", stackId: "cost" },
+          { key: "fees", label: "Processing Fee", color: "#ec4899", stackId: "cost" },
+        ]}
+        xAxisKey="category"
+        isCurrency={true}
+      />
 
       {/* Side by Side Comparison Grid */}
       <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-xs space-y-4">

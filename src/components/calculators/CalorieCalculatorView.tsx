@@ -20,6 +20,7 @@ import { FormulaExplanation } from "@/components/ui/FormulaExplanation";
 import { FAQSection } from "@/components/ui/FAQSection";
 import { RelatedCalculators, RelatedLink } from "@/components/ui/RelatedCalculators";
 import { BreadcrumbItem } from "@/components/ui/Breadcrumbs";
+import { FinancialBreakdownChart } from "@/components/ui/Chart";
 import { trackCalculatorUsed, trackCalculatorResultGenerated } from "@/lib/analytics";
 import {
   Share2,
@@ -339,6 +340,31 @@ export const CalorieCalculatorView: React.FC<CalorieCalculatorViewProps> = ({
           </div>
         </div>
       )}
+
+      {/* Macronutrient Distribution Chart */}
+      <FinancialBreakdownChart
+        title="Macronutrient Calorie Distribution"
+        totalLabel="Daily Target"
+        isCurrency={false}
+        valueFormatter={(v) => `${Math.round(v)} kcal`}
+        slices={[
+          {
+            label: `Carbohydrates (${result.balancedMacros.carbGrams}g)`,
+            value: result.balancedMacros.carbCalories,
+            color: "#f59e0b",
+          },
+          {
+            label: `Protein (${result.balancedMacros.proteinGrams}g)`,
+            value: result.balancedMacros.proteinCalories,
+            color: "#3b82f6",
+          },
+          {
+            label: `Fats (${result.balancedMacros.fatGrams}g)`,
+            value: result.balancedMacros.fatCalories,
+            color: "#10b981",
+          },
+        ]}
+      />
 
       {/* Macro Breakdown Tabs */}
       <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-4">

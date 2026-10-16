@@ -15,6 +15,7 @@ import { ResultCard } from "@/components/ui/ResultCard";
 import { FormulaExplanation } from "@/components/ui/FormulaExplanation";
 import { FAQSection } from "@/components/ui/FAQSection";
 import { RelatedCalculators } from "@/components/ui/RelatedCalculators";
+import { ComparisonBarChart } from "@/components/ui/ComparisonBarChart";
 import { formatINR } from "@/lib/formatters";
 import {
   PieChart,
@@ -374,6 +375,24 @@ export const PortfolioRebalanceCalculatorView: React.FC<PortfolioRebalanceCalcul
         <Zap className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
         <p className="text-xs leading-relaxed font-medium">{result.taxEfficiencyAdvice}</p>
       </div>
+
+      {/* Allocation Drift Bar Chart */}
+      <ComparisonBarChart
+        title="Current vs. Target Asset Allocation"
+        subtitle="Visualizing actual portfolio weights against your desired targets"
+        data={result.assets.map((asset) => ({
+          category: asset.name,
+          current: asset.currentPercent,
+          target: asset.targetPercent,
+        }))}
+        bars={[
+          { key: "current", label: "Current %", color: "#64748b" },
+          { key: "target", label: "Target %", color: "#10b981" },
+        ]}
+        xAxisKey="category"
+        isCurrency={false}
+        yAxisFormatter={(v) => `${v}%`}
+      />
 
       {/* Asset Class Breakdown Table */}
       <div className="p-4 rounded-xl border border-slate-200 bg-white space-y-3">

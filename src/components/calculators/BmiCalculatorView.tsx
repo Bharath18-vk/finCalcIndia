@@ -17,6 +17,7 @@ import { FormulaExplanation } from "@/components/ui/FormulaExplanation";
 import { FAQSection } from "@/components/ui/FAQSection";
 import { RelatedCalculators, RelatedLink } from "@/components/ui/RelatedCalculators";
 import { BreadcrumbItem } from "@/components/ui/Breadcrumbs";
+import { BmiGauge } from "@/components/ui/BmiGauge";
 import { trackCalculatorUsed, trackCalculatorResultGenerated } from "@/lib/analytics";
 import { Share2, Check, Activity, Heart, ShieldCheck, AlertCircle } from "lucide-react";
 
@@ -292,6 +293,18 @@ export const BmiCalculatorView: React.FC<BmiCalculatorViewProps> = ({
         primaryFormattedValue={`${result.bmi} kg/m²`}
         primarySubtitle={`Height: ${result.effectiveHeightCm} cm | Weight: ${result.effectiveWeightKg} kg`}
         secondaryMetrics={metrics}
+      />
+
+      {/* Visual Needle Spectrum Gauge */}
+      <BmiGauge
+        bmi={result.bmi}
+        standard="icmr"
+        categoryLabel={result.asianIndianCategory.category}
+        categoryColor={
+          result.asianIndianCategory.isHealthy
+            ? "text-emerald-700"
+            : "text-amber-700"
+        }
       />
 
       {/* Asian-Indian vs WHO Guidelines Visual Card */}

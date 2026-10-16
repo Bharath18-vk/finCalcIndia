@@ -15,6 +15,7 @@ import { ResultCard } from "@/components/ui/ResultCard";
 import { FormulaExplanation } from "@/components/ui/FormulaExplanation";
 import { FAQSection } from "@/components/ui/FAQSection";
 import { RelatedCalculators } from "@/components/ui/RelatedCalculators";
+import { FinancialBreakdownChart } from "@/components/ui/Chart";
 import { formatINR } from "@/lib/formatters";
 import {
   Scale,
@@ -371,6 +372,40 @@ export const CapitalGainsTaxCalculatorView: React.FC<CapitalGainsTaxCalculatorVi
           },
         ]}
       />
+
+      {/* Sale Proceeds & Tax Distribution Chart */}
+      {result.netSaleValue > 0 && (
+        <FinancialBreakdownChart
+          title="Sale Proceeds & Tax Distribution"
+          totalLabel="Net Sale Proceeds"
+          slices={[
+            {
+              label: "Purchase Cost",
+              value: result.costDeducted || inputs.purchasePrice || 0,
+              color: "#64748b",
+            },
+            {
+              label: "Post-Tax Capital Gain",
+              value: Math.max(0, result.grossGain - result.totalTaxLiability),
+              color: "#10b981",
+            },
+            {
+              label: "Total Tax Liability",
+              value: result.totalTaxLiability,
+              color: "#ef4444",
+            },
+            ...(inputs.transferExpenses && inputs.transferExpenses > 0
+              ? [
+                  {
+                    label: "Transfer Expenses",
+                    value: inputs.transferExpenses,
+                    color: "#f59e0b",
+                  },
+                ]
+              : []),
+          ].filter((s) => s.value > 0)}
+        />
+      )}
 
       {/* Real Estate Grandfathering Comparison Box */}
       {result.grandfathering && result.grandfathering.applicable && (
