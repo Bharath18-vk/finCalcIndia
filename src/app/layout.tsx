@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import "./globals.css";
+import { HeaderNav } from "@/components/layout/HeaderNav";
+
 
 const ADSENSE_CLIENT_ID = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID || "ca-pub-4580972819170743";
 
@@ -158,44 +160,7 @@ export default function RootLayout({
               </span>
             </Link>
 
-              <nav className="flex items-center gap-1 sm:gap-2">
-              <Link
-                href="/loans"
-                className="px-3 py-1.5 text-xs sm:text-sm font-semibold text-slate-700 hover:text-emerald-700 hover:bg-slate-100/70 rounded-lg transition-colors"
-              >
-                Loans
-              </Link>
-              <Link
-                href="/investments"
-                className="px-3 py-1.5 text-xs sm:text-sm font-semibold text-slate-700 hover:text-emerald-700 hover:bg-slate-100/70 rounded-lg transition-colors"
-              >
-                Investments
-              </Link>
-              <Link
-                href="/savings"
-                className="px-3 py-1.5 text-xs sm:text-sm font-semibold text-slate-700 hover:text-emerald-700 hover:bg-slate-100/70 rounded-lg transition-colors"
-              >
-                Savings
-              </Link>
-              <Link
-                href="/income-tax-calculator"
-                className="px-3 py-1.5 text-xs sm:text-sm font-semibold text-slate-700 hover:text-emerald-700 hover:bg-slate-100/70 rounded-lg transition-colors"
-              >
-                Tax & Salary
-              </Link>
-              <Link
-                href="/math"
-                className="px-3 py-1.5 text-xs sm:text-sm font-semibold text-slate-700 hover:text-emerald-700 hover:bg-slate-100/70 rounded-lg transition-colors"
-              >
-                Math & Stats
-              </Link>
-              <Link
-                href="/blog"
-                className="px-3 py-1.5 text-xs sm:text-sm font-semibold text-slate-700 hover:text-emerald-700 hover:bg-slate-100/70 rounded-lg transition-colors"
-              >
-                Guides
-              </Link>
-            </nav>
+            <HeaderNav />
           </div>
         </header>
 

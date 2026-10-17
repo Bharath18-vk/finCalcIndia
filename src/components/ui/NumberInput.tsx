@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useId } from "react";
+import React, { useId, useState, useEffect } from "react";
 import { parseCleanNumber, getSliderBackgroundStyle } from "@/lib/formatters";
+
 
 
 export interface NumberInputProps {
@@ -37,20 +38,40 @@ export const NumberInput: React.FC<NumberInputProps> = ({
   const inputId = customId || generatedId;
   const errorId = `${inputId}-error`;
 
+  const [textValue, setTextValue] = useState<string>(value === 0 ? "0" : String(value));
+
+  useEffect(() => {
+    const currentParsed = parseFloat(textValue.replace(/[^\d.-]/g, ""));
+    if (currentParsed !== value) {
+      setTextValue(value === 0 ? "0" : String(value));
+    }
+  }, [value]);
+
   const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const raw = e.target.value;
-    // Allow digits, decimal, and leading minus
     const sanitized = raw.replace(/[^\d.-]/g, "");
-    if (sanitized === "" || sanitized === "-") {
+    setTextValue(sanitized);
+
+    if (sanitized === "" || sanitized === "-" || sanitized === ".") {
       onChange(0);
       return;
     }
     const clean = parseFloat(sanitized);
-    onChange(isNaN(clean) ? 0 : clean);
+    if (!isNaN(clean) && isFinite(clean)) {
+      onChange(clean);
+    }
+  };
+
+  const handleBlur = () => {
+    if (textValue === "" || textValue === "-" || textValue === ".") {
+      setTextValue(String(value));
+    }
   };
 
   const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(Number(e.target.value));
+    const val = Number(e.target.value);
+    setTextValue(String(val));
+    onChange(val);
   };
 
   const hasSlider = min !== undefined && max !== undefined && max > min;
@@ -77,8 +98,9 @@ export const NumberInput: React.FC<NumberInputProps> = ({
           id={inputId}
           type="text"
           inputMode="decimal"
-          value={value === 0 ? "0" : value}
+          value={textValue}
           onChange={handleTextChange}
+          onBlur={handleBlur}
           placeholder={placeholder}
           aria-invalid={!!error}
           aria-describedby={error ? errorId : undefined}

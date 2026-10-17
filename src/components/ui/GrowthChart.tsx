@@ -138,6 +138,7 @@ const DynamicAreaChart = dynamic(
                   strokeWidth={2.5}
                   fillOpacity={1}
                   fill={`url(#grad-${s.key})`}
+                  isAnimationActive={false}
                 />
               ))}
             </AreaChart>

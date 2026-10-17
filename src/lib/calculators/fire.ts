@@ -147,16 +147,21 @@ export function calculateFire(input: FireInput): FireResult {
     swrPercent = 3.5,
   } = input;
 
-  const yearsToRetirement = targetRetirementAge - currentAge;
-  const retirementDurationYears = lifeExpectancyAge - targetRetirementAge;
+  const safeCurrentAge = Math.max(18, currentAge || 18);
+  const safeTargetRetirementAge = Math.max(safeCurrentAge + 1, targetRetirementAge || safeCurrentAge + 1);
+  const safeLifeExpectancyAge = Math.max(safeTargetRetirementAge + 1, lifeExpectancyAge || 85);
+
+  const yearsToRetirement = safeTargetRetirementAge - safeCurrentAge;
+  const retirementDurationYears = safeLifeExpectancyAge - safeTargetRetirementAge;
 
   const inflationFactor = Math.pow(1 + inflationRate / 100, yearsToRetirement);
   const futureMonthlyExpensesAtRetirement = Math.round(monthlyExpenses * inflationFactor);
   const futureAnnualExpensesAtRetirement = futureMonthlyExpensesAtRetirement * 12;
 
   // SWR based FIRE target: Corpus = Annual Expense / SWR
+  const safeSwr = Math.max(0.5, swrPercent || 3.5);
   const targetFireCorpus = Math.round(
-    futureAnnualExpensesAtRetirement / (swrPercent / 100)
+    futureAnnualExpensesAtRetirement / (safeSwr / 100)
   );
 
   // Month-by-month accumulation schedule up to age 100 or when FIRE is reached
@@ -169,15 +174,15 @@ export function calculateFire(input: FireInput): FireResult {
   const schedule: FireScheduleItem[] = [];
 
   for (let y = 0; y <= maxSimYears; y++) {
-    const age = currentAge + y;
-    if (age > lifeExpectancyAge) break;
+    const age = safeCurrentAge + y;
+    if (age > safeLifeExpectancyAge) break;
 
     const currentYearInflationFactor = Math.pow(1 + inflationRate / 100, y);
     const annualExpenseAtAge = Math.round(monthlyExpenses * 12 * currentYearInflationFactor);
-    const fireTargetCorpusAtAge = Math.round(annualExpenseAtAge / (swrPercent / 100));
+    const fireTargetCorpusAtAge = Math.round(annualExpenseAtAge / (safeSwr / 100));
 
     const isAchieved = balance >= fireTargetCorpusAtAge;
-    if (isAchieved && achievedAge === -1 && age >= currentAge) {
+    if (isAchieved && achievedAge === -1 && age >= safeCurrentAge) {
       achievedAge = age;
     }
 
@@ -198,7 +203,7 @@ export function calculateFire(input: FireInput): FireResult {
   }
 
   // Value at target retirement age
-  const targetScheduleItem = schedule.find((s) => s.age === targetRetirementAge);
+  const targetScheduleItem = schedule.find((s) => s.age === safeTargetRetirementAge);
   const projectedNetWorthAtRetirement = targetScheduleItem
     ? targetScheduleItem.portfolioBalance
     : Math.round(balance);

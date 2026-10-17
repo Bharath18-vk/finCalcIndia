@@ -51,6 +51,7 @@ const DynamicPieChart = dynamic(
                 paddingAngle={3}
                 dataKey="value"
                 strokeWidth={0}
+                isAnimationActive={false}
               >
                 {data.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={entry.color} />

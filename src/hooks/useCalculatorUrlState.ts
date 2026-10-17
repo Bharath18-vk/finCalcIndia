@@ -36,7 +36,7 @@ export function useCalculatorUrlState<TInput extends Record<string, any>>({
   schema,
   defaultInputs,
   syncWithUrl = true,
-  debounceMs = 250,
+  debounceMs = 400,
 }: UseCalculatorUrlStateOptions<TInput>): CalculatorUrlState<TInput> {
   const [inputs, setInputs] = useState<TInput>(defaultInputs);
   const [isHydrated, setIsHydrated] = useState(false);
@@ -120,7 +120,7 @@ export function useCalculatorUrlState<TInput extends Record<string, any>>({
 
         if (newSearch !== currentSearch) {
           const newUrl = newSearch ? `${url.pathname}?${newSearch}` : url.pathname;
-          window.history.replaceState({ ...window.history.state, as: newUrl, url: newUrl }, "", newUrl);
+          window.history.replaceState(window.history.state, "", newUrl);
         }
       } catch {
         // Silently fail if history.replaceState is blocked

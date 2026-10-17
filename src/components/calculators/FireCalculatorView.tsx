@@ -10,6 +10,7 @@ import {
 import { useCalculatorUrlState } from "@/hooks/useCalculatorUrlState";
 import { CalculatorLayout } from "@/components/layout/CalculatorLayout";
 import { NumberInput } from "@/components/ui/NumberInput";
+import { CurrencyInput } from "@/components/ui/CurrencyInput";
 import { ResultCard } from "@/components/ui/ResultCard";
 import { FormulaExplanation } from "@/components/ui/FormulaExplanation";
 import { FAQSection } from "@/components/ui/FAQSection";
@@ -111,6 +112,18 @@ export const FireCalculatorView: React.FC<FireCalculatorViewProps> = ({
     []
   );
 
+  const handleCurrentAgeChange = (val: number) => {
+    updateInput("currentAge", val);
+    if (val >= inputs.targetRetirementAge) {
+      updateInput("targetRetirementAge", Math.min(85, val + 5));
+    }
+  };
+
+  const handleTargetRetirementAgeChange = (val: number) => {
+    const safeTarget = Math.max(inputs.currentAge + 1, val);
+    updateInput("targetRetirementAge", safeTarget);
+  };
+
   const inputsSlot = (
     <div className="space-y-6">
       {/* Ages */}
@@ -119,7 +132,7 @@ export const FireCalculatorView: React.FC<FireCalculatorViewProps> = ({
           id="currentAge"
           label="Current Age"
           value={inputs.currentAge}
-          onChange={(val) => updateInput("currentAge", val)}
+          onChange={handleCurrentAgeChange}
           unit="years"
           min={18}
           max={75}
@@ -130,54 +143,68 @@ export const FireCalculatorView: React.FC<FireCalculatorViewProps> = ({
           id="targetRetirementAge"
           label="Target Early Retirement Age"
           value={inputs.targetRetirementAge}
-          onChange={(val) => updateInput("targetRetirementAge", val)}
+          onChange={handleTargetRetirementAgeChange}
           unit="years"
-          min={25}
+          min={Math.max(25, inputs.currentAge + 1)}
           max={85}
           step={1}
-          helperText={`${inputs.targetRetirementAge - inputs.currentAge} years of accumulation`}
+          helperText={`${Math.max(1, inputs.targetRetirementAge - inputs.currentAge)} years of accumulation`}
           error={validationErrors?.targetRetirementAge}
         />
       </div>
 
       {/* Monthly Expenses */}
-      <NumberInput
+      <CurrencyInput
         id="monthlyExpenses"
         label="Current Monthly Living Expenses"
         value={inputs.monthlyExpenses}
         onChange={(val) => updateInput("monthlyExpenses", val)}
-        unit="₹"
         min={10000}
         max={2000000}
         step={5000}
+        presets={[
+          { label: "₹40,000", value: 40000 },
+          { label: "₹60,000", value: 60000 },
+          { label: "₹1,00,000", value: 100000 },
+          { label: "₹1,50,000", value: 150000 },
+        ]}
         helperText="Current monthly household expenditure (excluding loan EMIs)."
         error={validationErrors?.monthlyExpenses}
       />
 
       {/* Current Net Worth */}
-      <NumberInput
+      <CurrencyInput
         id="currentNetWorth"
         label="Current Invested Net Worth (Equity/Debt/Gold)"
         value={inputs.currentNetWorth}
         onChange={(val) => updateInput("currentNetWorth", val)}
-        unit="₹"
         min={0}
         max={100000000}
         step={50000}
+        presets={[
+          { label: "₹5 Lakh", value: 500000 },
+          { label: "₹15 Lakh", value: 1500000 },
+          { label: "₹50 Lakh", value: 5000000 },
+          { label: "₹1 Crore", value: 10000000 },
+        ]}
         helperText="Current value of all liquid investments earmarked for retirement."
         error={validationErrors?.currentNetWorth}
       />
 
       {/* Monthly Investment */}
-      <NumberInput
+      <CurrencyInput
         id="monthlyInvestment"
         label="Monthly Investment (SIP)"
         value={inputs.monthlyInvestment}
         onChange={(val) => updateInput("monthlyInvestment", val)}
-        unit="₹"
         min={0}
         max={2000000}
         step={5000}
+        presets={[
+          { label: "₹25,000", value: 25000 },
+          { label: "₹50,000", value: 50000 },
+          { label: "₹1,00,000", value: 100000 },
+        ]}
         helperText="Amount invested each month towards your early retirement corpus."
         error={validationErrors?.monthlyInvestment}
       />
@@ -315,7 +342,7 @@ export const FireCalculatorView: React.FC<FireCalculatorViewProps> = ({
           <Sparkles className="w-4 h-4 text-emerald-600" />
           FIRE Variations & Lifestyle Tiers
         </h4>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div className="p-3.5 rounded-xl border border-slate-200 bg-white">
             <div className="flex items-center gap-1.5 text-xs font-bold text-slate-800">
               <Shield className="w-3.5 h-3.5 text-blue-600" />
@@ -391,7 +418,7 @@ export const FireCalculatorView: React.FC<FireCalculatorViewProps> = ({
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-xs text-left">
+          <table className="w-full text-xs text-left whitespace-nowrap">
             <thead>
               <tr className="border-b border-slate-200 text-slate-500 font-medium">
                 <th className="py-2 pr-2">Age</th>

@@ -118,7 +118,7 @@ export const CalculatorLayout: React.FC<CalculatorLayoutProps> = ({
         className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start"
       >
         {/* Left Column: Inputs */}
-        <div className="lg:col-span-6 bg-white rounded-2xl p-5 sm:p-7 border border-slate-200/80 shadow-sm space-y-6">
+        <div className="lg:col-span-6 w-full min-w-0 bg-white rounded-2xl p-5 sm:p-7 border border-slate-200/80 shadow-sm space-y-6">
           <h2 className="text-base font-bold text-slate-900 border-b border-slate-100 pb-3">
             Adjust Parameters
           </h2>
@@ -126,7 +126,7 @@ export const CalculatorLayout: React.FC<CalculatorLayoutProps> = ({
         </div>
 
         {/* Right Column: Key Results & Visual Chart */}
-        <div className="lg:col-span-6 space-y-6">
+        <div className="lg:col-span-6 w-full min-w-0 space-y-6">
           {resultsSlot}
           {chartSlot && <div>{chartSlot}</div>}
         </div>
