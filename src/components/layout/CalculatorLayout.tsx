@@ -2,6 +2,7 @@ import React from "react";
 import { Breadcrumbs, BreadcrumbItem } from "@/components/ui/Breadcrumbs";
 import { Disclaimer } from "@/components/ui/Disclaimer";
 import { AdSlot } from "@/components/ui/AdSlot";
+import { Printer } from "lucide-react";
 
 export interface CalculatorLayoutProps {
   breadcrumbs: BreadcrumbItem[];
@@ -41,21 +42,51 @@ export const CalculatorLayout: React.FC<CalculatorLayoutProps> = ({
   return (
     <article className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-8 overflow-hidden">
       {/* Breadcrumb Navigation */}
-      <Breadcrumbs items={breadcrumbs} />
+      <div className="print:hidden">
+        <Breadcrumbs items={breadcrumbs} />
+      </div>
+
+      {/* Official Print-Only Document Header Banner */}
+      <div className="hidden print:block border-b-2 border-slate-900 pb-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <span className="text-2xl font-black text-slate-900 tracking-tight">FinCalc India</span>
+            <span className="text-xs text-slate-600 block">fincalcindia.in · Official Financial Calculation Report</span>
+          </div>
+          <div className="text-right text-xs text-slate-600">
+            <div>Report Generated: {new Date().toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" })}</div>
+            <div className="font-bold text-slate-900">{title}</div>
+          </div>
+        </div>
+      </div>
 
       {/* Header and Direct Answer */}
       <header className="space-y-3.5 max-w-4xl">
-        <div className="flex items-center gap-2.5">
-          {badge && (
-            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 uppercase tracking-wide">
-              {badge}
-            </span>
-          )}
-          {asOfDate && (
-            <span className="text-xs text-slate-500 font-medium">
-              Verified: {asOfDate}
-            </span>
-          )}
+        <div className="flex flex-wrap items-center justify-between gap-2.5">
+          <div className="flex items-center gap-2.5">
+            {badge && (
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 uppercase tracking-wide">
+                {badge}
+              </span>
+            )}
+            {asOfDate && (
+              <span className="text-xs text-slate-500 font-medium">
+                Verified: {asOfDate}
+              </span>
+            )}
+          </div>
+
+          <button
+            type="button"
+            onClick={() => {
+              if (typeof window !== "undefined") window.print();
+            }}
+            className="print:hidden inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition cursor-pointer"
+            title="Print or Save this calculation report as PDF"
+          >
+            <Printer className="w-3.5 h-3.5 text-slate-600" />
+            <span>Print / Save PDF</span>
+          </button>
         </div>
 
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
@@ -144,6 +175,14 @@ export const CalculatorLayout: React.FC<CalculatorLayoutProps> = ({
 
       {/* Regulatory & Institutional Disclaimer */}
       <Disclaimer asOfDate={asOfDate} />
+
+      {/* Official Print-Only Footer Note */}
+      <div className="hidden print:block pt-6 border-t border-slate-300 text-[10px] text-slate-500">
+        <p>
+          <strong>Official Notice:</strong> This summary document is generated for informational and budgeting purposes via FinCalc India (fincalcindia.in).
+          Bank loan approvals, credit assessments, interest rates, tax calculations, and actual statutory liabilities remain subject to prevailing RBI directives, CBDT regulations, and individual lender underwriting policies.
+        </p>
+      </div>
     </article>
   );
 };

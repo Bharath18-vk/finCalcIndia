@@ -13,6 +13,8 @@ import { FormulaExplanation } from "@/components/ui/FormulaExplanation";
 import { FAQSection } from "@/components/ui/FAQSection";
 import { RelatedCalculators } from "@/components/ui/RelatedCalculators";
 import { ComparisonBarChart } from "@/components/ui/ComparisonBarChart";
+import { ExportActions } from "@/components/ui/ExportActions";
+import { exportToCsv } from "@/lib/export";
 import { formatINR } from "@/lib/formatters";
 import { trackCalculatorResultGenerated } from "@/lib/analytics";
 import {
@@ -341,10 +343,43 @@ export const LoanComparisonView: React.FC<LoanComparisonViewProps> = ({
 
       {/* Side by Side Comparison Grid */}
       <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-xs space-y-4">
-        <h3 className="text-sm font-semibold text-slate-900 flex items-center gap-2">
-          <Table className="w-4 h-4 text-emerald-600" />
-          Side-by-Side Financial Comparison
-        </h3>
+        <div className="flex flex-wrap items-center justify-between gap-2.5">
+          <h3 className="text-sm font-semibold text-slate-900 flex items-center gap-2">
+            <Table className="w-4 h-4 text-emerald-600" />
+            Side-by-Side Financial Comparison
+          </h3>
+          <ExportActions
+            onExportCsv={() => {
+              exportToCsv({
+                filename: "loan-comparison-report.csv",
+                title: "Loan Offers Side-by-Side Comparison",
+                metadata: [
+                  { label: "Loan Option A Amount", value: formatINR(inputs.loanA.principal) },
+                  { label: "Loan Option A Rate", value: `${inputs.loanA.interestRate}%` },
+                  { label: "Loan Option A Tenure", value: `${inputs.loanA.tenureYears} Years` },
+                  { label: "Loan Option B Amount", value: formatINR(inputs.loanB.principal) },
+                  { label: "Loan Option B Rate", value: `${inputs.loanB.interestRate}%` },
+                  { label: "Loan Option B Tenure", value: `${inputs.loanB.tenureYears} Years` },
+                  { label: "Cheaper Option Verdict", value: `Option ${result.cheaperOption}` },
+                  { label: "Lifetime Total Savings", value: formatINR(result.totalSavings) },
+                ],
+                headers: [
+                  "Parameter",
+                  "Option A (INR)",
+                  "Option B (INR)",
+                  "Difference (INR)",
+                ],
+                rows: [
+                  ["Monthly EMI", result.optionA.emi, result.optionB.emi, Math.abs(result.emiDifference)],
+                  ["Total Interest Payable", result.optionA.totalInterest, result.optionB.totalInterest, Math.abs(result.interestDifference)],
+                  ["Bank Processing Fee", result.optionA.processingFee, result.optionB.processingFee, Math.abs(result.optionA.processingFee - result.optionB.processingFee)],
+                  ["Total Lifetime Cost (Principal + Interest + Fee)", result.optionA.totalCost, result.optionB.totalCost, result.totalSavings],
+                ],
+              });
+            }}
+            csvLabel="Export Comparison CSV"
+          />
+        </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-xs text-left border border-slate-200 rounded-lg">

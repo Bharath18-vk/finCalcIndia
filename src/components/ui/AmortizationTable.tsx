@@ -3,12 +3,16 @@
 import React, { useState } from "react";
 import { formatINR } from "@/lib/formatters";
 import { AmortizationPeriod } from "@/lib/calculators/emi";
+import { exportAmortizationToCsv } from "@/lib/export";
+import { ExportActions } from "@/components/ui/ExportActions";
 
 export interface AmortizationTableProps {
   yearlySchedule: AmortizationPeriod[];
   monthlySchedule?: AmortizationPeriod[];
   title?: string;
   type?: "loan" | "investment";
+  filename?: string;
+  metadata?: { label: string; value: string | number }[];
 }
 
 export const AmortizationTable: React.FC<AmortizationTableProps> = ({
@@ -16,6 +20,8 @@ export const AmortizationTable: React.FC<AmortizationTableProps> = ({
   monthlySchedule,
   title = "Amortization & Repayment Schedule",
   type = "loan",
+  filename,
+  metadata,
 }) => {
   const [viewMode, setViewMode] = useState<"yearly" | "monthly">("yearly");
   const [showAllYears, setShowAllYears] = useState(false);
@@ -23,9 +29,25 @@ export const AmortizationTable: React.FC<AmortizationTableProps> = ({
   const isLoan = type === "loan";
   const displayedYearly = showAllYears ? yearlySchedule : yearlySchedule.slice(0, 10);
 
+  const handleExportCsv = () => {
+    const activeSchedule =
+      viewMode === "monthly" && monthlySchedule && monthlySchedule.length > 0
+        ? monthlySchedule
+        : yearlySchedule;
+
+    exportAmortizationToCsv({
+      filename: filename || `${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}.csv`,
+      title,
+      type,
+      viewMode,
+      schedule: activeSchedule,
+      metadata,
+    });
+  };
+
   return (
     <div className="w-full bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
-      <div className="p-5 sm:p-6 border-b border-slate-200/70 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+      <div className="p-5 sm:p-6 border-b border-slate-200/70 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
         <div>
           <h3 className="text-base sm:text-lg font-bold text-slate-900">{title}</h3>
           <p className="text-xs text-slate-500 mt-0.5">
@@ -35,32 +57,39 @@ export const AmortizationTable: React.FC<AmortizationTableProps> = ({
           </p>
         </div>
 
-        {monthlySchedule && monthlySchedule.length > 0 && (
-          <div className="flex items-center p-0.5 bg-slate-100 rounded-lg border border-slate-200 self-start sm:self-auto">
-            <button
-              type="button"
-              onClick={() => setViewMode("yearly")}
-              className={`px-3 py-1 text-xs font-semibold rounded-md transition-colors ${
-                viewMode === "yearly"
-                  ? "bg-white text-slate-900 shadow-sm"
-                  : "text-slate-600 hover:text-slate-900"
-              }`}
-            >
-              Yearly Summary
-            </button>
-            <button
-              type="button"
-              onClick={() => setViewMode("monthly")}
-              className={`px-3 py-1 text-xs font-semibold rounded-md transition-colors ${
-                viewMode === "monthly"
-                  ? "bg-white text-slate-900 shadow-sm"
-                  : "text-slate-600 hover:text-slate-900"
-              }`}
-            >
-              Monthly Details
-            </button>
-          </div>
-        )}
+        <div className="flex flex-wrap items-center gap-2.5 self-start md:self-auto">
+          {monthlySchedule && monthlySchedule.length > 0 && (
+            <div className="flex items-center p-0.5 bg-slate-100 rounded-lg border border-slate-200">
+              <button
+                type="button"
+                onClick={() => setViewMode("yearly")}
+                className={`px-3 py-1 text-xs font-semibold rounded-md transition-colors ${
+                  viewMode === "yearly"
+                    ? "bg-white text-slate-900 shadow-sm"
+                    : "text-slate-600 hover:text-slate-900"
+                }`}
+              >
+                Yearly Summary
+              </button>
+              <button
+                type="button"
+                onClick={() => setViewMode("monthly")}
+                className={`px-3 py-1 text-xs font-semibold rounded-md transition-colors ${
+                  viewMode === "monthly"
+                    ? "bg-white text-slate-900 shadow-sm"
+                    : "text-slate-600 hover:text-slate-900"
+                }`}
+              >
+                Monthly Details
+              </button>
+            </div>
+          )}
+
+          <ExportActions
+            onExportCsv={handleExportCsv}
+            csvLabel={`Export ${viewMode === "monthly" ? "Monthly" : "Yearly"} CSV`}
+          />
+        </div>
       </div>
 
       <div className="overflow-x-auto">
@@ -143,7 +172,7 @@ export const AmortizationTable: React.FC<AmortizationTableProps> = ({
           <button
             type="button"
             onClick={() => setShowAllYears(!showAllYears)}
-            className="text-xs font-semibold text-emerald-700 hover:text-emerald-800 underline underline-offset-4"
+            className="text-xs font-semibold text-emerald-700 hover:text-emerald-800 underline underline-offset-4 cursor-pointer"
           >
             {showAllYears ? "Show First 10 Years" : `Show All ${yearlySchedule.length} Years`}
           </button>
@@ -151,7 +180,7 @@ export const AmortizationTable: React.FC<AmortizationTableProps> = ({
       )}
       {viewMode === "monthly" && (monthlySchedule?.length ?? 0) > 36 && (
         <div className="p-3 bg-slate-50 border-t border-slate-200 text-center text-xs text-slate-500">
-          Showing first 36 monthly installments for readability.
+          Showing first 36 monthly installments on screen. Full {monthlySchedule?.length}-month schedule available via the Export CSV button above.
         </div>
       )}
     </div>

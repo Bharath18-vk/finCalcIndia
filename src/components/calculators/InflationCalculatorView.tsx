@@ -16,6 +16,8 @@ import { FormulaExplanation } from "@/components/ui/FormulaExplanation";
 import { FAQSection } from "@/components/ui/FAQSection";
 import { RelatedCalculators } from "@/components/ui/RelatedCalculators";
 import { GrowthAreaChart } from "@/components/ui/GrowthChart";
+import { ExportActions } from "@/components/ui/ExportActions";
+import { exportToCsv } from "@/lib/export";
 import { formatINR } from "@/lib/formatters";
 import { trackCalculatorResultGenerated } from "@/lib/analytics";
 import {
@@ -337,18 +339,51 @@ export const InflationCalculatorView: React.FC<InflationCalculatorViewProps> = (
 
       {/* Year-by-Year Schedule */}
       <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-xs space-y-3">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-wrap items-center justify-between gap-2.5">
           <h3 className="text-sm font-semibold text-slate-900 flex items-center gap-2">
             <Table className="w-4 h-4 text-emerald-600" />
             Compounding Progression Schedule
           </h3>
-          <button
-            type="button"
-            onClick={() => setShowFullSchedule(!showFullSchedule)}
-            className="text-xs font-semibold text-emerald-600 hover:text-emerald-700 cursor-pointer"
-          >
-            {showFullSchedule ? "Show First 5 Years" : `View All ${result.timeHorizonYears} Years`}
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setShowFullSchedule(!showFullSchedule)}
+              className="text-xs font-semibold text-emerald-600 hover:text-emerald-700 cursor-pointer"
+            >
+              {showFullSchedule ? "Show First 5 Years" : `View All ${result.timeHorizonYears} Years`}
+            </button>
+            <ExportActions
+              onExportCsv={() => {
+                exportToCsv({
+                  filename: `inflation-schedule-${result.timeHorizonYears}years.csv`,
+                  title: "Inflation Compounding & Purchasing Power Schedule",
+                  metadata: [
+                    { label: "Today's Cost / Value", value: formatINR(inputs.currentAmount) },
+                    { label: "Annual Inflation Rate", value: `${inputs.inflationRate}%` },
+                    { label: "Time Horizon", value: `${inputs.timeHorizonYears} Years` },
+                    { label: "Future Escalated Cost", value: formatINR(result.futureCost) },
+                    { label: "Real Purchasing Power", value: formatINR(result.purchasingPower) },
+                    { label: "Cumulative Multiplier", value: `${result.effectiveMultiplier}x` },
+                  ],
+                  headers: [
+                    "Year",
+                    "Calendar Year",
+                    "Future Escalated Cost (INR)",
+                    "Real Purchasing Power Equivalent (INR)",
+                    "Cumulative Price Multiplier",
+                  ],
+                  rows: result.annualSchedule.map((row) => [
+                    `Year ${row.year}`,
+                    row.calendarYear,
+                    row.futureCost,
+                    row.purchasingPowerEquivalent,
+                    `${row.cumulativeInflationMultiplier}x`,
+                  ]),
+                });
+              }}
+              csvLabel="Export Schedule CSV"
+            />
+          </div>
         </div>
 
         <div className="overflow-x-auto">

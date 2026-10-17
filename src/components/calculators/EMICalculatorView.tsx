@@ -325,7 +325,16 @@ export const EMICalculatorView: React.FC<EMICalculatorViewProps> = ({
           <AmortizationTable
             yearlySchedule={result.yearlySchedule}
             monthlySchedule={result.monthlySchedule}
-            title="Loan Amortization & Repayment Schedule"
+            title={`${title} Amortization & Repayment Schedule`}
+            filename={`${calculatorType}-schedule.csv`}
+            metadata={[
+              { label: "Loan Amount", value: formatINR(result.principal) },
+              { label: "Annual Interest Rate", value: `${annualRate}%` },
+              { label: "Loan Tenure", value: formatTenureYears(tenureYears, tenureMonths) },
+              { label: "Monthly EMI", value: formatINR(result.monthlyEMI) },
+              { label: "Total Interest Payable", value: formatINR(result.totalInterest) },
+              { label: "Total Amount Payable", value: formatINR(result.totalPayment) },
+            ]}
             type="loan"
           />
         </div>

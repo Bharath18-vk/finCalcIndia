@@ -16,6 +16,8 @@ import { FAQSection } from "@/components/ui/FAQSection";
 import { RelatedCalculators } from "@/components/ui/RelatedCalculators";
 import { formatINR } from "@/lib/formatters";
 import { GrowthAreaChart } from "@/components/ui/GrowthChart";
+import { ExportActions } from "@/components/ui/ExportActions";
+import { exportToCsv } from "@/lib/export";
 import {
   TrendingUp,
   Share2,
@@ -304,21 +306,59 @@ export const StepUpSwpCalculatorView: React.FC<StepUpSwpCalculatorViewProps> = (
         ]}
       />
 
-      {/* Year-by-Year Schedule */}
-      <div className="p-4 rounded-xl border border-slate-200 bg-white space-y-3">
-        <div className="flex items-center justify-between">
-          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
-            <Table className="w-4 h-4 text-emerald-600" />
-            Year-by-Year Cashflow Schedule
-          </h4>
-          <button
-            type="button"
-            onClick={() => setShowFullSchedule(!showFullSchedule)}
-            className="text-xs font-semibold text-emerald-600 hover:text-emerald-700"
-          >
-            {showFullSchedule ? "Show Less" : "View All Years"}
-          </button>
-        </div>
+        {/* Year-by-Year Schedule */}
+        <div className="p-4 rounded-xl border border-slate-200 bg-white space-y-3">
+          <div className="flex flex-wrap items-center justify-between gap-2.5">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
+              <Table className="w-4 h-4 text-emerald-600" />
+              Year-by-Year Cashflow Schedule
+            </h4>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setShowFullSchedule(!showFullSchedule)}
+                className="text-xs font-semibold text-emerald-600 hover:text-emerald-700 cursor-pointer"
+              >
+                {showFullSchedule ? "Show Less" : "View All Years"}
+              </button>
+              <ExportActions
+                onExportCsv={() => {
+                  exportToCsv({
+                    filename: `step-up-swp-schedule-${inputs.tenureYears}years.csv`,
+                    title: "Step-Up SWP Retirement Cashflow Schedule",
+                    metadata: [
+                      { label: "Initial Investment Corpus", value: formatINR(inputs.initialCorpus) },
+                      { label: "Starting Monthly Withdrawal", value: formatINR(inputs.initialMonthlyWithdrawal) },
+                      { label: "Annual Step-Up Rate", value: `${inputs.annualStepUpPercent}%` },
+                      { label: "Expected Annual Return", value: `${inputs.expectedAnnualReturnPercent}%` },
+                      { label: "Tenure Horizon", value: `${inputs.tenureYears} Years` },
+                      { label: "Total Wealth Withdrawn", value: formatINR(result.totalAmountWithdrawn) },
+                      { label: "Final Portfolio Balance", value: formatINR(result.finalPortfolioBalance) },
+                    ],
+                    headers: [
+                      "Year",
+                      "Opening Balance (INR)",
+                      "Monthly Payout in Year (INR)",
+                      "Annual Total Payout (INR)",
+                      "Annual Investment Gain (INR)",
+                      "Closing Balance (INR)",
+                      "Portfolio Status",
+                    ],
+                    rows: result.annualSchedule.map((row) => [
+                      `Year ${row.year}`,
+                      row.openingBalance,
+                      row.monthlyPayoutInYear,
+                      row.totalAnnualWithdrawal,
+                      row.annualReturnsEarned,
+                      row.closingBalance,
+                      row.closingBalance > 0 ? "Active" : "Depleted",
+                    ]),
+                  });
+                }}
+                csvLabel="Export CSV"
+              />
+            </div>
+          </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-xs text-left">

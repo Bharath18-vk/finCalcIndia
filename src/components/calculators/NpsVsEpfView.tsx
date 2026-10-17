@@ -18,6 +18,8 @@ import { FAQSection } from "@/components/ui/FAQSection";
 import { RelatedCalculators, RelatedLink } from "@/components/ui/RelatedCalculators";
 import { BreadcrumbItem } from "@/components/ui/Breadcrumbs";
 import { ComparisonBarChart } from "@/components/ui/ComparisonBarChart";
+import { ExportActions } from "@/components/ui/ExportActions";
+import { exportToCsv } from "@/lib/export";
 import { formatINR } from "@/lib/formatters";
 import {
   Share2,
@@ -431,27 +433,65 @@ export const NpsVsEpfView: React.FC<NpsVsEpfViewProps> = ({
               Compare year-by-year compounding balance between EPF and NPS.
             </p>
           </div>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => setScheduleFilter("milestones")}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer ${
-                scheduleFilter === "milestones"
-                  ? "bg-indigo-600 text-white"
-                  : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-              }`}
-            >
-              5-Year Milestones
-            </button>
-            <button
-              onClick={() => setScheduleFilter("all")}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer ${
-                scheduleFilter === "all"
-                  ? "bg-indigo-600 text-white"
-                  : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-              }`}
-            >
-              All {result.tenureYears} Years
-            </button>
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="flex items-center p-0.5 bg-slate-100 rounded-lg border border-slate-200">
+              <button
+                type="button"
+                onClick={() => setScheduleFilter("milestones")}
+                className={`px-3 py-1 text-xs font-semibold rounded-md transition-colors cursor-pointer ${
+                  scheduleFilter === "milestones"
+                    ? "bg-white text-slate-900 shadow-sm"
+                    : "text-slate-600 hover:text-slate-900"
+                }`}
+              >
+                5-Year Milestones
+              </button>
+              <button
+                type="button"
+                onClick={() => setScheduleFilter("all")}
+                className={`px-3 py-1 text-xs font-semibold rounded-md transition-colors cursor-pointer ${
+                  scheduleFilter === "all"
+                    ? "bg-white text-slate-900 shadow-sm"
+                    : "text-slate-600 hover:text-slate-900"
+                }`}
+              >
+                All {result.tenureYears} Years
+              </button>
+            </div>
+            <ExportActions
+              onExportCsv={() => {
+                exportToCsv({
+                  filename: `nps-vs-epf-trajectory-${result.tenureYears}years.csv`,
+                  title: "NPS vs EPF Retirement Wealth Trajectory",
+                  metadata: [
+                    { label: "Monthly Contribution", value: formatINR(inputs.monthlyContribution) },
+                    { label: "EPF Statutory Return", value: `${inputs.epfInterestRate}% p.a.` },
+                    { label: "NPS Expected CAGR", value: `${inputs.npsExpectedReturn}% p.a.` },
+                    { label: "Tenure Until Retirement", value: `${result.tenureYears} Years (Age ${inputs.currentAge} to ${inputs.retirementAge})` },
+                    { label: "EPF Total Corpus at Retirement", value: formatINR(result.epfTotalCorpus) },
+                    { label: "NPS Total Corpus at Retirement", value: formatINR(result.npsTotalCorpus) },
+                    { label: "NPS Outperformance", value: `+${result.corpusOutperformancePercent}% (+${formatINR(result.corpusDifference)})` },
+                  ],
+                  headers: [
+                    "Year",
+                    "Age",
+                    "Total Invested (INR)",
+                    "EPF Balance (8.25%) (INR)",
+                    "NPS Balance (INR)",
+                    "Wealth Gap (NPS - EPF) (INR)",
+                  ],
+                  rows: result.schedule.map((row) => [
+                    `Year ${row.year}`,
+                    row.age,
+                    row.totalInvested,
+                    row.epfBalance,
+                    row.npsBalance,
+                    row.gapAmount,
+                  ]),
+                });
+              }}
+              csvLabel="Export Trajectory CSV"
+            />
           </div>
         </div>
 

@@ -36,3 +36,63 @@ input[type="range"]::-moz-range-thumb {
   border: 2px solid #ffffff;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
 }
+
+/* Print / Save as PDF Styles */
+@media print {
+  /* Hide non-essential interactive / web navigation elements */
+  nav,
+  footer,
+  aside,
+  [data-ad-slot],
+  .ad-slot,
+  .print\:hidden,
+  button:not(.print-visible),
+  input[type="range"] {
+    display: none !important;
+  }
+
+  /* Reset body margins and force pure white page background */
+  html, body {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    font-size: 10.5pt !important;
+    line-height: 1.4 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+  }
+
+  article, main {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Force background colors and gradients to print */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Avoid awkward page breaks in the middle of result cards and table rows */
+  .rounded-2xl,
+  .rounded-xl,
+  table,
+  tr {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* Adjust shadows and borders for clean crisp paper printing */
+  .shadow-sm, .shadow-md, .shadow-lg, .shadow-xs {
+    box-shadow: none !important;
+    border: 1px solid #cbd5e1 !important;
+  }
+
+  /* Clean up links for paper */
+  a {
+    text-decoration: none !important;
+    color: inherit !important;
+  }
+}
+
