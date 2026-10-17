@@ -188,19 +188,19 @@ const gstMetadata: CalculatorMetadata = {
   directAnswer:
     "To add GST (exclusive), multiply the base amount by (1 + GST rate / 100). For example, ₹10,000 at 18% GST equals ₹11,800 (₹1,800 tax). To remove GST (inclusive), divide the MRP by (1 + GST rate / 100); an MRP of ₹11,800 has a base price of ₹10,000 and ₹1,800 GST.",
   formula: {
-    expression: "\\text{GST Exclusive: } \\text{Gross} = \\text{Net} \\times \\left(1 + \\frac{R}{100}\\right) \\quad \\mid \\quad \\text{GST Inclusive: } \\text{Net} = \\frac{\\text{Gross}}{1 + \\frac{R}{100}}",
+    expression: "GST Exclusive: Gross MRP = Net Amount × (1 + Rate / 100)  |  GST Inclusive: Net Amount = Gross MRP / (1 + Rate / 100)",
     variables: [
-      { symbol: "\\text{Net}", label: "Net Amount", description: "Pre-tax base invoice amount" },
-      { symbol: "\\text{Gross}", label: "Gross Amount", description: "Total price inclusive of GST" },
+      { symbol: "Net", label: "Net Amount", description: "Pre-tax base invoice amount" },
+      { symbol: "Gross", label: "Gross Amount", description: "Total price inclusive of GST" },
       { symbol: "R", label: "GST Rate", description: "Applicable statutory GST rate (e.g. 5%, 12%, 18%, 28%)" },
-      { symbol: "\\text{CGST}", label: "Central GST", description: "Central GST (half of GST for intra-state sales)" },
-      { symbol: "\\text{SGST}", label: "State GST", description: "State GST (half of GST for intra-state sales)" },
-      { symbol: "\\text{IGST}", label: "Integrated GST", description: "Integrated GST (full GST for inter-state sales)" },
+      { symbol: "CGST", label: "Central GST", description: "Central GST (half of GST for intra-state sales)" },
+      { symbol: "SGST", label: "State GST", description: "State GST (half of GST for intra-state sales)" },
+      { symbol: "IGST", label: "Integrated GST", description: "Integrated GST (full GST for inter-state sales)" },
     ],
     steps: [
-      { label: "Determine Price Type", expression: "\\text{Exclusive vs Inclusive}", explanation: "Select whether entered price is pre-tax base or gross MRP." },
-      { label: "Apply Tax Calculation", expression: "\\text{GST} = \\text{Net} \\times \\frac{R}{100}", explanation: "Compute statutory tax addition or reverse extraction." },
-      { label: "Split Jurisdictional Levies", expression: "\\text{CGST} = \\text{SGST} = \\frac{\\text{GST}}{2}", explanation: "Divide tax equally for intra-state sales or assign to IGST for inter-state." },
+      { label: "Determine Price Type", expression: "Pricing Mode: Exclusive vs Inclusive", explanation: "Select whether entered price is pre-tax base or gross MRP." },
+      { label: "Apply Tax Calculation", expression: "GST Amount = Net × (Rate / 100)", explanation: "Compute statutory tax addition or reverse extraction." },
+      { label: "Split Jurisdictional Levies", expression: "CGST = SGST = GST Amount / 2", explanation: "Divide tax equally for intra-state sales or assign to IGST for inter-state." },
     ],
     notes: [
       "Standard statutory GST slabs in India are 0%, 5%, 12%, 18%, and 28%. Special slabs include 0.25% (rough diamonds) and 3% (gold/silver jewellery).",

@@ -349,7 +349,7 @@ export const EMICalculatorView: React.FC<EMICalculatorViewProps> = ({
       formulaExplanationSlot={
         <FormulaExplanation
           title="How EMI Is Calculated (Reducing Balance Method)"
-          formula="EMI = [P × r × (1 + r)^n] / [(1 + r)^n - 1]"
+          formula="EMI = [P × r × (1 + r)ⁿ] / [(1 + r)ⁿ - 1]"
           variables={[
             {
               symbol: "P",

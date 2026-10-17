@@ -289,16 +289,16 @@ export const fractionMetadata: CalculatorMetadata = {
     "simplify fractions",
   ],
   formula: {
-    expression: "\\frac{n_1}{d_1} \\pm \\frac{n_2}{d_2} = \\frac{n_1 d_2 \\pm n_2 d_1}{d_1 d_2} \\quad | \\quad \\frac{n_1}{d_1} \\times \\frac{n_2}{d_2} = \\frac{n_1 n_2}{d_1 d_2} \\quad | \\quad \\frac{n_1}{d_1} \\div \\frac{n_2}{d_2} = \\frac{n_1 d_2}{d_1 n_2}",
+    expression: "Addition: (n₁ / d₁) + (n₂ / d₂) = (n₁×d₂ + n₂×d₁) / (d₁×d₂)  |  Multiplication: (n₁ / d₁) × (n₂ / d₂) = (n₁×n₂) / (d₁×d₂)  |  Division: (n₁ / d₁) ÷ (n₂ / d₂) = (n₁×d₂) / (d₁×n₂)",
     variables: [
       { symbol: "n₁, n₂", label: "Numerators", description: "Top integers of the fractions" },
       { symbol: "d₁, d₂", label: "Denominators", description: "Bottom non-zero integers of the fractions" },
     ],
     steps: [
-      { label: "Addition/Subtraction", expression: "(n1*d2 ± n2*d1) / (d1*d2)", explanation: "Finds common denominator and adds/subtracts adjusted numerators." },
-      { label: "Multiplication", expression: "(n1*n2) / (d1*d2)", explanation: "Multiplies numerators together and denominators together." },
-      { label: "Division", expression: "(n1*d2) / (d1*n2)", explanation: "Multiplies the first fraction by the reciprocal of the second." },
-      { label: "Simplification", expression: "n / gcd(n, d) and d / gcd(n, d)", explanation: "Reduces to lowest terms using the Greatest Common Divisor." },
+      { label: "Addition/Subtraction", expression: "(n₁×d₂ ± n₂×d₁) / (d₁×d₂)", explanation: "Finds common denominator and adds/subtracts adjusted numerators." },
+      { label: "Multiplication", expression: "(n₁×n₂) / (d₁×d₂)", explanation: "Multiplies numerators together and denominators together." },
+      { label: "Division", expression: "(n₁×d₂) / (d₁×n₂)", explanation: "Multiplies the first fraction by the reciprocal of the second." },
+      { label: "Simplification", expression: "n ÷ GCD(n, d) and d ÷ GCD(n, d)", explanation: "Reduces to lowest terms using the Greatest Common Divisor." },
     ],
     notes: [
       "Denominators can never be zero.",

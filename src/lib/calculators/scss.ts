@@ -190,7 +190,7 @@ export const scssMetadata: CalculatorMetadata = {
     "scss calculator 2026",
   ],
   formula: {
-    expression: "Q = \\frac{P \\times R}{400}",
+    expression: "Quarterly Interest (Q) = (P × R) / 400  |  Annual Interest = 4 × Q  |  Total Maturity = P + (4 × Q × T)",
     variables: [
       { symbol: "Q", label: "Quarterly Interest", description: "Interest credited on the 1st of April, July, October, January" },
       { symbol: "P", label: "Principal Deposit", description: "Deposit amount (₹1,000 to ₹30,00,000)" },
@@ -198,10 +198,10 @@ export const scssMetadata: CalculatorMetadata = {
       { symbol: "T", label: "Tenure", description: "5 years standard, extendable by 3 years" },
     ],
     steps: [
-      { label: "Quarterly Payout", expression: "\\frac{P \\times R}{400}", explanation: "Annual interest divided into 4 equal quarters." },
-      { label: "Annual Cash Flow", expression: "4 \\times Q", explanation: "Total guaranteed regular income earned per year." },
-      { label: "Total Interest", expression: "4 \\times Q \\times T", explanation: "Cumulative interest received over the entire tenure." },
-      { label: "Maturity", expression: "P + \\text{Total Interest}", explanation: "Principal returned in full at maturity alongside regular quarterly payouts." },
+      { label: "Quarterly Payout", expression: "(P × R) / 400", explanation: "Annual interest divided into 4 equal quarters." },
+      { label: "Annual Cash Flow", expression: "4 × Q", explanation: "Total guaranteed regular income earned per year." },
+      { label: "Total Interest", expression: "4 × Q × T", explanation: "Cumulative interest received over the entire tenure." },
+      { label: "Maturity", expression: "P + Total Interest", explanation: "Principal returned in full at maturity alongside regular quarterly payouts." },
     ],
     notes: [
       "Maximum deposit limit was increased from ₹15 Lakhs to ₹30 Lakhs in Union Budget 2023.",

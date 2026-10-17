@@ -199,18 +199,18 @@ export const tipMetadata: CalculatorMetadata = {
     "gst tip calculator",
   ],
   formula: {
-    expression: "\\text{Total Per Person} = \\frac{\\text{Bill} + \\text{Tax} + \\text{Tip}}{\\text{People}}",
+    expression: "Total Per Person = (Bill Amount + Tax + Tip) / Number of People",
     variables: [
-      { symbol: "\\text{Bill}", label: "Base Bill", description: "Food & beverage total before taxes" },
-      { symbol: "\\text{Tax}", label: "Taxes / GST", description: "Applicable restaurant GST (typically 5% or 18%)" },
-      { symbol: "\\text{Tip}", label: "Tip / Gratuity", description: "Voluntary tip or service charge percentage" },
-      { symbol: "\\text{People}", label: "Split Count", description: "Number of people sharing the check" },
+      { symbol: "Bill", label: "Base Bill", description: "Food & beverage total before taxes" },
+      { symbol: "Tax", label: "Taxes / GST", description: "Applicable restaurant GST (typically 5% or 18%)" },
+      { symbol: "Tip", label: "Tip / Gratuity", description: "Voluntary tip or service charge percentage" },
+      { symbol: "People", label: "Split Count", description: "Number of people sharing the check" },
     ],
     steps: [
-      { label: "Calculate Tax", expression: "T = \\text{Bill} \\times \\frac{\\text{Tax\\%}}{100}", explanation: "Compute sales tax or GST amount." },
-      { label: "Calculate Tip", expression: "\\text{Tip} = \\text{Bill} \\times \\frac{\\text{Tip\\%}}{100}", explanation: "Compute tip amount on base subtotal." },
-      { label: "Sum Total", expression: "\\text{Total} = \\text{Bill} + T + \\text{Tip}", explanation: "Sum base bill, taxes, and tip." },
-      { label: "Split Per Person", expression: "\\frac{\\text{Total}}{\\text{People}}", explanation: "Divide total bill equally among friends." },
+      { label: "Calculate Tax", expression: "Tax = Bill × (Tax% / 100)", explanation: "Compute sales tax or GST amount." },
+      { label: "Calculate Tip", expression: "Tip = Bill × (Tip% / 100)", explanation: "Compute tip amount on base subtotal." },
+      { label: "Sum Total", expression: "Total = Bill + Tax + Tip", explanation: "Sum base bill, taxes, and tip." },
+      { label: "Split Per Person", expression: "Share Per Person = Total / People", explanation: "Divide total bill equally among friends." },
     ],
     notes: [
       "In India, tipping is voluntary; restaurants often levy a discretionary 5% to 10% service charge.",

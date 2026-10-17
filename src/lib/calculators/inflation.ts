@@ -220,7 +220,7 @@ const inflationMetadata: CalculatorMetadata = {
   directAnswer:
     "At an average annual inflation rate of 6%, prices double approximately every 12 years (Rule of 72). A ₹1,00,000 lifestyle today will require ₹2,39,656 in 15 years, reducing today's purchasing power of ₹1,00,000 to just ₹41,727.",
   formula: {
-    expression: "\\text{Future Value} = \\text{Current Value} \\times (1 + r)^t \\quad \\mid \\quad \\text{Purchasing Power} = \\frac{\\text{Current Value}}{(1 + r)^t}",
+    expression: "Future Cost = Current Value × (1 + Inflation Rate)ᵗ  |  Purchasing Power = Current Value / (1 + Inflation Rate)ᵗ",
     variables: [
       { symbol: "PV", label: "Current Cost", description: "Current cost or monetary amount in today's rupees" },
       { symbol: "FV", label: "Future Value", description: "Required amount in the future to purchase the identical goods or service" },
@@ -229,9 +229,9 @@ const inflationMetadata: CalculatorMetadata = {
       { symbol: "t", label: "Tenure Years", description: "Number of years into the future" },
     ],
     steps: [
-      { label: "Convert Inflation Rate", expression: "r = \\frac{\\text{Rate}}{100}", explanation: "Convert annual percentage rate to decimal." },
-      { label: "Compute Compounding Factor", expression: "F = (1 + r)^t", explanation: "Compound price increase over tenure." },
-      { label: "Calculate Future Cost", expression: "\\text{FV} = \\text{PV} \\times F", explanation: "Multiply current expense by inflation multiplier." },
+      { label: "Convert Inflation Rate", expression: "r = Annual Inflation Rate % / 100", explanation: "Convert annual percentage rate to decimal." },
+      { label: "Compute Compounding Factor", expression: "Factor = (1 + r)ᵗ", explanation: "Compound price increase over tenure." },
+      { label: "Calculate Future Cost", expression: "Future Cost = Present Value × Factor", explanation: "Multiply current expense by inflation multiplier." },
     ],
     notes: [
       "RBI targets retail CPI inflation within a band of 4% (+/- 2%). Over the last two decades, Indian headline inflation has averaged between 5.5% and 6.5%.",

@@ -273,7 +273,7 @@ export const CompoundInterestCalculatorView: React.FC<CompoundInterestCalculator
       formulaExplanationSlot={
         <FormulaExplanation
           calculatorName="Compound Interest"
-          formula="A = P * (1 + r / n)^(n * t)"
+          formula="A = P × (1 + r / n)ⁿᵗ"
           variables={[
             { symbol: "A", description: "Maturity amount after compound interest" },
             { symbol: "P", description: "Initial principal sum invested" },

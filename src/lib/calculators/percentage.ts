@@ -389,15 +389,15 @@ export const percentageMetadata: CalculatorMetadata = {
     "percent change calculator",
   ],
   formula: {
-    expression: "\\text{Percentage Value} = \\frac{X}{100} \\times Y \\quad | \\quad \\text{Rate (\\%)} = \\frac{X}{Y} \\times 100",
+    expression: "Percentage Value = (X / 100) × Y  |  Rate (%) = (X / Y) × 100  |  Percentage Change (%) = ((Y - X) / X) × 100",
     variables: [
       { symbol: "X", label: "Percentage or First Number", description: "The rate to apply or the initial comparison value" },
       { symbol: "Y", label: "Base or Second Number", description: "The whole base quantity or subsequent final value" },
     ],
     steps: [
-      { label: "Percent of Value", expression: "(X / 100) * Y", explanation: "Multiplies the decimal fraction by the total base quantity." },
-      { label: "Fraction to Percent", expression: "(X / Y) * 100", explanation: "Expresses part X as a proportion out of 100 against whole Y." },
-      { label: "Percentage Change", expression: "((Y - X) / X) * 100", explanation: "Calculates proportional growth or reduction relative to initial base X." },
+      { label: "Percent of Value", expression: "(X / 100) × Y", explanation: "Multiplies the decimal fraction by the total base quantity." },
+      { label: "Fraction to Percent", expression: "(X / Y) × 100", explanation: "Expresses part X as a proportion out of 100 against whole Y." },
+      { label: "Percentage Change", expression: "((Y - X) / X) × 100", explanation: "Calculates proportional growth or reduction relative to initial base X." },
     ],
     notes: [
       "Percentages represent hundredths: 1% = 0.01.",

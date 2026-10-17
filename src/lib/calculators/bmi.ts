@@ -393,17 +393,17 @@ export const bmiMetadata: CalculatorMetadata = {
     "ideal weight calculator",
   ],
   formula: {
-    expression: "\\text{BMI} = \\frac{\\text{Weight (kg)}}{[\\text{Height (m)}]^2}",
+    expression: "BMI = Weight in kg / [Height in meters]²",
     variables: [
-      { symbol: "\\text{BMI}", label: "Body Mass Index", description: "Body mass divided by square of height (kg/m²)" },
-      { symbol: "\\text{Weight}", label: "Weight", description: "Body weight in kilograms" },
-      { symbol: "\\text{Height}", label: "Height", description: "Stature in meters" },
-      { symbol: "\\text{BMI Prime}", label: "BMI Prime", description: "Ratio of individual BMI to the upper normal threshold of 25" },
+      { symbol: "BMI", label: "Body Mass Index", description: "Body mass divided by square of height (kg/m²)" },
+      { symbol: "Weight", label: "Weight", description: "Body weight in kilograms" },
+      { symbol: "Height", label: "Height", description: "Stature in meters" },
+      { symbol: "BMI Prime", label: "BMI Prime", description: "Ratio of individual BMI to the upper normal threshold of 25" },
     ],
     steps: [
-      { label: "Convert Height to Meters", expression: "h_m = \\frac{\\text{Height (cm)}}{100}", explanation: "Convert stature from cm or feet/inches to meters." },
-      { label: "Square Height", expression: "(h_m)^2", explanation: "Compute height squared." },
-      { label: "Compute BMI", expression: "\\frac{w_{kg}}{(h_m)^2}", explanation: "Divide body weight in kg by height squared." },
+      { label: "Convert Height to Meters", expression: "Height in meters = Height in cm / 100", explanation: "Convert stature from cm or feet/inches to meters." },
+      { label: "Square Height", expression: "Height Squared = (Height in meters)²", explanation: "Compute height squared." },
+      { label: "Compute BMI", expression: "BMI = Weight in kg / (Height in meters)²", explanation: "Divide body weight in kg by height squared." },
     ],
     notes: [
       "Asian Indians have higher body fat and metabolic risk at lower BMIs; ICMR guidelines classify BMI ≥ 23.0 as Overweight and ≥ 25.0 as Obese.",

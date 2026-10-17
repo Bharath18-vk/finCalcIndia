@@ -303,7 +303,7 @@ export const StepUpSIPCalculatorView: React.FC<StepUpSIPCalculatorViewProps> = (
       formulaExplanationSlot={
         <FormulaExplanation
           title="How Step-Up SIP Compounding Works"
-          formula="FV_m = (FV_{m-1} + P_m) × (1 + r)"
+          formula="Future Value: FV_m = (FV_{m-1} + P_m) × (1 + r)"
           variables={[
             {
               symbol: "P_m",

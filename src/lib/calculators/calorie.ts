@@ -230,7 +230,7 @@ const calorieMetadata: CalculatorMetadata = {
   directAnswer:
     "Your Basal Metabolic Rate (BMR) represents the calories burned at complete rest, while Total Daily Energy Expenditure (TDEE) accounts for daily physical activity. To lose 0.5 kg of fat per week, maintain a consistent 500 kcal daily deficit below your TDEE.",
   formula: {
-    expression: "\\text{BMR} = 10 \\cdot W + 6.25 \\cdot H - 5 \\cdot A + s \\quad \\mid \\quad \\text{TDEE} = \\text{BMR} \\times \\text{Activity Factor}",
+    expression: "BMR (Mifflin-St Jeor) = (10 × Weight in kg) + (6.25 × Height in cm) - (5 × Age) + s  |  TDEE = BMR × Activity Factor",
     variables: [
       { symbol: "W", label: "Weight", description: "Body weight in kilograms (kg)" },
       { symbol: "H", label: "Height", description: "Height in centimeters (cm)" },
@@ -239,9 +239,9 @@ const calorieMetadata: CalculatorMetadata = {
       { symbol: "F", label: "Activity Factor", description: "Multiplier from 1.2 (sedentary) to 1.9 (very active)" },
     ],
     steps: [
-      { label: "Calculate BMR", expression: "10W + 6.25H - 5A + s", explanation: "Clinical Mifflin-St Jeor resting energy expenditure." },
-      { label: "Multiply by Activity", expression: "\\text{TDEE} = \\text{BMR} \\times F", explanation: "Total daily maintenance calories." },
-      { label: "Apply Goal Delta", expression: "\\text{Target} = \\text{TDEE} + \\Delta", explanation: "Adjust for fat loss deficit or muscle surplus." },
+      { label: "Calculate BMR", expression: "(10 × W) + (6.25 × H) - (5 × A) + s", explanation: "Clinical Mifflin-St Jeor resting energy expenditure." },
+      { label: "Multiply by Activity", expression: "TDEE = BMR × Activity Factor", explanation: "Total daily maintenance calories." },
+      { label: "Apply Goal Delta", expression: "Target Calories = TDEE + Goal Delta", explanation: "Adjust for fat loss deficit or muscle surplus." },
     ],
     notes: [
       "1 kg of body fat contains approximately 7,700 kcal. A daily deficit of 500 kcal equals roughly 3,500 kcal per week (~0.45 to 0.5 kg fat loss).",

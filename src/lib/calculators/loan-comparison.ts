@@ -179,17 +179,17 @@ const loanComparisonMetadata: CalculatorMetadata = {
   directAnswer:
     "Comparing loan offers requires analyzing both monthly EMI and lifetime total cost including processing fees. A small 0.25% interest rate reduction on a ₹50 Lakh 20-year home loan saves over ₹1,87,000 in interest.",
   formula: {
-    expression: "\\text{EMI} = \\frac{P \\cdot r \\cdot (1+r)^n}{(1+r)^n - 1} \\quad \\mid \\quad \\text{Total Cost} = (\\text{EMI} \\times n) + \\text{Processing Fee}",
+    expression: "Monthly EMI = [P × r × (1 + r)ⁿ] / [(1 + r)ⁿ - 1]  |  Total Lifetime Outflow = (EMI × n) + Processing Fees",
     variables: [
       { symbol: "P", label: "Principal Amount", description: "Loan principal borrowed in Indian Rupees" },
       { symbol: "r", label: "Monthly Interest Rate", description: "Monthly rate = Annual Rate / 12 / 100" },
       { symbol: "n", label: "Number of Months", description: "Total monthly installments = Years × 12" },
-      { symbol: "\\text{Cost}", label: "Total Cost", description: "Lifetime principal + interest + upfront bank processing charges" },
+      { symbol: "Cost", label: "Total Cost", description: "Lifetime principal + interest + upfront bank processing charges" },
     ],
     steps: [
-      { label: "Compute Reducing Balance EMI", expression: "\\text{EMI} = \\frac{P \\cdot r \\cdot (1+r)^n}{(1+r)^n - 1}", explanation: "Calculate monthly installment for both loan options." },
-      { label: "Aggregate Total Lifetime Outflow", expression: "(\\text{EMI} \\times n) + \\text{Fee}", explanation: "Sum total monthly installments and upfront bank charges." },
-      { label: "Compute Net Cost Differential", expression: "\\Delta = |\\text{Cost}_A - \\text{Cost}_B|", explanation: "Identify lowest cost option and exact lifetime rupee savings." },
+      { label: "Compute Reducing Balance EMI", expression: "EMI = [P × r × (1 + r)ⁿ] / [(1 + r)ⁿ - 1]", explanation: "Calculate monthly installment for both loan options." },
+      { label: "Aggregate Total Lifetime Outflow", expression: "Total Outflow = (EMI × n) + Upfront Fees", explanation: "Sum total monthly installments and upfront bank charges." },
+      { label: "Compute Net Cost Differential", expression: "Net Savings = |Total Cost A - Total Cost B|", explanation: "Identify lowest cost option and exact lifetime rupee savings." },
     ],
     notes: [
       "A longer tenure reduces your monthly EMI but significantly increases the total interest burden.",

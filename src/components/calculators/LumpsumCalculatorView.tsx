@@ -270,7 +270,7 @@ export const LumpsumCalculatorView: React.FC<LumpsumCalculatorViewProps> = ({
       formulaExplanationSlot={
         <FormulaExplanation
           title="How Lumpsum Compounding Is Calculated"
-          formula="A = P × (1 + r)^t"
+          formula="A = P × (1 + r)ᵗ"
           variables={[
             {
               symbol: "P",

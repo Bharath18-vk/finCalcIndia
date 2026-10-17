@@ -254,19 +254,19 @@ export const standardDeviationMetadata: CalculatorMetadata = {
     "empirical rule calculator",
   ],
   formula: {
-    expression: "s = \\sqrt{\\frac{\\sum_{i=1}^n (x_i - \\bar{x})^2}{n - 1}} \\quad | \\quad \\sigma = \\sqrt{\\frac{\\sum_{i=1}^N (x_i - \\mu)^2}{N}}",
+    expression: "Sample: s = √[ Σ(x - x̄)² / (n - 1) ]  |  Population: σ = √[ Σ(x - μ)² / N ]",
     variables: [
       { symbol: "s", label: "Sample Std Dev", description: "Dispersion of a sample subset (uses n - 1 Bessel correction)" },
-      { symbol: "\\sigma", label: "Population Std Dev", description: "Dispersion of entire population (uses N)" },
-      { symbol: "\\bar{x}", label: "Sample Mean", description: "Arithmetic average of the values" },
-      { symbol: "\\sum (x_i - \\bar{x})^2", label: "Sum of Squares (SS)", description: "Total squared deviations from the mean" },
+      { symbol: "σ", label: "Population Std Dev", description: "Dispersion of entire population (uses N)" },
+      { symbol: "x̄", label: "Sample Mean", description: "Arithmetic average of the values" },
+      { symbol: "Σ(x - x̄)²", label: "Sum of Squares (SS)", description: "Total squared deviations from the mean" },
     ],
     steps: [
-      { label: "Mean Calculation", expression: "\\bar{x} = \\sum x_i / n", explanation: "Add all data points and divide by sample size." },
-      { label: "Deviations", expression: "d_i = x_i - \\bar{x}", explanation: "Subtract the mean from each data point." },
-      { label: "Square Deviations", expression: "d_i^2 = (x_i - \\bar{x})^2", explanation: "Square each deviation to remove negative signs." },
-      { label: "Variance", expression: "s^2 = \\sum d_i^2 / (n - 1)", explanation: "Sum the squares and divide by degrees of freedom." },
-      { label: "Square Root", expression: "s = \\sqrt{s^2}", explanation: "Take the square root to return to original units." },
+      { label: "Mean Calculation", expression: "x̄ = (Σ x) / n", explanation: "Add all data points and divide by sample size." },
+      { label: "Deviations", expression: "d = x - x̄", explanation: "Subtract the mean from each data point." },
+      { label: "Square Deviations", expression: "d² = (x - x̄)²", explanation: "Square each deviation to remove negative signs." },
+      { label: "Variance", expression: "s² = (Σ d²) / (n - 1)", explanation: "Sum the squares and divide by degrees of freedom." },
+      { label: "Square Root", expression: "s = √(s²)", explanation: "Take the square root to return to original units." },
     ],
     notes: [
       "Use Sample Standard Deviation (s) when your data represents a sample of a larger group.",

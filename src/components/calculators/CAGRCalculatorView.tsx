@@ -211,7 +211,7 @@ export const CAGRCalculatorView: React.FC<CAGRCalculatorViewProps> = ({
       formulaExplanationSlot={
         <FormulaExplanation
           calculatorName="Compound Annual Growth Rate (CAGR)"
-          formula="CAGR = (Ending Value / Beginning Value)^(1 / Tenure in Years) - 1"
+          formula="CAGR = [(Ending Value / Beginning Value)^(1 / Years)] - 1"
           variables={[
             { symbol: "Ending Value", description: "Final portfolio valuation or sale proceeds" },
             { symbol: "Beginning Value", description: "Initial invested capital" },

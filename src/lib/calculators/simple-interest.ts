@@ -203,7 +203,7 @@ export const simpleInterestMetadata: CalculatorMetadata = {
     "simple vs compound interest",
   ],
   formula: {
-    expression: "SI = \\frac{P \\times R \\times T}{100} \\quad | \\quad A = P + SI",
+    expression: "Simple Interest (SI) = (P × R × T) / 100  |  Maturity Amount (A) = P + SI",
     variables: [
       { symbol: "P", label: "Principal", description: "The initial sum of money deposited or borrowed" },
       { symbol: "R", label: "Annual Rate", description: "The annual percentage interest rate" },
@@ -211,9 +211,9 @@ export const simpleInterestMetadata: CalculatorMetadata = {
       { symbol: "A", label: "Total Amount", description: "Principal plus accumulated simple interest" },
     ],
     steps: [
-      { label: "Compute Interest", expression: "(P * R * T) / 100", explanation: "Calculates the total interest earned over the entire holding period." },
+      { label: "Compute Interest", expression: "(P × R × T) / 100", explanation: "Calculates the total interest earned over the entire holding period." },
       { label: "Compute Maturity", expression: "P + SI", explanation: "Adds total simple interest to original principal." },
-      { label: "Compute Monthly Yield", expression: "SI / (T * 12)", explanation: "Calculates average monthly interest yield." },
+      { label: "Compute Monthly Yield", expression: "SI / (T × 12)", explanation: "Calculates average monthly interest yield." },
     ],
     notes: [
       "In simple interest, interest is paid ONLY on the principal and never compounded.",

@@ -234,7 +234,7 @@ export const AmortizationCalculatorView: React.FC<AmortizationCalculatorViewProp
       formulaExplanationSlot={
         <FormulaExplanation
           calculatorName="Loan Amortization Schedule"
-          formula="EMI = P * r * (1 + r)^n / ((1 + r)^n - 1)"
+          formula="EMI = [P × r × (1 + r)ⁿ] / [(1 + r)ⁿ - 1]"
           variables={[
             { symbol: "P", description: "Principal loan amount borrowed" },
             { symbol: "r", description: "Monthly interest rate = Annual Rate / 12 / 100" },

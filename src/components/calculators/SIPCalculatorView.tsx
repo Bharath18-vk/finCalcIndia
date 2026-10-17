@@ -354,7 +354,7 @@ export const SIPCalculatorView: React.FC<SIPCalculatorViewProps> = ({
       formulaExplanationSlot={
         <FormulaExplanation
           title="How SIP Returns Are Calculated (Annuity Due Convention)"
-          formula="FV = P × [((1 + r)^n - 1) / r] × (1 + r)"
+          formula="Future Value (FV) = P × [((1 + r)ⁿ - 1) / r] × (1 + r)"
           variables={[
             {
               symbol: "P",

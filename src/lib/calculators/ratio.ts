@@ -300,19 +300,19 @@ export const ratioMetadata: CalculatorMetadata = {
     "scale ratio",
   ],
   formula: {
-    expression: "\\text{Simplify: } \\frac{A}{\\gcd(A,B)} : \\frac{B}{\\gcd(A,B)} \\quad | \\quad \\text{Proportion: } X = \\frac{B \\times C}{A} \\quad | \\quad \\text{Share } A = \\text{Total} \\times \\frac{A}{A + B}",
+    expression: "Simplification: (A ÷ GCD) : (B ÷ GCD)  |  Proportion (A : B = C : X): X = (B × C) / A  |  Part Share: Total × [A / (A + B)]",
     variables: [
       { symbol: "A", label: "Term A", description: "First ratio term" },
       { symbol: "B", label: "Term B", description: "Second ratio term" },
       { symbol: "C", label: "Term C", description: "Known third term in proportion" },
       { symbol: "X", label: "Unknown X", description: "Solved fourth term in proportion" },
-      { symbol: "\\text{Total}", label: "Total Amount", description: "Total quantity to split proportionally" },
+      { symbol: "Total", label: "Total Amount", description: "Total quantity to split proportionally" },
     ],
     steps: [
-      { label: "Find GCD", expression: "\\gcd(A, B)", explanation: "Identify greatest common divisor of both terms." },
-      { label: "Simplify", expression: "A/\\gcd : B/\\gcd", explanation: "Divide both terms by GCD to obtain simplest integer ratio." },
-      { label: "Solve Unknown", expression: "X = (B * C) / A", explanation: "Cross-multiply to find missing proportion value." },
-      { label: "Divide Total", expression: "Share_A = Total * (A / (A+B))", explanation: "Multiply total by each term's fractional share." },
+      { label: "Find GCD", expression: "GCD(A, B)", explanation: "Identify greatest common divisor of both terms." },
+      { label: "Simplify", expression: "(A ÷ GCD) : (B ÷ GCD)", explanation: "Divide both terms by GCD to obtain simplest integer ratio." },
+      { label: "Solve Unknown", expression: "X = (B × C) / A", explanation: "Cross-multiply to find missing proportion value." },
+      { label: "Divide Total", expression: "Share A = Total × [A / (A + B)]", explanation: "Multiply total by each term's fractional share." },
     ],
     notes: [
       "Ratio terms can be whole numbers or decimals; decimals are converted to integer equivalents automatically.",

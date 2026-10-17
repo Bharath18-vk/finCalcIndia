@@ -206,18 +206,18 @@ export const averageMetadata: CalculatorMetadata = {
     "standard deviation calculator",
   ],
   formula: {
-    expression: "\\bar{x} = \\frac{1}{n} \\sum_{i=1}^n x_i \\quad | \\quad \\text{Median} = \\text{Middle value of sorted dataset}",
+    expression: "Mean (x̄) = (Σ x) / n  |  Median = Middle value of sorted dataset  |  Mode = Most frequent value",
     variables: [
-      { symbol: "\\bar{x}", label: "Arithmetic Mean", description: "The central average of the dataset" },
+      { symbol: "x̄", label: "Arithmetic Mean", description: "The central average of the dataset" },
       { symbol: "n", label: "Sample Count", description: "The total number of data points entered" },
-      { symbol: "\\sum x_i", label: "Sum of Values", description: "The total addition of all numbers in the sample" },
+      { symbol: "Σ x", label: "Sum of Values", description: "The total addition of all numbers in the sample" },
       { symbol: "s", label: "Sample Std Dev", description: "The measure of dispersion around the mean" },
     ],
     steps: [
-      { label: "Sum All Numbers", expression: "\\sum x_i = x_1 + x_2 + \\dots + x_n", explanation: "Add all input values together." },
-      { label: "Count Data Points", expression: "n = \\text{total items}", explanation: "Count the number of valid numerical entries." },
-      { label: "Divide Sum by Count", expression: "\\bar{x} = \\text{Sum} / n", explanation: "Divide the sum by the count to determine the arithmetic mean." },
-      { label: "Sort for Median & Mode", expression: "x_{(1)} \\le x_{(2)} \\le \\dots \\le x_{(n)}", explanation: "Order the numbers to identify the central median and most frequent mode." },
+      { label: "Sum All Numbers", expression: "Σ x = x₁ + x₂ + ... + xₙ", explanation: "Add all input values together." },
+      { label: "Count Data Points", expression: "n = Total valid numbers entered", explanation: "Count the number of valid numerical entries." },
+      { label: "Divide Sum by Count", expression: "x̄ = (Sum of Values) / n", explanation: "Divide the sum by the count to determine the arithmetic mean." },
+      { label: "Sort for Median & Mode", expression: "x₍₁₎ ≤ x₍₂₎ ≤ ... ≤ x₍ₙ₎", explanation: "Order the numbers to identify the central median and most frequent mode." },
     ],
     notes: [
       "The arithmetic mean is sensitive to extreme outliers; inspect the median when working with skewed data (like salaries).",

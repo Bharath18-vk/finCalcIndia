@@ -286,7 +286,7 @@ export const FDCalculatorView: React.FC<FDCalculatorViewProps> = ({
       formulaExplanationSlot={
         <FormulaExplanation
           title="How Bank Fixed Deposit Interest Is Calculated"
-          formula="A = P × (1 + r / n)^(n × t)"
+          formula="A = P × (1 + r / n)ⁿᵗ"
           variables={[
             {
               symbol: "P",

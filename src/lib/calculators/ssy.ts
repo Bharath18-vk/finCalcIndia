@@ -206,17 +206,17 @@ export const ssyMetadata: CalculatorMetadata = {
     "girl child savings scheme calculator",
   ],
   formula: {
-    expression: "A_t = (A_{t-1} + D_t) \\times \\left(1 + \\frac{r}{100}\\right)",
+    expression: "Yearly Compounded Balance: Balance_t = (Balance_{t-1} + Deposit_t) × (1 + Interest Rate / 100)",
     variables: [
-      { symbol: "A_t", label: "Closing Balance Year t", description: "Accumulated corpus at the end of year t" },
-      { symbol: "D_t", label: "Annual Deposit", description: "Deposit made in year t (₹0 for years 16 to 21)" },
+      { symbol: "Balance_t", label: "Closing Balance Year t", description: "Accumulated corpus at the end of year t" },
+      { symbol: "Deposit_t", label: "Annual Deposit", description: "Deposit made in year t (₹0 for years 16 to 21)" },
       { symbol: "r", label: "Interest Rate", description: "Notified annual interest rate (currently 8.2% p.a.)" },
       { symbol: "t", label: "Tenure Year", description: "Year of account existence (1 to 21)" },
     ],
     steps: [
-      { label: "Deposit Period", expression: "D_t > 0 \\text{ for } t \\le 15", explanation: "Deposits must be made annually for the first 15 years." },
-      { label: "Lock-in Growth", expression: "D_t = 0 \\text{ for } 16 \\le t \\le 21", explanation: "No deposits made; corpus continues to compound for 6 more years." },
-      { label: "Maturity", expression: "A_{21} - \\sum D_t", explanation: "Full accumulated tax-free maturity value paid out after 21 years." },
+      { label: "Deposit Period", expression: "Annual Deposit > 0 for Years 1 to 15", explanation: "Deposits must be made annually for the first 15 years." },
+      { label: "Lock-in Growth", expression: "Deposit = 0 for Years 16 to 21", explanation: "No deposits made; corpus continues to compound for 6 more years." },
+      { label: "Maturity", expression: "Final Accumulated Balance after 21 Years", explanation: "Full accumulated tax-free maturity value paid out after 21 years." },
     ],
     notes: [
       "Interest is compounded annually and reviewed quarterly by the Ministry of Finance.",

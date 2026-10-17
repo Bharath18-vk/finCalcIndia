@@ -275,7 +275,7 @@ export const PPFCalculatorView: React.FC<PPFCalculatorViewProps> = ({
       formulaExplanationSlot={
         <FormulaExplanation
           calculatorName="Public Provident Fund (PPF)"
-          formula="Interest = Lowest Balance between 5th & end of month * (Annual Rate / 12)"
+          formula="Monthly Interest = Lowest Balance between 5th & end of month × (Annual Rate / 12)"
           variables={[
             { symbol: "A", description: "Maturity corpus at the end of the 15-year period" },
             { symbol: "Rate", description: "Government notified interest rate (compounded annually on March 31)" },

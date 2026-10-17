@@ -298,18 +298,18 @@ const npsVsEpfMetadata: CalculatorMetadata = {
   directAnswer:
     "While EPF offers a sovereign-guaranteed 8.25% return and 100% tax-free lump-sum withdrawal at retirement, NPS delivers significantly higher long-term compounding (10%–12% CAGR) due to equity allocation. However, NPS mandates that at least 40% of the corpus must be converted into a taxable monthly annuity pension.",
   formula: {
-    expression: "\\text{Corpus Gap} = \\text{FV}_{\\text{NPS}} - \\text{FV}_{\\text{EPF}} \\quad \\mid \\quad \\text{Annuity Pension} = \\frac{\\text{Corpus}_{\\text{NPS}} \\times A_{\\%} \\times R_{\\text{ann}}}{12}",
+    expression: "Wealth Gap = Final NPS Corpus - Final EPF Corpus  |  Monthly NPS Pension = (NPS Corpus × Annuity% × Annuity Return%) / 12",
     variables: [
-      { symbol: "\\text{FV}_{\\text{EPF}}", label: "EPF Maturity Corpus", description: "EPF maturity corpus compounded with 8.25% p.a. annual interest crediting" },
-      { symbol: "\\text{FV}_{\\text{NPS}}", label: "NPS Market Corpus", description: "NPS market-linked corpus compounded monthly at expected CAGR" },
-      { symbol: "A_{\\%}", label: "Annuity Allocation", description: "Mandatory annuity allocation percentage (minimum 40%)" },
-      { symbol: "R_{\\text{ann}}", label: "Annuity Return Rate", description: "Annuity provider annual yield generating monthly pension" },
-      { symbol: "\\text{80CCD}", label: "Section 80CCD(1B)", description: "Exclusive ₹50,000 additional annual tax deduction for NPS Tier-1" },
+      { symbol: "FV(EPF)", label: "EPF Maturity Corpus", description: "EPF maturity corpus compounded with 8.25% p.a. annual interest crediting" },
+      { symbol: "FV(NPS)", label: "NPS Market Corpus", description: "NPS market-linked corpus compounded monthly at expected CAGR" },
+      { symbol: "Annuity%", label: "Annuity Allocation", description: "Mandatory annuity allocation percentage (minimum 40%)" },
+      { symbol: "Annuity Rate", label: "Annuity Return Rate", description: "Annuity provider annual yield generating monthly pension" },
+      { symbol: "Sec 80CCD", label: "Section 80CCD(1B)", description: "Exclusive ₹50,000 additional annual tax deduction for NPS Tier-1" },
     ],
     steps: [
-      { label: "Simulate Compounding", expression: "\\text{FV}_{\\text{EPF}} \\text{ vs } \\text{FV}_{\\text{NPS}}", explanation: "Simulate 30-year career wealth under EPF statutory crediting and NPS market CAGR." },
-      { label: "Partition Liquidity & Pension", expression: "60\\% \\text{ Lump Sum} + 40\\% \\text{ Annuity}", explanation: "Allocate 60% tax-free withdrawal and 40% mandatory monthly pension." },
-      { label: "Calculate Career Tax Alpha", expression: "\\text{Tax Saved} = 50000 \\times t_{\\text{slab}} \\times n", explanation: "Compute lifetime tax deductions under Section 80CCD(1B)." },
+      { label: "Simulate Compounding", expression: "EPF Corpus vs NPS Corpus", explanation: "Simulate career wealth under EPF statutory crediting and NPS market CAGR." },
+      { label: "Partition Liquidity & Pension", expression: "60% Tax-Free Lump Sum + 40% Mandatory Annuity", explanation: "Allocate 60% tax-free withdrawal and 40% mandatory monthly pension." },
+      { label: "Calculate Career Tax Alpha", expression: "Tax Saved = ₹50,000 × Tax Slab Rate × Years", explanation: "Compute lifetime tax deductions under Section 80CCD(1B)." },
     ],
     notes: [
       "EPF enjoys EEE tax status: 100% tax exemption on contributions (up to ₹2.5L/yr), interest accrued, and maturity lump sum.",

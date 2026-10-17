@@ -248,7 +248,7 @@ export const SWPCalculatorView: React.FC<SWPCalculatorViewProps> = ({
       formulaExplanationSlot={
         <FormulaExplanation
           calculatorName="Systematic Withdrawal Plan (SWP)"
-          formula="Ending Balance = (Opening Balance * (1 + Monthly Return)) - Monthly Withdrawal"
+          formula="Ending Balance = (Opening Balance × (1 + Monthly Return)) - Monthly Withdrawal"
           variables={[
             { symbol: "Corpus", description: "Lump sum capital remaining in the mutual fund" },
             { symbol: "Monthly Withdrawal", description: "Automated monthly cash transfer to your bank account" },

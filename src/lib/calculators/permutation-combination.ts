@@ -226,7 +226,7 @@ export const permutationCombinationMetadata: CalculatorMetadata = {
     "combinatorics calculator",
   ],
   formula: {
-    expression: "nPr = \\frac{n!}{(n - r)!} \\quad | \\quad nCr = \\binom{n}{r} = \\frac{n!}{r!(n - r)!} \\quad | \\quad nCr = \\frac{nPr}{r!}",
+    expression: "Permutations: nPr = n! / (n - r)!  |  Combinations: nCr = n! / [r! × (n - r)!] = nPr / r!",
     variables: [
       { symbol: "n", label: "Total Elements", description: "The total number of items in the set" },
       { symbol: "r", label: "Sample Size", description: "The number of items chosen or arranged" },
@@ -234,7 +234,7 @@ export const permutationCombinationMetadata: CalculatorMetadata = {
       { symbol: "nCr", label: "Combinations", description: "Number of unordered groups / selections" },
     ],
     steps: [
-      { label: "Factorial Expansion", expression: "n! = n \\times (n-1) \\times \\dots \\times 1", explanation: "Compute factorials for n, r, and (n - r)." },
+      { label: "Factorial Expansion", expression: "n! = n × (n - 1) × (n - 2) × ... × 1", explanation: "Compute factorials for n, r, and (n - r)." },
       { label: "Permutations", expression: "nPr = n! / (n - r)!", explanation: "Divide n! by (n - r)! to find ordered permutations." },
       { label: "Combinations", expression: "nCr = nPr / r!", explanation: "Divide permutations by r! to remove order significance." },
     ],

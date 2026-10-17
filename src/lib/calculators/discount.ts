@@ -150,16 +150,16 @@ export const discountMetadata: CalculatorMetadata = {
     "savings calculator",
   ],
   formula: {
-    expression: "\\text{Discount Amount} = P \\times \\frac{D}{100} \\quad | \\quad \\text{Final Price} = (P - \\text{Discount}) \\times \\left(1 + \\frac{T}{100}\\right)",
+    expression: "Discount Amount = Original Price × (Discount% / 100)  |  Final Price = (Original Price - Discount) × (1 + Tax% / 100)",
     variables: [
       { symbol: "P", label: "Original Price", description: "The list price or MRP before discount" },
       { symbol: "D", label: "Discount Rate (%)", description: "The percentage discount offered" },
       { symbol: "T", label: "Tax / GST Rate (%)", description: "Applicable sales tax or GST percentage" },
     ],
     steps: [
-      { label: "Find Discount", expression: "P * (D / 100)", explanation: "Computes total monetary reduction from list price." },
-      { label: "Price After Discount", expression: "P - Discount", explanation: "Subtracts savings to find subtotal." },
-      { label: "Apply Tax (if any)", expression: "Subtotal * (1 + T / 100)", explanation: "Calculates final payable price including tax." },
+      { label: "Find Discount", expression: "Discount = P × (D / 100)", explanation: "Computes total monetary reduction from list price." },
+      { label: "Price After Discount", expression: "Subtotal = P - Discount", explanation: "Subtracts savings to find subtotal." },
+      { label: "Apply Tax (if any)", expression: "Final Price = Subtotal × (1 + T / 100)", explanation: "Calculates final payable price including tax." },
     ],
     notes: [
       "In India, MRP is almost always inclusive of GST, so sales tax can usually be left at 0%.",

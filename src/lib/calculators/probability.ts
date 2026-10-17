@@ -352,7 +352,7 @@ export const probabilityMetadata: CalculatorMetadata = {
     "dice probability calculator",
   ],
   formula: {
-    expression: "P(A) = \\frac{n(A)}{n(S)} \\quad | \\quad P(A \\cup B) = P(A) + P(B) - P(A \\cap B) \\quad | \\quad P(X = k) = \\binom{n}{k} p^k (1-p)^{n-k}",
+    expression: "Single Event: P(A) = Favorable / Total = n(A) / n(S)  |  Union: P(A ∪ B) = P(A) + P(B) - P(A ∩ B)  |  Binomial: P(X = k) = C(n, k) × pᵏ × (1 - p)ⁿ⁻ᵏ",
     variables: [
       { symbol: "P(A)", label: "Probability of Event A", description: "Likelihood of event A occurring (0 to 1)" },
       { symbol: "n(A)", label: "Favorable Outcomes", description: "Count of successful event occurrences" },
@@ -361,7 +361,7 @@ export const probabilityMetadata: CalculatorMetadata = {
       { symbol: "p", label: "Success Rate", description: "Probability of success on each trial" },
     ],
     steps: [
-      { label: "Count Outcomes", expression: "n(A) \\le n(S)", explanation: "Identify favorable cases and total cases." },
+      { label: "Count Outcomes", expression: "n(A) ≤ n(S)", explanation: "Identify favorable cases and total cases." },
       { label: "Divide", expression: "P(A) = n(A) / n(S)", explanation: "Divide favorable by total to find decimal probability." },
       { label: "Complement", expression: "P(A') = 1 - P(A)", explanation: "Subtract from 1 to find failure probability." },
     ],

@@ -275,17 +275,17 @@ export const squareRootMetadata: CalculatorMetadata = {
     "simplify square root",
   ],
   formula: {
-    expression: "\\sqrt[n]{x} = x^{1/n} \\quad | \\quad x^y = x \\times x \\times \\dots \\times x \\quad | \\quad \\sqrt{a^2 b} = a \\sqrt{b}",
+    expression: "ⁿ√x = x^(1/n)  |  xʸ = x × x × ... × x  |  √(a² × b) = a × √b",
     variables: [
       { symbol: "x", label: "Radicand / Base", description: "The base number being evaluated" },
-      { symbol: "n", label: "Root Degree", description: "Order of root (2 for square, 3 for cube)" },
-      { symbol: "y", label: "Exponent", description: "Power to which base is raised" },
-      { symbol: "a\\sqrt{b}", label: "Simplified Radical", description: "Radical with largest square factored out" },
+      { symbol: "n", label: "Root Degree", description: "Order of root (2 for square root, 3 for cube root)" },
+      { symbol: "y", label: "Exponent", description: "Power to which the base is raised" },
+      { symbol: "a√b", label: "Simplified Radical", description: "Radical with largest perfect square factored out" },
     ],
     steps: [
-      { label: "Factor Perfect Squares", expression: "x = a^2 \\times b", explanation: "Find the largest perfect square factor dividing the radicand." },
-      { label: "Extract Outer Factor", expression: "\\sqrt{x} = a\\sqrt{b}", explanation: "Extract the square root of the square factor outside the radical." },
-      { label: "Compute Decimal", expression: "x^{1/n}", explanation: "Evaluate principal real root as decimal." },
+      { label: "Factor Perfect Squares", expression: "x = a² × b", explanation: "Find the largest perfect square factor dividing the radicand." },
+      { label: "Extract Outer Factor", expression: "√x = a × √b", explanation: "Extract the square root of the square factor outside the radical." },
+      { label: "Compute Decimal", expression: "x^(1/n)", explanation: "Evaluate principal real root as decimal." },
     ],
     notes: [
       "In the real number system, the square root of a negative number is undefined.",

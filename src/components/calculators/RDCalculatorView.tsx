@@ -276,7 +276,7 @@ export const RDCalculatorView: React.FC<RDCalculatorViewProps> = ({
       formulaExplanationSlot={
         <FormulaExplanation
           calculatorName="Recurring Deposit (RD)"
-          formula="M = P * [ (1 + q)^(n/3) - 1 ] / [ 1 - (1 + q)^(-1/3) ]"
+          formula="Maturity Value (M) = P × [ (1 + q)ⁿ/³ - 1 ] / [ 1 - (1 + q)⁻¹/³ ]"
           variables={[
             { symbol: "M", description: "Maturity value paid to the depositor" },
             { symbol: "P", description: "Monthly installment amount" },

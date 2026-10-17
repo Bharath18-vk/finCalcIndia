@@ -241,16 +241,16 @@ export const lcmGcdMetadata: CalculatorMetadata = {
     "prime factorization calculator",
   ],
   formula: {
-    expression: "\\gcd(a, b) = \\text{largest integer dividing both} \\quad | \\quad \\text{lcm}(a, b) = \\frac{|a \\times b|}{\\gcd(a, b)}",
+    expression: "GCD(a, b) = Largest integer dividing both a and b  |  LCM(a, b) = |a × b| / GCD(a, b)",
     variables: [
       { symbol: "GCD", label: "Greatest Common Divisor (HCF)", description: "Largest positive integer that divides all numbers without remainder" },
       { symbol: "LCM", label: "Least Common Multiple", description: "Smallest positive integer that is a multiple of all numbers" },
       { symbol: "a, b", label: "Input Integers", description: "Given whole numbers" },
     ],
     steps: [
-      { label: "Prime Factorize", expression: "n = p_1^{a_1} \\times p_2^{a_2} \\dots", explanation: "Express each number as a product of prime powers." },
-      { label: "Find GCD", expression: "\\gcd = \\prod p_i^{\\min(a_i, b_i)}", explanation: "Multiply lowest powers of common prime factors." },
-      { label: "Find LCM", expression: "\\text{lcm} = \\prod p_i^{\\max(a_i, b_i)}", explanation: "Multiply highest powers of all prime factors." },
+      { label: "Prime Factorize", expression: "n = p₁ᵃ¹ × p₂ᵃ² × ...", explanation: "Express each number as a product of prime powers." },
+      { label: "Find GCD", expression: "GCD = Product of min common prime powers", explanation: "Multiply lowest powers of common prime factors." },
+      { label: "Find LCM", expression: "LCM = Product of max prime powers", explanation: "Multiply highest powers of all prime factors." },
     ],
     notes: [
       "For any two positive integers a and b, the fundamental identity holds: GCD(a, b) × LCM(a, b) = a × b.",
