@@ -168,7 +168,7 @@ function GrowthChartFallback() {
   );
 }
 
-export const GrowthAreaChart: React.FC<GrowthChartProps> = ({
+export const GrowthAreaChart: React.FC<GrowthChartProps> = React.memo(({
   title = "Growth Projection",
   subtitle,
   data,
@@ -234,4 +234,6 @@ export const GrowthAreaChart: React.FC<GrowthChartProps> = ({
       </table>
     </div>
   );
-};
+});
+
+GrowthAreaChart.displayName = "GrowthAreaChart";

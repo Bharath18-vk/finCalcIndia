@@ -41,16 +41,22 @@ export const FireCalculatorView: React.FC<FireCalculatorViewProps> = ({
   breadcrumbs,
   relatedLinks,
 }) => {
+  const mergedDefaultInputs = useMemo(
+    () => ({ ...defaultFireInputs, ...initialInputs }),
+    [initialInputs]
+  );
+
   const {
     inputs,
+    setInputs,
     updateInput,
     resetInputs,
     validationErrors,
     shareableUrl,
   } = useCalculatorUrlState<FireInput>({
     schema: fireEngine.schema,
-    defaultInputs: { ...defaultFireInputs, ...initialInputs },
-    syncWithUrl: true,
+    defaultInputs: mergedDefaultInputs,
+    syncWithUrl: false,
   });
 
   const result = useMemo(() => {
@@ -113,15 +119,21 @@ export const FireCalculatorView: React.FC<FireCalculatorViewProps> = ({
   );
 
   const handleCurrentAgeChange = (val: number) => {
-    updateInput("currentAge", val);
-    if (val >= inputs.targetRetirementAge) {
-      updateInput("targetRetirementAge", Math.min(85, val + 5));
-    }
+    setInputs((prev) => {
+      const nextTarget = val >= prev.targetRetirementAge ? Math.min(85, val + 5) : prev.targetRetirementAge;
+      return {
+        ...prev,
+        currentAge: val,
+        targetRetirementAge: nextTarget,
+      };
+    });
   };
 
   const handleTargetRetirementAgeChange = (val: number) => {
-    const safeTarget = Math.max(inputs.currentAge + 1, val);
-    updateInput("targetRetirementAge", safeTarget);
+    setInputs((prev) => ({
+      ...prev,
+      targetRetirementAge: Math.max(prev.currentAge + 1, val),
+    }));
   };
 
   const inputsSlot = (
@@ -145,7 +157,7 @@ export const FireCalculatorView: React.FC<FireCalculatorViewProps> = ({
           value={inputs.targetRetirementAge}
           onChange={handleTargetRetirementAgeChange}
           unit="years"
-          min={Math.max(25, inputs.currentAge + 1)}
+          min={inputs.currentAge + 1}
           max={85}
           step={1}
           helperText={`${Math.max(1, inputs.targetRetirementAge - inputs.currentAge)} years of accumulation`}
