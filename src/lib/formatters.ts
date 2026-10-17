@@ -171,3 +171,34 @@ export function parseCleanNumber(input: string | number | null | undefined): num
   const parsed = parseFloat(cleanStr);
   return isNaN(parsed) || !isFinite(parsed) ? 0 : parsed;
 }
+
+/**
+ * Calculates percentage position for a range slider safely clamped between 0 and 100.
+ */
+export function calculateSliderPercentage(
+  value: number,
+  min: number,
+  max: number
+): number {
+  if (max <= min) return 0;
+  const pct = ((value - min) / (max - min)) * 100;
+  return Math.max(0, Math.min(100, isNaN(pct) || !isFinite(pct) ? 0 : pct));
+}
+
+/**
+ * Generates dynamic linear-gradient CSS background for slider track progress fill.
+ * Eliminates empty tracks and false rectangular focus rings in Chromium/WebKit browsers.
+ */
+export function getSliderBackgroundStyle(
+  value: number,
+  min: number,
+  max: number,
+  fillColor: string = "#059669",
+  trackColor: string = "#e2e8f0"
+): { background: string } {
+  const pct = calculateSliderPercentage(value, min, max);
+  return {
+    background: `linear-gradient(to right, ${fillColor} 0%, ${fillColor} ${pct}%, ${trackColor} ${pct}%, ${trackColor} 100%)`,
+  };
+}
+

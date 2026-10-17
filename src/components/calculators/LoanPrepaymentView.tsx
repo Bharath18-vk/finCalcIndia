@@ -5,7 +5,8 @@ import {
   calculatePrepayment,
   PrepaymentStrategy,
 } from "@/lib/calculators/prepayment";
-import { formatINR, formatPercentage, formatTenureYears } from "@/lib/formatters";
+import { formatINR, formatPercentage, formatTenureYears, getSliderBackgroundStyle } from "@/lib/formatters";
+
 import { trackCalculatorUsed, trackCalculatorResultGenerated } from "@/lib/analytics";
 import { CalculatorLayout } from "@/components/layout/CalculatorLayout";
 import { CurrencyInput } from "@/components/ui/CurrencyInput";
@@ -238,11 +239,13 @@ export const LoanPrepaymentView: React.FC<LoanPrepaymentViewProps> = ({
                     max={Math.min(120, tenureYears * 12)}
                     value={oneTimeMonth}
                     onChange={(e) => setOneTimeMonth(Number(e.target.value))}
-                    className="w-full accent-blue-800"
+                    aria-label="Prepayment Timing Month range slider"
+                    style={getSliderBackgroundStyle(oneTimeMonth, 1, Math.min(120, tenureYears * 12))}
+                    className="w-full h-2.5 rounded-lg appearance-none cursor-pointer focus:outline-none"
                   />
                   <div className="flex justify-between text-xs text-slate-500 mt-1">
                     <span>Month 1</span>
-                    <span className="font-semibold text-blue-800">
+                    <span className="font-semibold text-emerald-800">
                       Paid after {oneTimeMonth} months ({Number((oneTimeMonth / 12).toFixed(1))} yrs)
                     </span>
                     <span>Month {Math.min(120, tenureYears * 12)}</span>

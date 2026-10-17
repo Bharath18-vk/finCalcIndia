@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useId } from "react";
-import { parseCleanNumber } from "@/lib/formatters";
+import { parseCleanNumber, getSliderBackgroundStyle } from "@/lib/formatters";
+
 
 export interface NumberInputProps {
   label: string;
@@ -105,7 +106,8 @@ export const NumberInput: React.FC<NumberInputProps> = ({
             value={Math.max(min, Math.min(max, value))}
             onChange={handleSliderChange}
             aria-label={`${label} range slider`}
-            className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+            style={getSliderBackgroundStyle(value, min, max)}
+            className="w-full h-2 rounded-lg appearance-none cursor-pointer focus:outline-none"
           />
           <div className="flex justify-between text-[11px] font-medium text-slate-600 mt-1">
             <span>{min.toLocaleString("en-IN")}</span>

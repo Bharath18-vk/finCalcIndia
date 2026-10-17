@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useId, useState } from "react";
-import { parseCleanNumber } from "@/lib/formatters";
+import { parseCleanNumber, getSliderBackgroundStyle } from "@/lib/formatters";
+
 
 export interface TenureInputProps {
   label: string;
@@ -177,7 +178,12 @@ export const TenureInput: React.FC<TenureInputProps> = ({
           value={viewMode === "years" ? Math.min(Math.max(years, minYears), maxYears) : Math.min(Math.max(totalMonths, minYears * 12), maxYears * 12)}
           onChange={handleSliderChange}
           aria-label={`${label} slider`}
-          className="w-full h-2.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+          style={getSliderBackgroundStyle(
+            viewMode === "years" ? years : totalMonths,
+            viewMode === "years" ? minYears : minYears * 12,
+            viewMode === "years" ? maxYears : maxYears * 12
+          )}
+          className="w-full h-2.5 rounded-lg appearance-none cursor-pointer focus:outline-none"
         />
         <div className="flex justify-between text-[11px] font-medium text-slate-500 pt-1 select-none">
           <span>{viewMode === "years" ? `${minYears} Y` : `${minYears * 12} M`}</span>

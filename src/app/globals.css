@@ -15,27 +15,66 @@ html, body {
 }
 
 /* Custom styling for range inputs */
+input[type="range"] {
+  outline: none;
+}
+
+input[type="range"]:focus {
+  outline: none;
+}
+
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: #16a34a;
+  background: #059669;
   cursor: pointer;
-  border: 2px solid #ffffff;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  border: 2.5px solid #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  transition: transform 0.12s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.15s ease;
 }
 
 input[type="range"]::-moz-range-thumb {
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: #16a34a;
+  background: #059669;
   cursor: pointer;
-  border: 2px solid #ffffff;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  border: 2.5px solid #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  transition: transform 0.12s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.15s ease;
 }
+
+/* Accessible focus ring applied specifically to the circular thumb, avoiding track bounding box */
+input[type="range"]:focus::-webkit-slider-thumb {
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.32), 0 1px 4px rgba(0, 0, 0, 0.25);
+}
+
+input[type="range"]:focus::-moz-range-thumb {
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.32), 0 1px 4px rgba(0, 0, 0, 0.25);
+}
+
+/* Tactile micro-interactions on hover & active */
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.14);
+}
+
+input[type="range"]::-moz-range-thumb:hover {
+  transform: scale(1.14);
+}
+
+input[type="range"]::-webkit-slider-thumb:active {
+  transform: scale(1.18);
+  box-shadow: 0 0 0 6px rgba(16, 185, 129, 0.36), 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+input[type="range"]::-moz-range-thumb:active {
+  transform: scale(1.18);
+  box-shadow: 0 0 0 6px rgba(16, 185, 129, 0.36), 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
 
 /* Print / Save as PDF Styles */
 @media print {

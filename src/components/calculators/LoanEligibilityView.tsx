@@ -2,7 +2,8 @@
 
 import React, { useState, useMemo } from "react";
 import { calculateLoanEligibility } from "@/lib/calculators/loan-eligibility";
-import { formatINR, formatPercentage, formatTenureYears } from "@/lib/formatters";
+import { formatINR, formatPercentage, formatTenureYears, getSliderBackgroundStyle } from "@/lib/formatters";
+
 import { trackCalculatorUsed, trackCalculatorResultGenerated } from "@/lib/analytics";
 import { CalculatorLayout } from "@/components/layout/CalculatorLayout";
 import { CurrencyInput } from "@/components/ui/CurrencyInput";
@@ -161,7 +162,7 @@ export const LoanEligibilityView: React.FC<LoanEligibilityViewProps> = ({
           <div className="pt-2 border-t border-slate-200">
             <div className="flex justify-between items-center mb-1">
               <label className="text-xs font-semibold text-slate-700">Bank FOIR Limit (Fixed Obligation to Income)</label>
-              <span className="text-xs font-bold text-blue-800">{foirPercentage}% of Salary</span>
+              <span className="text-xs font-bold text-emerald-800">{foirPercentage}% of Salary</span>
             </div>
             <input
               type="range"
@@ -173,7 +174,9 @@ export const LoanEligibilityView: React.FC<LoanEligibilityViewProps> = ({
                 setFoirPercentage(Number(e.target.value));
                 trackCalculatorUsed("loan-eligibility", "foir");
               }}
-              className="w-full accent-blue-800"
+              aria-label="Bank FOIR Limit range slider"
+              style={getSliderBackgroundStyle(foirPercentage, 35, 65)}
+              className="w-full h-2.5 rounded-lg appearance-none cursor-pointer focus:outline-none"
             />
             <div className="flex justify-between text-[11px] text-slate-500 mt-1">
               <span>35% (Conservative)</span>
