@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useEffect } from "react";
 
 export interface AdSlotProps {
   slotId: string;
@@ -11,6 +13,25 @@ export const AdSlot: React.FC<AdSlotProps> = ({
   format = "horizontal-banner",
   className = "",
 }) => {
+  const isNumericSlot = /^\d+$/.test(slotId);
+  const adsenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID || "ca-pub-4580972819170743";
+
+  useEffect(() => {
+    if (isNumericSlot && typeof window !== "undefined") {
+      try {
+        ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
+      } catch {
+        // Ignore adsbygoogle push errors
+      }
+    }
+  }, [isNumericSlot]);
+
+  // When under AdSense review or using Auto Ads, suppress raw placeholder text
+  // to avoid "Site under construction / Low value content" flags by Google reviewers.
+  if (!isNumericSlot) {
+    return null;
+  }
+
   // Height reservations to guarantee ZERO Cumulative Layout Shift (CLS)
   const formatClasses = {
     "horizontal-banner": "min-h-[90px] max-w-[728px] mx-auto",
@@ -22,14 +43,16 @@ export const AdSlot: React.FC<AdSlotProps> = ({
     <div
       aria-label="Advertisement Space"
       data-ad-slot={slotId}
-      className={`my-6 flex flex-col items-center justify-center bg-slate-100/70 border border-dashed border-slate-300 rounded-xl p-2 select-none overflow-hidden transition-all ${formatClasses} ${className}`}
+      className={`my-6 flex justify-center items-center overflow-hidden transition-all print:hidden ${formatClasses} ${className}`}
     >
-      <span className="text-[10px] font-semibold tracking-wider text-slate-400 uppercase mb-1">
-        Advertisement Placeholder
-      </span>
-      <div className="text-xs text-slate-400 text-center font-mono">
-        Ad Slot #{slotId}
-      </div>
+      <ins
+        className="adsbygoogle"
+        style={{ display: "block" }}
+        data-ad-client={adsenseClientId}
+        data-ad-slot={slotId}
+        data-ad-format={format === "in-article" ? "fluid" : "auto"}
+        data-full-width-responsive="true"
+      />
     </div>
   );
 };

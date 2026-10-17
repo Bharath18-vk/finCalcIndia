@@ -3,6 +3,8 @@ import Link from "next/link";
 import Image from "next/image";
 import "./globals.css";
 
+const ADSENSE_CLIENT_ID = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID || "ca-pub-4580972819170743";
+
 export const viewport: Viewport = {
   themeColor: "#0f172a",
   width: "device-width",
@@ -67,6 +69,9 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  other: {
+    "google-adsense-account": ADSENSE_CLIENT_ID,
+  },
 };
 
 export default function RootLayout({
@@ -95,6 +100,12 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full antialiased">
       <head>
+        {/* Google AdSense Verification & Auto Ads Script */}
+        <script
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT_ID}`}
+          crossOrigin="anonymous"
+        />
         {gaMeasurementId && (
           <>
             <script
