@@ -4,7 +4,11 @@
 
 @layer base {
   html {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    letter-spacing: -0.011em;
+  }
+  code, pre, kbd, samp, .font-mono {
+    font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   }
 }
 
@@ -31,53 +35,55 @@ input[type="range"]:focus {
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
-  background: #059669;
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
   cursor: pointer;
-  border: 2.5px solid #ffffff;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  border: 3px solid #ffffff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.22), 0 0 0 1px rgba(0, 0, 0, 0.08);
   transition: transform 0.12s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.15s ease;
 }
 
 input[type="range"]::-moz-range-thumb {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
-  background: #059669;
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
   cursor: pointer;
-  border: 2.5px solid #ffffff;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  border: 3px solid #ffffff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.22), 0 0 0 1px rgba(0, 0, 0, 0.08);
   transition: transform 0.12s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.15s ease;
 }
 
 /* Accessible focus ring applied specifically to the circular thumb, avoiding track bounding box */
 input[type="range"]:focus::-webkit-slider-thumb {
-  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.28), 0 1px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 0 5px rgba(16, 185, 129, 0.22), 0 1px 4px rgba(0, 0, 0, 0.2);
 }
 
 input[type="range"]:focus::-moz-range-thumb {
-  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.28), 0 1px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 0 5px rgba(16, 185, 129, 0.22), 0 1px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* Tactile micro-interactions on hover & active */
 input[type="range"]::-webkit-slider-thumb:hover {
-  transform: scale(1.12);
+  transform: scale(1.14);
+  box-shadow: 0 0 0 6px rgba(16, 185, 129, 0.2), 0 2px 6px rgba(0, 0, 0, 0.25);
 }
 
 input[type="range"]::-moz-range-thumb:hover {
-  transform: scale(1.12);
+  transform: scale(1.14);
+  box-shadow: 0 0 0 6px rgba(16, 185, 129, 0.2), 0 2px 6px rgba(0, 0, 0, 0.25);
 }
 
 input[type="range"]::-webkit-slider-thumb:active {
-  transform: scale(1.16);
-  box-shadow: 0 0 0 5px rgba(16, 185, 129, 0.32), 0 2px 5px rgba(0, 0, 0, 0.25);
+  transform: scale(1.18);
+  box-shadow: 0 0 0 8px rgba(16, 185, 129, 0.26), 0 2px 6px rgba(0, 0, 0, 0.25);
 }
 
 input[type="range"]::-moz-range-thumb:active {
-  transform: scale(1.16);
-  box-shadow: 0 0 0 5px rgba(16, 185, 129, 0.32), 0 2px 5px rgba(0, 0, 0, 0.25);
+  transform: scale(1.18);
+  box-shadow: 0 0 0 8px rgba(16, 185, 129, 0.26), 0 2px 6px rgba(0, 0, 0, 0.25);
 }
 
 /* Premium fintech styling utility layers */
@@ -88,12 +94,12 @@ input[type="range"]::-moz-range-thumb:active {
   .fin-card {
     background-color: #ffffff;
     border: 1px solid rgba(226, 232, 240, 0.9);
-    box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.03), 0 4px 14px -2px rgba(15, 23, 42, 0.04);
+    box-shadow: 0 1px 2px 0 rgba(15, 23, 42, 0.03), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
   }
   .fin-hero-dark {
     background: linear-gradient(180deg, #0f172a 0%, #020617 100%);
     border: 1px solid rgba(51, 65, 85, 0.6);
-    box-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.35), inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+    box-shadow: 0 12px 40px -8px rgba(0, 0, 0, 0.45), inset 0 1px 0 0 rgba(255, 255, 255, 0.09);
   }
 }
 

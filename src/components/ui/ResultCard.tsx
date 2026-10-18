@@ -109,7 +109,7 @@ export const ResultCard: React.FC<ResultCardProps> = (props) => {
             </span>
           </div>
 
-          <div className="mt-1.5 text-3xl sm:text-4xl lg:text-[40px] font-black text-emerald-400 tracking-tight tabular-nums leading-none">
+          <div className="mt-1.5 text-3xl sm:text-4xl lg:text-[42px] font-black text-emerald-400 tracking-tight tabular-nums leading-none drop-shadow-[0_2px_14px_rgba(16,185,129,0.2)]">
             {primaryFormattedValue || formatINR(primaryValue)}
           </div>
           {primarySubtitle && (
@@ -147,10 +147,13 @@ export const ResultCard: React.FC<ResultCardProps> = (props) => {
       )}
 
       {secondaryMetrics.length > 0 && (
-        <div className="relative mt-6 pt-5 border-t border-slate-800/80 grid grid-cols-2 sm:grid-cols-3 gap-4">
+        <div className="relative mt-6 pt-5 border-t border-slate-800/80 grid grid-cols-2 sm:grid-cols-3 gap-3">
           {secondaryMetrics.map((metric, idx) => (
-            <div key={idx} className="space-y-1">
-              <div className="flex items-center gap-1.5 text-xs text-slate-400 font-medium">
+            <div
+              key={idx}
+              className="p-3 sm:p-3.5 rounded-xl bg-slate-800/40 border border-slate-800/80 hover:bg-slate-800/60 transition-colors space-y-1"
+            >
+              <div className="flex items-center gap-1.5 text-[11px] sm:text-xs text-slate-400 font-medium">
                 {metric.color && (
                   <span className={`w-2 h-2 rounded-full shrink-0 ${metric.color}`} />
                 )}
@@ -160,7 +163,7 @@ export const ResultCard: React.FC<ResultCardProps> = (props) => {
                 {metric.formattedValue || (typeof metric.value === "number" ? formatINR(metric.value) : metric.value)}
               </div>
               {metric.subtext && (
-                <div className="text-[11px] text-slate-400 font-medium">
+                <div className="text-[11px] text-slate-400 font-medium line-clamp-2">
                   {metric.subtext}
                 </div>
               )}

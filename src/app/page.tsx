@@ -249,14 +249,17 @@ export default function HomePage() {
     <div className="w-full space-y-12 py-10 sm:py-16">
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold uppercase tracking-wider">
-          <IndianRupee className="w-3.5 h-3.5" />
-          <span>Engineered for Indian Financial & Mathematical Planning</span>
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-900 text-xs font-medium tracking-wide shadow-2xs">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-600"></span>
+          </span>
+          <span>Engineered for Indian Financial &amp; Mathematical Planning</span>
         </div>
 
         <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-slate-900 tracking-tight max-w-4xl mx-auto leading-tight">
-          Clear, Fast & Mathematically Precise{" "}
-          <span className="text-emerald-600">Financial & Math Calculators</span>
+          Clear, Fast &amp; Mathematically Precise{" "}
+          <span className="text-emerald-600">Financial &amp; Math Calculators</span>
         </h1>
 
         <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
@@ -361,15 +364,15 @@ export default function HomePage() {
             <Link
               key={calc.href}
               href={calc.href}
-              className="group p-6 rounded-2xl bg-white border border-slate-200/90 shadow-xs hover:border-emerald-400 hover:shadow-md transition-all flex flex-col justify-between"
+              className="group p-6 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:border-emerald-500/60 hover:shadow-md transition-all flex flex-col justify-between active:scale-[0.99]"
             >
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-semibold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-md">
+                  <span className="text-[11px] font-semibold text-slate-500 bg-slate-100/80 border border-slate-200/60 px-2.5 py-0.5 rounded-md">
                     {calc.category}
                   </span>
                   {calc.badge && (
-                    <span className="text-[11px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-full">
+                    <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200/70 px-2 py-0.5 rounded-md">
                       {calc.badge}
                     </span>
                   )}
@@ -384,7 +387,7 @@ export default function HomePage() {
                 </p>
               </div>
 
-              <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-end text-xs font-bold text-emerald-700 group-hover:translate-x-1 transition-transform">
+              <div className="mt-5 pt-3.5 border-t border-slate-100 flex items-center justify-end text-xs font-semibold text-emerald-700 group-hover:translate-x-0.5 transition-transform">
                 <span className="mr-1">Open Calculator</span>
                 <ArrowRight className="w-4 h-4" />
               </div>
@@ -419,15 +422,15 @@ export default function HomePage() {
             <Link
               key={calc.href}
               href={calc.href}
-              className="group p-6 rounded-2xl bg-white border border-slate-200/90 shadow-xs hover:border-blue-400 hover:shadow-md transition-all flex flex-col justify-between"
+              className="group p-6 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:border-blue-500/60 hover:shadow-md transition-all flex flex-col justify-between active:scale-[0.99]"
             >
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-semibold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-md">
+                  <span className="text-[11px] font-semibold text-slate-500 bg-slate-100/80 border border-slate-200/60 px-2.5 py-0.5 rounded-md">
                     {calc.category}
                   </span>
                   {calc.badge && (
-                    <span className="text-[11px] font-bold text-blue-800 bg-blue-100 px-2 py-0.5 rounded-full">
+                    <span className="text-[11px] font-semibold text-blue-700 bg-blue-50 border border-blue-200/70 px-2 py-0.5 rounded-md">
                       {calc.badge}
                     </span>
                   )}
@@ -442,7 +445,7 @@ export default function HomePage() {
                 </p>
               </div>
 
-              <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-end text-xs font-bold text-blue-700 group-hover:translate-x-1 transition-transform">
+              <div className="mt-5 pt-3.5 border-t border-slate-100 flex items-center justify-end text-xs font-semibold text-blue-700 group-hover:translate-x-0.5 transition-transform">
                 <span className="mr-1">Open Calculator</span>
                 <ArrowRight className="w-4 h-4" />
               </div>
@@ -457,7 +460,7 @@ export default function HomePage() {
           <div>
             <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
               <Activity className="w-5 h-5 text-emerald-600" />
-              Everyday Tools & Sovereign Schemes
+              Everyday Tools &amp; Sovereign Schemes
             </h2>
             <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
               Life utilities, health benchmarks, and Government of India small savings schemes.
@@ -470,15 +473,15 @@ export default function HomePage() {
             <Link
               key={calc.href}
               href={calc.href}
-              className="group p-6 rounded-2xl bg-white border border-slate-200/90 shadow-xs hover:border-emerald-400 hover:shadow-md transition-all flex flex-col justify-between"
+              className="group p-6 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:border-emerald-500/60 hover:shadow-md transition-all flex flex-col justify-between active:scale-[0.99]"
             >
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-semibold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-md">
+                  <span className="text-[11px] font-semibold text-slate-500 bg-slate-100/80 border border-slate-200/60 px-2.5 py-0.5 rounded-md">
                     {calc.category}
                   </span>
                   {calc.badge && (
-                    <span className="text-[11px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-full">
+                    <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200/70 px-2 py-0.5 rounded-md">
                       {calc.badge}
                     </span>
                   )}
@@ -493,7 +496,7 @@ export default function HomePage() {
                 </p>
               </div>
 
-              <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-end text-xs font-bold text-emerald-700 group-hover:translate-x-1 transition-transform">
+              <div className="mt-5 pt-3.5 border-t border-slate-100 flex items-center justify-end text-xs font-semibold text-emerald-700 group-hover:translate-x-0.5 transition-transform">
                 <span className="mr-1">Open Calculator</span>
                 <ArrowRight className="w-4 h-4" />
               </div>
