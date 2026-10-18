@@ -355,45 +355,45 @@ export const FireCalculatorView: React.FC<FireCalculatorViewProps> = ({
           FIRE Variations & Lifestyle Tiers
         </h4>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div className="p-3.5 rounded-xl border border-slate-200 bg-white">
+          <div className="p-4 rounded-xl border border-slate-200/90 bg-white shadow-xs hover:border-slate-300 transition-colors">
             <div className="flex items-center gap-1.5 text-xs font-bold text-slate-800">
               <Shield className="w-3.5 h-3.5 text-blue-600" />
               Lean FIRE (75%)
             </div>
-            <div className="text-base font-bold text-slate-900 mt-1">
+            <div className="text-base font-bold text-slate-900 mt-1 tabular-nums">
               {formatINR(result.tiers.leanFireCorpus)}
             </div>
             <p className="text-[11px] text-slate-500 mt-0.5">Frugal, bare-necessities retirement</p>
           </div>
 
-          <div className="p-3.5 rounded-xl border border-slate-200 bg-white">
+          <div className="p-4 rounded-xl border border-slate-200/90 bg-white shadow-xs hover:border-slate-300 transition-colors">
             <div className="flex items-center gap-1.5 text-xs font-bold text-slate-800">
               <Flame className="w-3.5 h-3.5 text-rose-600" />
               Fat FIRE (135%)
             </div>
-            <div className="text-base font-bold text-slate-900 mt-1">
+            <div className="text-base font-bold text-slate-900 mt-1 tabular-nums">
               {formatINR(result.tiers.fatFireCorpus)}
             </div>
             <p className="text-[11px] text-slate-500 mt-0.5">Abundant lifestyle, travel & cushion</p>
           </div>
 
-          <div className="p-3.5 rounded-xl border border-slate-200 bg-white">
+          <div className="p-4 rounded-xl border border-slate-200/90 bg-white shadow-xs hover:border-slate-300 transition-colors">
             <div className="flex items-center gap-1.5 text-xs font-bold text-slate-800">
               <Compass className="w-3.5 h-3.5 text-teal-600" />
               Coast FIRE Today
             </div>
-            <div className="text-base font-bold text-slate-900 mt-1">
+            <div className="text-base font-bold text-slate-900 mt-1 tabular-nums">
               {formatINR(result.tiers.coastFireToday)}
             </div>
             <p className="text-[11px] text-slate-500 mt-0.5">Corpus needed today to coast without saving</p>
           </div>
 
-          <div className="p-3.5 rounded-xl border border-slate-200 bg-white">
+          <div className="p-4 rounded-xl border border-slate-200/90 bg-white shadow-xs hover:border-slate-300 transition-colors">
             <div className="flex items-center gap-1.5 text-xs font-bold text-slate-800">
               <Coffee className="w-3.5 h-3.5 text-amber-600" />
               Barista FIRE (50%)
             </div>
-            <div className="text-base font-bold text-slate-900 mt-1">
+            <div className="text-base font-bold text-slate-900 mt-1 tabular-nums">
               {formatINR(result.tiers.baristaFireCorpus)}
             </div>
             <p className="text-[11px] text-slate-500 mt-0.5">Semi-retirement with part-time work</p>
@@ -414,8 +414,8 @@ export const FireCalculatorView: React.FC<FireCalculatorViewProps> = ({
       />
 
       {/* Yearly Accumulation Schedule Table */}
-      <div className="p-4 rounded-xl border border-slate-200 bg-white space-y-3">
-        <div className="flex items-center justify-between">
+      <div className="p-5 rounded-2xl border border-slate-200/90 bg-white shadow-xs space-y-3">
+        <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
           <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
             <Table className="w-4 h-4 text-emerald-600" />
             FIRE Accumulation Roadmap
@@ -423,7 +423,7 @@ export const FireCalculatorView: React.FC<FireCalculatorViewProps> = ({
           <button
             type="button"
             onClick={() => setShowFullSchedule(!showFullSchedule)}
-            className="text-xs font-semibold text-emerald-600 hover:text-emerald-700"
+            className="text-xs font-semibold text-emerald-600 hover:text-emerald-700 cursor-pointer"
           >
             {showFullSchedule ? "Show Less" : "View Full Roadmap"}
           </button>
@@ -432,28 +432,35 @@ export const FireCalculatorView: React.FC<FireCalculatorViewProps> = ({
         <div className="overflow-x-auto">
           <table className="w-full text-xs text-left whitespace-nowrap">
             <thead>
-              <tr className="border-b border-slate-200 text-slate-500 font-medium">
-                <th className="py-2 pr-2">Age</th>
-                <th className="py-2 px-2 text-right">Portfolio Balance</th>
-                <th className="py-2 px-2 text-right">FIRE Target</th>
-                <th className="py-2 pl-2 text-right">Status</th>
+              <tr className="border-b border-slate-200 text-slate-500 font-semibold uppercase tracking-wider text-[11px]">
+                <th className="py-2.5 pr-2">Age</th>
+                <th className="py-2.5 px-2 text-right">Portfolio Balance</th>
+                <th className="py-2.5 px-2 text-right">FIRE Target</th>
+                <th className="py-2.5 pl-2 text-right">Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-slate-100 tabular-nums">
               {(showFullSchedule ? result.schedule : result.schedule.slice(0, 8)).map((row) => (
-                <tr key={row.age} className={row.age === inputs.targetRetirementAge ? "bg-emerald-50/60 font-semibold" : ""}>
-                  <td className="py-2 pr-2 font-medium text-slate-900">
-                    Age {row.age} {row.age === inputs.targetRetirementAge ? "🎯" : ""}
+                <tr key={row.age} className={row.age === inputs.targetRetirementAge ? "bg-emerald-50/70 font-semibold" : "hover:bg-slate-50/80 transition-colors"}>
+                  <td className="py-2.5 pr-2 font-medium text-slate-900 flex items-center gap-1.5">
+                    <span>Age {row.age}</span>
+                    {row.age === inputs.targetRetirementAge && (
+                      <span className="text-[10px] font-bold text-emerald-800 bg-emerald-100/90 border border-emerald-200/70 px-1.5 py-0.2 rounded">
+                        Target
+                      </span>
+                    )}
                   </td>
-                  <td className="py-2 px-2 text-right text-slate-800">
+                  <td className="py-2.5 px-2 text-right text-slate-800">
                     {formatINR(row.portfolioBalance)}
                   </td>
-                  <td className="py-2 px-2 text-right text-slate-600">
+                  <td className="py-2.5 px-2 text-right text-slate-500">
                     {formatINR(row.fireTargetCorpusAtAge)}
                   </td>
-                  <td className="py-2 pl-2 text-right">
+                  <td className="py-2.5 pl-2 text-right">
                     {row.isFireAchieved ? (
-                      <span className="text-emerald-600 font-bold">FIRE Achieved</span>
+                      <span className="text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200/60">
+                        Achieved
+                      </span>
                     ) : (
                       <span className="text-slate-400">Accumulating</span>
                     )}

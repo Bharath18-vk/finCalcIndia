@@ -94,36 +94,37 @@ const DynamicAreaChart = dynamic(
               <CartesianGrid
                 strokeDasharray="3 3"
                 vertical={false}
-                stroke="#e2e8f0"
+                stroke="#f1f5f9"
               />
               <XAxis
                 dataKey={xAxisKey}
                 tick={{ fontSize: 11, fill: "#64748b" }}
-                stroke="#cbd5e1"
+                stroke="#e2e8f0"
                 tickLine={false}
               />
               <YAxis
                 tickFormatter={yAxisFormatter}
                 tick={{ fontSize: 11, fill: "#64748b" }}
-                stroke="#cbd5e1"
+                stroke="#e2e8f0"
                 tickLine={false}
                 width={55}
               />
               <Tooltip
                 formatter={(val: unknown) => [formatINR(Number(val)), ""]}
                 contentStyle={{
-                  backgroundColor: "#0f172a",
-                  borderColor: "#334155",
-                  borderRadius: "0.5rem",
+                  backgroundColor: "#020617",
+                  borderColor: "#1e293b",
+                  borderRadius: "0.75rem",
                   color: "#f8fafc",
                   fontSize: "12px",
+                  boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.3)",
                 }}
               />
               <Legend
                 verticalAlign="bottom"
                 height={32}
                 formatter={(val) => (
-                  <span className="text-xs font-semibold text-slate-700">
+                  <span className="text-xs font-medium text-slate-700">
                     {val}
                   </span>
                 )}
@@ -135,7 +136,7 @@ const DynamicAreaChart = dynamic(
                   dataKey={s.key}
                   name={s.label}
                   stroke={s.color}
-                  strokeWidth={2.5}
+                  strokeWidth={2}
                   fillOpacity={1}
                   fill={`url(#grad-${s.key})`}
                   isAnimationActive={false}
@@ -186,10 +187,10 @@ export const GrowthAreaChart: React.FC<GrowthChartProps> = React.memo(({
   if (!data || data.length === 0) return null;
 
   return (
-    <div className="w-full bg-white rounded-2xl p-5 sm:p-6 border border-slate-200/80 shadow-sm space-y-3">
+    <div className="w-full bg-white rounded-2xl p-5 sm:p-6 border border-slate-200/90 shadow-xs space-y-3">
       <div className="flex items-center justify-between pb-2 border-b border-slate-100">
         <div>
-          <h3 className="text-sm font-bold text-slate-800">{title}</h3>
+          <h3 className="text-sm font-bold text-slate-900 tracking-tight">{title}</h3>
           {subtitle && <p className="text-xs text-slate-500 mt-0.5">{subtitle}</p>}
         </div>
       </div>

@@ -38,7 +38,7 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
         <button
           type="button"
           onClick={handleCsvClick}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-50 hover:bg-emerald-100/80 text-emerald-800 border border-emerald-200 shadow-xs transition-colors cursor-pointer"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-50 hover:bg-emerald-100/80 text-emerald-800 border border-emerald-200/90 shadow-xs active:scale-95 transition-all cursor-pointer"
           title="Download complete schedule to Excel / CSV"
         >
           {downloaded ? (
@@ -59,10 +59,10 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
         <button
           type="button"
           onClick={onPrint}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 shadow-xs transition-colors cursor-pointer"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-white hover:bg-slate-50 text-slate-700 border border-slate-200/90 shadow-xs active:scale-95 transition-all cursor-pointer"
           title="Print or Save this calculation report as PDF"
         >
-          <Printer className="w-3.5 h-3.5 text-slate-600" />
+          <Printer className="w-3.5 h-3.5 text-slate-500" />
           <span>{printLabel}</span>
         </button>
       )}

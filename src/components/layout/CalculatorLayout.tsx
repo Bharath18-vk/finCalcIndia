@@ -61,11 +61,11 @@ export const CalculatorLayout: React.FC<CalculatorLayoutProps> = ({
       </div>
 
       {/* Header and Direct Answer */}
-      <header className="space-y-3.5 max-w-4xl">
+      <header className="space-y-4 max-w-4xl">
         <div className="flex flex-wrap items-center justify-between gap-2.5">
           <div className="flex items-center gap-2.5">
             {badge && (
-              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 uppercase tracking-wide">
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200/80 uppercase tracking-wide">
                 {badge}
               </span>
             )}
@@ -81,10 +81,10 @@ export const CalculatorLayout: React.FC<CalculatorLayoutProps> = ({
             onClick={() => {
               if (typeof window !== "undefined") window.print();
             }}
-            className="print:hidden inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition cursor-pointer"
+            className="print:hidden inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-white border border-slate-200/90 hover:bg-slate-50 hover:border-slate-300 text-slate-700 shadow-xs transition-all cursor-pointer active:scale-95"
             title="Print or Save this calculation report as PDF"
           >
-            <Printer className="w-3.5 h-3.5 text-slate-600" />
+            <Printer className="w-3.5 h-3.5 text-slate-500" />
             <span>Print / Save PDF</span>
           </button>
         </div>
@@ -93,13 +93,13 @@ export const CalculatorLayout: React.FC<CalculatorLayoutProps> = ({
           {title}
         </h1>
 
-        <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+        <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-3xl">
           {description}
         </p>
 
         {/* Direct Answer Box for SEO & Immediate User Value (First 100 words) */}
         {directAnswer && (
-          <div className="p-4 sm:p-5 rounded-xl bg-emerald-50/80 border border-emerald-200/90 text-sm font-medium text-emerald-950 leading-relaxed shadow-sm">
+          <div className="p-4 sm:p-5 rounded-2xl bg-emerald-50/70 border border-emerald-200/80 text-sm font-medium text-emerald-950 leading-relaxed shadow-xs">
             <span className="font-bold text-emerald-900 mr-1.5">Direct Answer:</span>
             {directAnswer}
           </div>
@@ -110,7 +110,7 @@ export const CalculatorLayout: React.FC<CalculatorLayoutProps> = ({
       <AdSlot slotId="header-bottom" format="horizontal-banner" />
 
       {/* Main Calculator Grid:
-          Desktop: inputs left, results & chart right
+          Desktop: inputs left, sticky results & chart right
           Mobile: inputs, then results immediately below, then chart
       */}
       <section
@@ -118,15 +118,20 @@ export const CalculatorLayout: React.FC<CalculatorLayoutProps> = ({
         className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start"
       >
         {/* Left Column: Inputs */}
-        <div className="lg:col-span-6 w-full min-w-0 bg-white rounded-2xl p-5 sm:p-7 border border-slate-200/80 shadow-sm space-y-6">
-          <h2 className="text-base font-bold text-slate-900 border-b border-slate-100 pb-3">
-            Adjust Parameters
-          </h2>
+        <div className="lg:col-span-6 w-full min-w-0 bg-white rounded-2xl p-5 sm:p-7 border border-slate-200/90 shadow-xs space-y-6">
+          <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+            <h2 className="text-sm sm:text-base font-bold text-slate-900">
+              Adjust Parameters
+            </h2>
+            <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+              Live Interactive
+            </span>
+          </div>
           {inputsSlot}
         </div>
 
-        {/* Right Column: Key Results & Visual Chart */}
-        <div className="lg:col-span-6 w-full min-w-0 space-y-6">
+        {/* Right Column: Key Results & Visual Chart (Sticky on Desktop) */}
+        <div className="lg:col-span-6 w-full min-w-0 lg:sticky lg:top-20 space-y-6 self-start">
           {resultsSlot}
           {chartSlot && <div>{chartSlot}</div>}
         </div>

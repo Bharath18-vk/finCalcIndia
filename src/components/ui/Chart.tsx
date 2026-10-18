@@ -60,18 +60,19 @@ const DynamicPieChart = dynamic(
               <Tooltip
                 formatter={(val: unknown) => [formatVal(Number(val)), ""]}
                 contentStyle={{
-                  backgroundColor: "#0f172a",
-                  borderColor: "#334155",
-                  borderRadius: "0.5rem",
+                  backgroundColor: "#020617",
+                  borderColor: "#1e293b",
+                  borderRadius: "0.75rem",
                   color: "#f8fafc",
                   fontSize: "12px",
+                  boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.3)",
                 }}
               />
               <Legend
                 verticalAlign="bottom"
                 height={36}
                 formatter={(val) => (
-                  <span className="text-xs font-semibold text-slate-700">{val}</span>
+                  <span className="text-xs font-medium text-slate-700">{val}</span>
                 )}
               />
             </PieChart>
@@ -122,10 +123,10 @@ export const FinancialBreakdownChart: React.FC<ChartProps> = ({
   }, []);
 
   return (
-    <div className="w-full bg-white rounded-2xl p-5 sm:p-6 border border-slate-200/80 shadow-sm">
+    <div className="w-full bg-white rounded-2xl p-5 sm:p-6 border border-slate-200/90 shadow-xs">
       <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-        <h3 className="text-sm font-bold text-slate-800">{title}</h3>
-        <span className="text-xs font-semibold text-slate-500">
+        <h3 className="text-sm font-bold text-slate-900 tracking-tight">{title}</h3>
+        <span className="text-xs font-semibold text-slate-700 bg-slate-100/90 border border-slate-200/70 px-2 py-0.5 rounded-md tabular-nums">
           {totalLabel}: {formatVal(total)}
         </span>
       </div>

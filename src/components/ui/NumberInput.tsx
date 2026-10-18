@@ -81,12 +81,12 @@ export const NumberInput: React.FC<NumberInputProps> = ({
       <div className="flex items-center justify-between gap-2">
         <label
           htmlFor={inputId}
-          className="text-sm font-semibold text-slate-800 tracking-tight"
+          className="text-xs sm:text-sm font-semibold text-slate-800 tracking-tight"
         >
           {label}
         </label>
         {unit && (
-          <span className="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded-md">
+          <span className="text-[11px] sm:text-xs font-semibold text-slate-600 bg-slate-100 border border-slate-200/80 px-2 py-0.5 rounded-md">
             {unit}
           </span>
         )}
@@ -104,10 +104,10 @@ export const NumberInput: React.FC<NumberInputProps> = ({
           placeholder={placeholder}
           aria-invalid={!!error}
           aria-describedby={error ? errorId : undefined}
-          className={`w-full h-11 px-3.5 text-slate-900 font-semibold bg-white rounded-xl border transition-colors focus:outline-none focus:ring-2 ${
+          className={`w-full h-11 px-3.5 text-slate-900 font-bold bg-white rounded-xl border tabular-nums transition-all focus:outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-600 ${
             error
-              ? "border-red-400 focus:border-red-500 focus:ring-red-200"
-              : "border-slate-300 focus:border-emerald-600 focus:ring-emerald-100"
+              ? "border-red-400 focus:border-red-500 focus:ring-red-400/20 bg-red-50/20"
+              : "border-slate-200/90 hover:border-slate-300"
           } ${unit ? "pr-12" : ""}`}
         />
         {unit && (
@@ -131,7 +131,7 @@ export const NumberInput: React.FC<NumberInputProps> = ({
             style={getSliderBackgroundStyle(value, min, max)}
             className="w-full h-2 rounded-lg appearance-none cursor-pointer focus:outline-none"
           />
-          <div className="flex justify-between text-[11px] font-medium text-slate-600 mt-1">
+          <div className="flex justify-between text-[11px] font-medium text-slate-400 mt-1 select-none tabular-nums">
             <span>{min.toLocaleString("en-IN")}</span>
             <span>{max.toLocaleString("en-IN")}</span>
           </div>
@@ -146,10 +146,10 @@ export const NumberInput: React.FC<NumberInputProps> = ({
               key={idx}
               type="button"
               onClick={() => onChange(preset.value)}
-              className={`text-xs px-2.5 py-1 rounded-lg border font-medium transition-colors ${
+              className={`text-xs px-2.5 py-1 rounded-lg border font-medium transition-all cursor-pointer active:scale-95 ${
                 value === preset.value
-                  ? "bg-emerald-50 border-emerald-300 text-emerald-800 font-bold"
-                  : "bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100"
+                  ? "bg-emerald-600 text-white border-emerald-600 font-semibold shadow-xs"
+                  : "bg-slate-50/80 border-slate-200/90 text-slate-700 hover:bg-slate-100 hover:border-slate-300"
               }`}
             >
               {preset.label}
@@ -160,11 +160,11 @@ export const NumberInput: React.FC<NumberInputProps> = ({
 
       {/* Error message or helper text */}
       {error ? (
-        <p id={errorId} className="text-xs font-medium text-red-600 pt-0.5">
+        <p id={errorId} className="text-xs font-medium text-red-600 pt-0.5" role="alert">
           {error}
         </p>
       ) : helperText ? (
-        <p className="text-xs text-slate-600 pt-0.5">{helperText}</p>
+        <p className="text-xs text-slate-500 pt-0.5">{helperText}</p>
       ) : null}
     </div>
   );

@@ -38,17 +38,17 @@ export const HeaderNav: React.FC = () => {
   return (
     <>
       {/* Desktop Navigation */}
-      <nav className="hidden md:flex items-center gap-1 lg:gap-2" aria-label="Main Navigation">
+      <nav className="hidden md:flex items-center gap-1 lg:gap-1.5" aria-label="Main Navigation">
         {NAV_LINKS.map((link) => {
           const isActive = pathname === link.href || pathname.startsWith(`${link.href}/`);
           return (
             <Link
               key={link.href}
               href={link.href}
-              className={`px-3 py-1.5 text-xs lg:text-sm font-semibold rounded-lg transition-colors ${
+              className={`px-3 py-1.5 text-xs lg:text-sm font-medium rounded-lg transition-all ${
                 isActive
-                  ? "text-emerald-700 bg-emerald-50 font-bold"
-                  : "text-slate-700 hover:text-emerald-700 hover:bg-slate-100/70"
+                  ? "text-emerald-800 bg-emerald-50/90 border border-emerald-200/80 font-semibold shadow-xs"
+                  : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/80 border border-transparent"
               }`}
             >
               {link.label}
@@ -64,7 +64,7 @@ export const HeaderNav: React.FC = () => {
           onClick={() => setIsOpen(!isOpen)}
           aria-expanded={isOpen}
           aria-label="Toggle navigation menu"
-          className="p-2 rounded-xl text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500"
+          className="p-2 rounded-xl text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer"
         >
           {isOpen ? <X className="w-6 h-6 text-slate-900" /> : <Menu className="w-6 h-6 text-slate-900" />}
         </button>
@@ -72,7 +72,7 @@ export const HeaderNav: React.FC = () => {
 
       {/* Mobile Full-Screen Overlay & Drawer */}
       {isOpen && (
-        <div className="fixed inset-0 top-16 z-50 md:hidden bg-slate-900/60 backdrop-blur-xs transition-opacity animate-in fade-in">
+        <div className="fixed inset-0 top-16 z-50 md:hidden bg-slate-950/60 backdrop-blur-sm transition-opacity animate-in fade-in">
           <div className="w-full bg-white border-b border-slate-200 shadow-xl px-5 py-6 space-y-4 max-h-[calc(100vh-4rem)] overflow-y-auto">
             <div className="text-xs font-bold uppercase tracking-wider text-slate-400 px-2">
               Calculator Categories
@@ -88,8 +88,8 @@ export const HeaderNav: React.FC = () => {
                     onClick={() => setIsOpen(false)}
                     className={`flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-semibold transition-colors ${
                       isActive
-                        ? "bg-emerald-50 text-emerald-800 font-bold"
-                        : "text-slate-800 hover:bg-slate-100"
+                        ? "bg-emerald-50 text-emerald-800 font-bold border border-emerald-200/80"
+                        : "text-slate-800 hover:bg-slate-100 border border-transparent"
                     }`}
                   >
                     <IconComponent className={`w-5 h-5 ${isActive ? "text-emerald-600" : "text-slate-500"}`} />
@@ -105,7 +105,7 @@ export const HeaderNav: React.FC = () => {
                 onClick={() => setIsOpen(false)}
                 className="w-full text-center py-2.5 px-4 rounded-xl text-xs font-bold bg-emerald-600 text-white shadow-xs hover:bg-emerald-700 transition-colors"
               >
-                FIRE Early Retirement Calculator 🔥
+                FIRE Early Retirement Calculator
               </Link>
               <Link
                 href="/emi-calculator"

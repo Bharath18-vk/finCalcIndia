@@ -268,12 +268,12 @@ export default function HomePage() {
         <div className="pt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 max-w-6xl mx-auto">
           <Link
             href="/loans"
-            className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-sm hover:border-emerald-500 hover:shadow-md transition-all text-left group"
+            className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-xs hover:border-emerald-500/80 hover:shadow-sm transition-all text-left group active:scale-[0.98]"
           >
-            <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
+            <div className="w-10 h-10 rounded-xl bg-slate-100 text-slate-800 flex items-center justify-center mb-3 group-hover:bg-emerald-50 group-hover:text-emerald-700 transition-colors">
               <Calculator className="w-5 h-5" />
             </div>
-            <h2 className="text-base font-bold text-slate-900 group-hover:text-emerald-700">
+            <h2 className="text-base font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
               Loan Hub
             </h2>
             <p className="text-xs text-slate-500 mt-1">
@@ -283,12 +283,12 @@ export default function HomePage() {
 
           <Link
             href="/investments"
-            className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-sm hover:border-emerald-500 hover:shadow-md transition-all text-left group"
+            className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-xs hover:border-emerald-500/80 hover:shadow-sm transition-all text-left group active:scale-[0.98]"
           >
-            <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
+            <div className="w-10 h-10 rounded-xl bg-slate-100 text-slate-800 flex items-center justify-center mb-3 group-hover:bg-emerald-50 group-hover:text-emerald-700 transition-colors">
               <TrendingUp className="w-5 h-5" />
             </div>
-            <h2 className="text-base font-bold text-slate-900 group-hover:text-blue-700">
+            <h2 className="text-base font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
               Investment Hub
             </h2>
             <p className="text-xs text-slate-500 mt-1">
@@ -298,12 +298,12 @@ export default function HomePage() {
 
           <Link
             href="/savings"
-            className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-sm hover:border-emerald-500 hover:shadow-md transition-all text-left group"
+            className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-xs hover:border-emerald-500/80 hover:shadow-sm transition-all text-left group active:scale-[0.98]"
           >
-            <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
+            <div className="w-10 h-10 rounded-xl bg-slate-100 text-slate-800 flex items-center justify-center mb-3 group-hover:bg-emerald-50 group-hover:text-emerald-700 transition-colors">
               <PiggyBank className="w-5 h-5" />
             </div>
-            <h2 className="text-base font-bold text-slate-900 group-hover:text-amber-700">
+            <h2 className="text-base font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
               Savings Hub
             </h2>
             <p className="text-xs text-slate-500 mt-1">
@@ -313,12 +313,12 @@ export default function HomePage() {
 
           <Link
             href="/income-tax-calculator"
-            className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-sm hover:border-emerald-500 hover:shadow-md transition-all text-left group"
+            className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-xs hover:border-emerald-500/80 hover:shadow-sm transition-all text-left group active:scale-[0.98]"
           >
-            <div className="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
+            <div className="w-10 h-10 rounded-xl bg-slate-100 text-slate-800 flex items-center justify-center mb-3 group-hover:bg-emerald-50 group-hover:text-emerald-700 transition-colors">
               <ReceiptText className="w-5 h-5" />
             </div>
-            <h2 className="text-base font-bold text-slate-900 group-hover:text-purple-700">
+            <h2 className="text-base font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
               Tax & Salary
             </h2>
             <p className="text-xs text-slate-500 mt-1">
@@ -328,12 +328,12 @@ export default function HomePage() {
 
           <Link
             href="/math"
-            className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-sm hover:border-blue-500 hover:shadow-md transition-all text-left group"
+            className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-xs hover:border-emerald-500/80 hover:shadow-sm transition-all text-left group active:scale-[0.98]"
           >
-            <div className="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
+            <div className="w-10 h-10 rounded-xl bg-slate-100 text-slate-800 flex items-center justify-center mb-3 group-hover:bg-emerald-50 group-hover:text-emerald-700 transition-colors">
               <Binary className="w-5 h-5" />
             </div>
-            <h2 className="text-base font-bold text-slate-900 group-hover:text-indigo-700">
+            <h2 className="text-base font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
               Math & Stats Hub
             </h2>
             <p className="text-xs text-slate-500 mt-1">
@@ -503,31 +503,42 @@ export default function HomePage() {
       </section>
 
       {/* Value Pillars Section */}
-      <section className="bg-slate-900 text-white py-12">
+      <section className="relative overflow-hidden bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 text-white py-16 border-t border-slate-800/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center sm:text-left">
-            <div className="space-y-2">
-              <h3 className="text-base font-bold text-emerald-400">
-                100% Client-Side Speed
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 text-left">
+            <div className="space-y-3 p-6 rounded-2xl bg-slate-800/40 border border-slate-800/80">
+              <span className="text-xs font-mono font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded">
+                01 / SPEED
+              </span>
+              <h3 className="text-base font-bold text-white tracking-tight">
+                100% Client-Side Computation
               </h3>
               <p className="text-xs text-slate-300 leading-relaxed">
                 Calculations execute instantaneously in your browser. No server round-trips, no loading spinners, and zero tracking of your personal numbers.
               </p>
             </div>
-            <div className="space-y-2">
-              <h3 className="text-base font-bold text-emerald-400">
+
+            <div className="space-y-3 p-6 rounded-2xl bg-slate-800/40 border border-slate-800/80">
+              <span className="text-xs font-mono font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded">
+                02 / LOCALIZED
+              </span>
+              <h3 className="text-base font-bold text-white tracking-tight">
                 Indian Currency Grouping
               </h3>
               <p className="text-xs text-slate-300 leading-relaxed">
-                Formatted natively in Lakhs and Crores (e.g. {formatINR(10000000)}), matching how you think and budget in India.
+                Formatted natively in Lakhs and Crores (e.g. {formatINR(10000000)}), matching how you think, earn, and budget in the Indian financial system.
               </p>
             </div>
-            <div className="space-y-2">
-              <h3 className="text-base font-bold text-emerald-400">
-                Verified Standards & Rules
+
+            <div className="space-y-3 p-6 rounded-2xl bg-slate-800/40 border border-slate-800/80">
+              <span className="text-xs font-mono font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded">
+                03 / STANDARDS
+              </span>
+              <h3 className="text-base font-bold text-white tracking-tight">
+                Verified Statutory Rules
               </h3>
               <p className="text-xs text-slate-300 leading-relaxed">
-                Formulas conform strictly to RBI guidelines, quarterly FD compounding rules, ICMR Asian-Indian health metrics, and statutory Post Office saving rates.
+                Formulas conform strictly to RBI guidelines, quarterly commercial bank compounding rules, ICMR health cutoffs, and official CBDT tax schedules.
               </p>
             </div>
           </div>

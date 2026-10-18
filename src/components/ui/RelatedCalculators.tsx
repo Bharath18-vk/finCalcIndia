@@ -29,10 +29,10 @@ export const RelatedCalculators: React.FC<RelatedCalculatorsProps> = ({
   if (!displayLinks || displayLinks.length === 0) return null;
 
   return (
-    <section className="w-full bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-sm space-y-4">
-      <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold text-slate-900 tracking-tight">{title}</h2>
-        <span className="text-xs font-semibold text-slate-400">Explore Alternatives</span>
+    <section className="w-full bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/90 shadow-xs space-y-4">
+      <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+        <h2 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">{title}</h2>
+        <span className="text-xs font-semibold text-slate-400">Explore Scenarios</span>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3.5 pt-1">

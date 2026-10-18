@@ -13,10 +13,10 @@ export const Disclaimer: React.FC<DisclaimerProps> = ({
   return (
     <aside
       aria-label="Financial Disclaimer"
-      className="w-full bg-slate-50 rounded-xl p-4 sm:p-5 border border-slate-200/80 text-xs text-slate-600 space-y-1.5"
+      className="w-full bg-slate-50/80 rounded-2xl p-5 sm:p-6 border border-slate-200/90 text-xs text-slate-600 space-y-2 shadow-xs"
     >
-      <div className="flex items-center gap-1.5 font-bold text-slate-800">
-        <AlertCircle className="w-4 h-4 text-slate-500 shrink-0" />
+      <div className="flex items-center gap-2 font-bold text-slate-800">
+        <AlertCircle className="w-4 h-4 text-emerald-600 shrink-0" />
         <span>Important Disclaimer & Assumptions</span>
       </div>
 

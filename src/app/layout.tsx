@@ -168,8 +168,8 @@ export default function RootLayout({
         <main className="flex-1">{children}</main>
 
         {/* Global Footer */}
-        <footer className="bg-slate-900 text-slate-300 border-t border-slate-800 mt-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
+        <footer className="bg-slate-950 text-slate-300 border-t border-slate-800/90 mt-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 space-y-10">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
               <div className="space-y-3 sm:col-span-2 md:col-span-3 lg:col-span-1">
                 <div className="flex items-center gap-2.5 font-bold text-white text-base">

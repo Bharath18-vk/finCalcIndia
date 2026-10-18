@@ -96,7 +96,7 @@ export const AmortizationTable: React.FC<AmortizationTableProps> = ({
         <table className="w-full text-left text-xs sm:text-sm border-collapse">
           <caption className="sr-only">{title} Table</caption>
           <thead>
-            <tr className="bg-slate-50 text-slate-700 font-semibold border-b border-slate-200">
+            <tr className="bg-slate-50/90 text-slate-600 text-[11px] sm:text-xs font-semibold uppercase tracking-wider border-b border-slate-200/80">
               <th scope="col" className="py-3 px-3 sm:px-4">
                 {viewMode === "yearly" ? "Year" : "Month"}
               </th>
@@ -117,10 +117,10 @@ export const AmortizationTable: React.FC<AmortizationTableProps> = ({
               </th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100 font-medium text-slate-800">
+          <tbody className="divide-y divide-slate-100 font-medium text-slate-800 tabular-nums">
             {viewMode === "yearly"
               ? displayedYearly.map((row) => (
-                  <tr key={row.period} className="hover:bg-slate-50/70 transition-colors">
+                  <tr key={row.period} className="hover:bg-slate-50/80 transition-colors">
                     <th scope="row" className="py-3 px-3 sm:px-4 font-bold text-slate-900">
                       Year {row.period}
                     </th>
@@ -130,7 +130,7 @@ export const AmortizationTable: React.FC<AmortizationTableProps> = ({
                     <td className="py-3 px-3 sm:px-4 text-right text-emerald-700 font-semibold">
                       {formatINR(row.principalPaid)}
                     </td>
-                    <td className="py-3 px-3 sm:px-4 text-right text-amber-700 font-semibold">
+                    <td className="py-3 px-3 sm:px-4 text-right text-slate-700 font-medium">
                       {formatINR(row.interestPaid)}
                     </td>
                     <td className="py-3 px-3 sm:px-4 text-right font-bold text-slate-900">
@@ -142,7 +142,7 @@ export const AmortizationTable: React.FC<AmortizationTableProps> = ({
                   </tr>
                 ))
               : (monthlySchedule || []).slice(0, 36).map((row) => (
-                  <tr key={row.period} className="hover:bg-slate-50/70 transition-colors">
+                  <tr key={row.period} className="hover:bg-slate-50/80 transition-colors">
                     <th scope="row" className="py-3 px-3 sm:px-4 font-bold text-slate-900">
                       Month {row.period}
                     </th>
@@ -152,7 +152,7 @@ export const AmortizationTable: React.FC<AmortizationTableProps> = ({
                     <td className="py-3 px-3 sm:px-4 text-right text-emerald-700 font-semibold">
                       {formatINR(row.principalPaid)}
                     </td>
-                    <td className="py-3 px-3 sm:px-4 text-right text-amber-700 font-semibold">
+                    <td className="py-3 px-3 sm:px-4 text-right text-slate-700 font-medium">
                       {formatINR(row.interestPaid)}
                     </td>
                     <td className="py-3 px-3 sm:px-4 text-right font-bold text-slate-900">

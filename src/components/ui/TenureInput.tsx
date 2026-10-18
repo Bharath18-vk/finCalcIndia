@@ -84,19 +84,19 @@ export const TenureInput: React.FC<TenureInputProps> = ({
       <div className="flex items-center justify-between gap-2">
         <label
           htmlFor={inputId}
-          className="text-sm font-semibold text-slate-800 tracking-tight"
+          className="text-xs sm:text-sm font-semibold text-slate-800 tracking-tight"
         >
           {label}
         </label>
         {allowMonths && (
-          <div className="flex items-center p-0.5 bg-slate-100 rounded-md border border-slate-200">
+          <div className="flex items-center p-0.5 bg-slate-100 rounded-lg border border-slate-200/80">
             <button
               type="button"
               onClick={() => setViewMode("years")}
-              className={`px-2 py-0.5 text-xs font-semibold rounded transition-colors ${
+              className={`px-2.5 py-0.5 text-xs font-semibold rounded-md transition-all cursor-pointer ${
                 viewMode === "years"
-                  ? "bg-white text-slate-900 shadow-sm"
-                  : "text-slate-600 hover:text-slate-900"
+                  ? "bg-white text-slate-900 shadow-xs"
+                  : "text-slate-500 hover:text-slate-900"
               }`}
             >
               Years
@@ -104,10 +104,10 @@ export const TenureInput: React.FC<TenureInputProps> = ({
             <button
               type="button"
               onClick={() => setViewMode("months")}
-              className={`px-2 py-0.5 text-xs font-semibold rounded transition-colors ${
+              className={`px-2.5 py-0.5 text-xs font-semibold rounded-md transition-all cursor-pointer ${
                 viewMode === "months"
-                  ? "bg-white text-slate-900 shadow-sm"
-                  : "text-slate-600 hover:text-slate-900"
+                  ? "bg-white text-slate-900 shadow-xs"
+                  : "text-slate-500 hover:text-slate-900"
               }`}
             >
               Months
@@ -118,7 +118,7 @@ export const TenureInput: React.FC<TenureInputProps> = ({
 
       {viewMode === "years" ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-          <div className="relative rounded-lg shadow-sm">
+          <div className="relative rounded-xl shadow-xs">
             <input
               id={inputId}
               type="text"
@@ -126,15 +126,15 @@ export const TenureInput: React.FC<TenureInputProps> = ({
               value={years > 0 ? years : ""}
               onChange={handleYearsTextChange}
               placeholder="0"
-              className="block w-full min-h-[44px] rounded-lg border border-slate-300 pl-4 pr-16 text-base sm:text-lg font-bold text-slate-900 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500 focus:outline-none bg-white"
+              className="block w-full min-h-[44px] rounded-xl border border-slate-200/90 pl-4 pr-16 text-base sm:text-lg font-bold text-slate-900 tabular-nums hover:border-slate-300 focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/10 focus:outline-none bg-white transition-all"
             />
-            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-xs font-bold text-slate-500 uppercase select-none">
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-xs font-bold text-slate-400 uppercase select-none">
               Years
             </div>
           </div>
 
           {allowMonths && onMonthsChange && (
-            <div className="relative rounded-lg shadow-sm">
+            <div className="relative rounded-xl shadow-xs">
               <input
                 id={`${inputId}-extra-months`}
                 type="text"
@@ -143,16 +143,16 @@ export const TenureInput: React.FC<TenureInputProps> = ({
                 onChange={handleMonthsTextChange}
                 placeholder="0"
                 aria-label="Additional months"
-                className="block w-full min-h-[44px] rounded-lg border border-slate-300 pl-4 pr-16 text-base sm:text-lg font-bold text-slate-900 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500 focus:outline-none bg-white"
+                className="block w-full min-h-[44px] rounded-xl border border-slate-200/90 pl-4 pr-16 text-base sm:text-lg font-bold text-slate-900 tabular-nums hover:border-slate-300 focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/10 focus:outline-none bg-white transition-all"
               />
-              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-xs font-bold text-slate-500 uppercase select-none">
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-xs font-bold text-slate-400 uppercase select-none">
                 Months
               </div>
             </div>
           )}
         </div>
       ) : (
-        <div className="relative rounded-lg shadow-sm">
+        <div className="relative rounded-xl shadow-xs">
           <input
             id={inputId}
             type="text"
@@ -160,9 +160,9 @@ export const TenureInput: React.FC<TenureInputProps> = ({
             value={totalMonths > 0 ? totalMonths : ""}
             onChange={handleTotalMonthsTextChange}
             placeholder="0"
-            className="block w-full min-h-[44px] rounded-lg border border-slate-300 pl-4 pr-20 text-base sm:text-lg font-bold text-slate-900 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500 focus:outline-none bg-white"
+            className="block w-full min-h-[44px] rounded-xl border border-slate-200/90 pl-4 pr-20 text-base sm:text-lg font-bold text-slate-900 tabular-nums hover:border-slate-300 focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/10 focus:outline-none bg-white transition-all"
           />
-          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-xs font-bold text-slate-500 uppercase select-none">
+          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-xs font-bold text-slate-400 uppercase select-none">
             Months
           </div>
         </div>
@@ -183,9 +183,9 @@ export const TenureInput: React.FC<TenureInputProps> = ({
             viewMode === "years" ? minYears : minYears * 12,
             viewMode === "years" ? maxYears : maxYears * 12
           )}
-          className="w-full h-2.5 rounded-lg appearance-none cursor-pointer focus:outline-none"
+          className="w-full h-2 rounded-lg appearance-none cursor-pointer focus:outline-none"
         />
-        <div className="flex justify-between text-[11px] font-medium text-slate-500 pt-1 select-none">
+        <div className="flex justify-between text-[11px] font-medium text-slate-400 pt-1 select-none tabular-nums">
           <span>{viewMode === "years" ? `${minYears} Y` : `${minYears * 12} M`}</span>
           <span>{viewMode === "years" ? `${maxYears} Y` : `${maxYears * 12} M`}</span>
         </div>
@@ -202,10 +202,10 @@ export const TenureInput: React.FC<TenureInputProps> = ({
                 handleYears(p.years);
                 onMonthsChange?.(0);
               }}
-              className={`min-h-[32px] px-2.5 py-1 text-xs font-medium rounded-md border transition-all ${
+              className={`min-h-[30px] px-2.5 py-1 text-xs font-medium rounded-lg border transition-all cursor-pointer active:scale-95 ${
                 years === p.years && months === 0
-                  ? "bg-emerald-600 text-white border-emerald-600 shadow-sm"
-                  : "bg-white text-slate-700 border-slate-200 hover:bg-slate-50 hover:border-slate-300"
+                  ? "bg-emerald-600 text-white border-emerald-600 font-semibold shadow-xs"
+                  : "bg-slate-50/80 text-slate-700 border-slate-200/90 hover:bg-slate-100 hover:border-slate-300"
               }`}
             >
               {p.label}
