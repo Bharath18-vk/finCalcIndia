@@ -3,6 +3,8 @@ import { Metadata } from "next";
 import { SWPCalculatorView } from "@/components/calculators/SWPCalculatorView";
 import { BENCHMARK_RATES } from "@/data/rates/benchmarks";
 import { FAQItem } from "@/components/ui/FAQSection";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { generateSoftwareSchema } from "@/lib/seo/schema";
 
 export const metadata: Metadata = {
   title: "SWP Calculator - Systematic Withdrawal Plan Calculator for Monthly Income",
@@ -74,23 +76,41 @@ export default function SWPCalculatorPage() {
     },
   ];
 
+  const jsonLd = generateSoftwareSchema({
+    name: "SWP Calculator - Systematic Withdrawal Plan Calculator for Monthly Income",
+    description:
+      "Calculate monthly cash payouts, remaining mutual fund corpus, capital depletion timelines, and wealth growth from your Systematic Withdrawal Plan (SWP).",
+    url: "/swp-calculator",
+    applicationCategory: "FinanceApplication",
+    featureList: [
+      "Regular monthly withdrawal and remaining corpus simulation",
+      "Capital depletion timeline alerts with exact exhaustion months",
+      "Total payout vs final remaining balance analysis",
+      "Interactive tenure and rate adjustment controls",
+      "Shareable URL calculation links",
+    ],
+  });
+
   return (
-    <SWPCalculatorView
-      title="SWP Calculator"
-      badge="Regular Cash Flow"
-      description="Calculate regular monthly pension income, capital longevity, and terminal portfolio value from your invested mutual fund corpus under custom return assumptions."
-      initialInvestment={5000000}
-      initialMonthlyWithdrawal={35000}
-      initialAnnualReturn={benchmark.defaultRate}
-      initialTenureYears={15}
-      benchmarkNote={`Conservative Hybrid Benchmark: ${benchmark.defaultRate}%`}
-      asOfDate={benchmark.verifiedAt}
-      breadcrumbs={[
-        { label: "Investment Calculators", href: "/investments" },
-        { label: "SWP Calculator", href: "/swp-calculator" },
-      ]}
-      faqs={faqs}
-      relatedLinks={relatedLinks}
-    />
+    <>
+      <JsonLd data={jsonLd} />
+      <SWPCalculatorView
+        title="SWP Calculator"
+        badge="Regular Cash Flow"
+        description="Calculate regular monthly pension income, capital longevity, and terminal portfolio value from your invested mutual fund corpus under custom return assumptions."
+        initialInvestment={5000000}
+        initialMonthlyWithdrawal={35000}
+        initialAnnualReturn={benchmark.defaultRate}
+        initialTenureYears={15}
+        benchmarkNote={`Conservative Hybrid Benchmark: ${benchmark.defaultRate}%`}
+        asOfDate={benchmark.verifiedAt}
+        breadcrumbs={[
+          { label: "Investment Calculators", href: "/investments" },
+          { label: "SWP Calculator", href: "/swp-calculator" },
+        ]}
+        faqs={faqs}
+        relatedLinks={relatedLinks}
+      />
+    </>
   );
 }

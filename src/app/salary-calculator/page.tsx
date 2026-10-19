@@ -2,6 +2,8 @@ import React from "react";
 import { Metadata } from "next";
 import { SalaryCalculatorView } from "@/components/calculators/SalaryCalculatorView";
 import { FAQItem } from "@/components/ui/FAQSection";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { generateSoftwareSchema } from "@/lib/seo/schema";
 
 export const metadata: Metadata = {
   title: "Salary Calculator - CTC to In-Hand / Take-Home Salary Calculator India",
@@ -64,18 +66,36 @@ export default function SalaryCalculatorPage() {
     },
   ];
 
+  const jsonLd = generateSoftwareSchema({
+    name: "Salary Calculator - CTC to In-Hand / Take-Home Salary Calculator India",
+    description:
+      "Calculate your monthly in-hand take-home salary from your annual CTC. Complete breakdown of Basic salary, HRA, Employee PF, Professional Tax, and Income Tax (TDS).",
+    url: "/salary-calculator",
+    applicationCategory: "FinanceApplication",
+    featureList: [
+      "Annual CTC to monthly net bank credit breakdown",
+      "Automatic Basic salary (40-50%) and HRA component estimation",
+      "Statutory Employee PF (12%) deduction calculation",
+      "State-wise Professional Tax (PT) slab modeling",
+      "Monthly TDS estimation under New vs Old tax regimes",
+    ],
+  });
+
   return (
-    <SalaryCalculatorView
-      title="Salary Calculator: CTC to In-Hand / Take-Home Pay India"
-      description="Estimate your net monthly bank credit from your annual Cost to Company (CTC). Detailed itemized analysis of Basic salary, HRA, Employee PF (12%), Professional Tax, and monthly TDS withholdings."
-      initialAnnualCTC={1200000}
-      asOfDate="FY 2024-25 & FY 2025-26"
-      breadcrumbs={[
-        { label: "Investments", href: "/investments" },
-        { label: "Salary Calculator", href: "/salary-calculator" },
-      ]}
-      faqs={faqs}
-      relatedLinks={relatedLinks}
-    />
+    <>
+      <JsonLd data={jsonLd} />
+      <SalaryCalculatorView
+        title="Salary Calculator: CTC to In-Hand / Take-Home Pay India"
+        description="Estimate your net monthly bank credit from your annual Cost to Company (CTC). Detailed itemized analysis of Basic salary, HRA, Employee PF (12%), Professional Tax, and monthly TDS withholdings."
+        initialAnnualCTC={1200000}
+        asOfDate="FY 2024-25 & FY 2025-26"
+        breadcrumbs={[
+          { label: "Investments", href: "/investments" },
+          { label: "Salary Calculator", href: "/salary-calculator" },
+        ]}
+        faqs={faqs}
+        relatedLinks={relatedLinks}
+      />
+    </>
   );
 }

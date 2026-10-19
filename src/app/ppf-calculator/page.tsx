@@ -3,6 +3,8 @@ import { Metadata } from "next";
 import { PPFCalculatorView } from "@/components/calculators/PPFCalculatorView";
 import { BENCHMARK_RATES } from "@/data/rates/benchmarks";
 import { FAQItem } from "@/components/ui/FAQSection";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { generateSoftwareSchema } from "@/lib/seo/schema";
 
 export const metadata: Metadata = {
   title: "PPF Calculator - Public Provident Fund Maturity & Interest Calculator",
@@ -74,23 +76,41 @@ export default function PPFCalculatorPage() {
     },
   ];
 
+  const jsonLd = generateSoftwareSchema({
+    name: "PPF Calculator - Public Provident Fund Maturity & Interest Calculator",
+    description:
+      "Calculate your 15-year Public Provident Fund (PPF) maturity corpus, tax-free interest, and loan/withdrawal limits at the official Ministry of Finance notified rate of 7.10%.",
+    url: "/ppf-calculator",
+    applicationCategory: "FinanceApplication",
+    featureList: [
+      "Official 7.10% Ministry of Finance interest rate schedule",
+      "EEE (Exempt-Exempt-Exempt) tax calculation breakdown",
+      "15 to 30 year 5-year block extension simulation",
+      "Statutory loan and partial withdrawal limit tracking",
+      "Shareable URL calculation links",
+    ],
+  });
+
   return (
-    <PPFCalculatorView
-      title="Public Provident Fund (PPF) Calculator"
-      badge="Small Savings Scheme"
-      description="Calculate your 15-year tax-free maturity corpus, annual interest accrual, statutory loan eligibility, and partial withdrawal limits at the current 7.10% government rate."
-      initialDeposit={150000}
-      initialFrequency="annual"
-      initialRate={benchmark.defaultRate}
-      initialTenureYears={15}
-      benchmarkNote={`Govt PPF Benchmark: ${benchmark.defaultRate}%`}
-      asOfDate={benchmark.verifiedAt}
-      breadcrumbs={[
-        { label: "Savings Calculators", href: "/savings" },
-        { label: "PPF Calculator", href: "/ppf-calculator" },
-      ]}
-      faqs={faqs}
-      relatedLinks={relatedLinks}
-    />
+    <>
+      <JsonLd data={jsonLd} />
+      <PPFCalculatorView
+        title="Public Provident Fund (PPF) Calculator"
+        badge="Small Savings Scheme"
+        description="Calculate your 15-year tax-free maturity corpus, annual interest accrual, statutory loan eligibility, and partial withdrawal limits at the current 7.10% government rate."
+        initialDeposit={150000}
+        initialFrequency="annual"
+        initialRate={benchmark.defaultRate}
+        initialTenureYears={15}
+        benchmarkNote={`Govt PPF Benchmark: ${benchmark.defaultRate}%`}
+        asOfDate={benchmark.verifiedAt}
+        breadcrumbs={[
+          { label: "Savings Calculators", href: "/savings" },
+          { label: "PPF Calculator", href: "/ppf-calculator" },
+        ]}
+        faqs={faqs}
+        relatedLinks={relatedLinks}
+      />
+    </>
   );
 }

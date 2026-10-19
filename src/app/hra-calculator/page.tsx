@@ -2,6 +2,8 @@ import React from "react";
 import { Metadata } from "next";
 import { HRACalculatorView } from "@/components/calculators/HRACalculatorView";
 import { FAQItem } from "@/components/ui/FAQSection";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { generateSoftwareSchema } from "@/lib/seo/schema";
 
 export const metadata: Metadata = {
   title: "HRA Calculator - House Rent Allowance Tax Exemption Calculator Rule 2A",
@@ -64,20 +66,38 @@ export default function HRACalculatorPage() {
     },
   ];
 
+  const jsonLd = generateSoftwareSchema({
+    name: "HRA Calculator - House Rent Allowance Tax Exemption Calculator Rule 2A",
+    description:
+      "Calculate your tax-exempt House Rent Allowance (HRA) under Section 10(13A) and Rule 2A of the Income Tax Act. Compare 50% metro vs 40% non-metro limits and annual tax savings.",
+    url: "/hra-calculator",
+    applicationCategory: "FinanceApplication",
+    featureList: [
+      "Rule 2A three-condition statutory minimum exemption computation",
+      "50% Metro (Delhi, Mumbai, Kolkata, Chennai) vs 40% Non-Metro calculation",
+      "Rent paid minus 10% Basic Salary threshold calculation",
+      "Form 12BB landlord PAN requirement indicator for rent > ₹1 Lakh/year",
+      "New Regime vs Old Regime HRA tax saving impact",
+    ],
+  });
+
   return (
-    <HRACalculatorView
-      title="HRA Calculator: House Rent Allowance Tax Exemption (Rule 2A)"
-      description="Compute your tax-free House Rent Allowance under Section 10(13A) of the Income Tax Act. Evaluates actual HRA, 50%/40% basic salary caps, and rent paid minus 10% of salary."
-      initialBasicSalary={600000}
-      initialHRAReceived={240000}
-      initialRentPaid={180000}
-      asOfDate="Rule 2A (Section 10(13A))"
-      breadcrumbs={[
-        { label: "Savings", href: "/savings" },
-        { label: "HRA Calculator", href: "/hra-calculator" },
-      ]}
-      faqs={faqs}
-      relatedLinks={relatedLinks}
-    />
+    <>
+      <JsonLd data={jsonLd} />
+      <HRACalculatorView
+        title="HRA Calculator: House Rent Allowance Tax Exemption (Rule 2A)"
+        description="Compute your tax-free House Rent Allowance under Section 10(13A) of the Income Tax Act. Evaluates actual HRA, 50%/40% basic salary caps, and rent paid minus 10% of salary."
+        initialBasicSalary={600000}
+        initialHRAReceived={240000}
+        initialRentPaid={180000}
+        asOfDate="Rule 2A (Section 10(13A))"
+        breadcrumbs={[
+          { label: "Savings", href: "/savings" },
+          { label: "HRA Calculator", href: "/hra-calculator" },
+        ]}
+        faqs={faqs}
+        relatedLinks={relatedLinks}
+      />
+    </>
   );
 }

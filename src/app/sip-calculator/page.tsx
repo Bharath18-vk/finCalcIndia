@@ -2,6 +2,8 @@ import React from "react";
 import type { Metadata } from "next";
 import { SIPCalculatorView } from "@/components/calculators/SIPCalculatorView";
 import { BENCHMARK_RATES } from "@/data/rates/benchmarks";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { generateSoftwareSchema } from "@/lib/seo/schema";
 
 export const metadata: Metadata = {
   title: "SIP Calculator - Mutual Fund Systematic Investment Plan Wealth Calculator",
@@ -69,22 +71,41 @@ export default function SIPCalculatorPage() {
     },
   ];
 
+  const jsonLd = generateSoftwareSchema({
+    name: "SIP Calculator - Mutual Fund Systematic Investment Plan Wealth Calculator",
+    description:
+      "Calculate mutual fund SIP returns with accurate monthly compounding and annuity-due conventions. See wealth gained, maturity value, and year-by-year growth in Indian Rupees.",
+    url: "/sip-calculator",
+    applicationCategory: "FinanceApplication",
+    featureList: [
+      "Monthly compounding with Annuity-Due convention",
+      "Interactive slider and direct rupee input adjustments",
+      "Year-by-year invested capital vs wealth gained schedule",
+      "Sensitivity analysis across ±2% return variations",
+      "Shareable URL calculation links",
+      "Print and PDF export support",
+    ],
+  });
+
   return (
-    <SIPCalculatorView
-      title="SIP Calculator"
-      badge="Mutual Funds"
-      description="Forecast your wealth accumulation through systematic mutual fund investments. Uses monthly compounding and transparent annuity-due conventions formatted natively in Lakhs and Crores."
-      initialMonthlyInvestment={5000}
-      initialAnnualRate={benchmark.defaultRate}
-      initialTenureYears={10}
-      benchmarkNote="12% Illustrative Annual Return Assumption"
-      asOfDate={benchmark.verifiedAt}
-      breadcrumbs={[
-        { label: "Investments", href: "/investments" },
-        { label: "SIP Calculator", href: "/sip-calculator" },
-      ]}
-      faqs={faqs}
-      relatedLinks={relatedLinks}
-    />
+    <>
+      <JsonLd data={jsonLd} />
+      <SIPCalculatorView
+        title="SIP Calculator"
+        badge="Mutual Funds"
+        description="Forecast your wealth accumulation through systematic mutual fund investments. Uses monthly compounding and transparent annuity-due conventions formatted natively in Lakhs and Crores."
+        initialMonthlyInvestment={5000}
+        initialAnnualRate={benchmark.defaultRate}
+        initialTenureYears={10}
+        benchmarkNote="12% Illustrative Annual Return Assumption"
+        asOfDate={benchmark.verifiedAt}
+        breadcrumbs={[
+          { label: "Investments", href: "/investments" },
+          { label: "SIP Calculator", href: "/sip-calculator" },
+        ]}
+        faqs={faqs}
+        relatedLinks={relatedLinks}
+      />
+    </>
   );
 }

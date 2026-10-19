@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { getLongtailPage, getLiveLongtailPages } from "@/data/longtail-pages";
 import { computeLongtailContent } from "@/lib/longtail-content";
 import { SIPCalculatorView } from "@/components/calculators/SIPCalculatorView";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { generateSoftwareSchema } from "@/lib/seo/schema";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -67,23 +69,40 @@ export default async function SIPLongtailPage({ params }: Props) {
     };
   });
 
+  const jsonLd = generateSoftwareSchema({
+    name: page.title || `${page.h1} - FinCalc India`,
+    description: page.metaDescription,
+    url: `${page.baseRoute}/${page.slug}`,
+    applicationCategory: "FinanceApplication",
+    featureList: [
+      `Pre-configured scenario for ${page.h1}`,
+      "Monthly compounding mutual fund returns engine",
+      "Interactive tenure, contribution, and rate sliders",
+      "Annual growth progression and maturity corpus breakdown",
+      "Instant shareable calculation URL link",
+    ],
+  });
+
   return (
-    <SIPCalculatorView
-      title={page.h1}
-      badge="SIP Scenario"
-      description={`${page.metaDescription} ${computed.disclosedRateNote}`}
-      initialMonthlyInvestment={page.params.amount}
-      initialAnnualRate={rate}
-      initialTenureYears={page.params.tenureYears}
-      benchmarkNote={`Historical Benchmark: ${rate}%`}
-      breadcrumbs={[
-        { label: "Investments", href: "/investments" },
-        { label: "SIP Calculator", href: "/sip-calculator" },
-        { label: page.h1, href: `${page.baseRoute}/${page.slug}` },
-      ]}
-      faqs={computed.faqs}
-      relatedLinks={relatedLinks}
-      customExplainerText={computed.analysisParagraphs.join("\n\n")}
-    />
+    <>
+      <JsonLd data={jsonLd} />
+      <SIPCalculatorView
+        title={page.h1}
+        badge="SIP Scenario"
+        description={`${page.metaDescription} ${computed.disclosedRateNote}`}
+        initialMonthlyInvestment={page.params.amount}
+        initialAnnualRate={rate}
+        initialTenureYears={page.params.tenureYears}
+        benchmarkNote={`Historical Benchmark: ${rate}%`}
+        breadcrumbs={[
+          { label: "Investments", href: "/investments" },
+          { label: "SIP Calculator", href: "/sip-calculator" },
+          { label: page.h1, href: `${page.baseRoute}/${page.slug}` },
+        ]}
+        faqs={computed.faqs}
+        relatedLinks={relatedLinks}
+        customExplainerText={computed.analysisParagraphs.join("\n\n")}
+      />
+    </>
   );
 }

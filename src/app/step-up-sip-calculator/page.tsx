@@ -2,6 +2,8 @@ import React from "react";
 import type { Metadata } from "next";
 import { StepUpSIPCalculatorView } from "@/components/calculators/StepUpSIPCalculatorView";
 import { BENCHMARK_RATES } from "@/data/rates/benchmarks";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { generateSoftwareSchema } from "@/lib/seo/schema";
 
 export const metadata: Metadata = {
   title: "Step-Up SIP Calculator - Top-Up Mutual Fund Investment Calculator",
@@ -68,21 +70,39 @@ export default function StepUpSIPCalculatorPage() {
     },
   ];
 
+  const jsonLd = generateSoftwareSchema({
+    name: "Step-Up SIP Calculator - Top-Up Mutual Fund Investment Calculator",
+    description:
+      "Calculate the power of increasing your mutual fund SIP annually. See side-by-side comparisons against a flat SIP, growth multipliers, and yearly investment progression.",
+    url: "/step-up-sip-calculator",
+    applicationCategory: "FinanceApplication",
+    featureList: [
+      "Annual percentage and fixed rupee step-up simulation",
+      "Side-by-side comparison against flat SIP",
+      "Cumulative invested amount vs exponential returns breakdown",
+      "Interactive tenure and rate scenario modeling",
+      "Shareable URL calculation links",
+    ],
+  });
+
   return (
-    <StepUpSIPCalculatorView
-      title="Step-Up SIP Calculator"
-      badge="Top-Up Strategy"
-      description="Calculate the exponential wealth compounding created by increasing your monthly mutual fund SIP contributions annually alongside your salary growth."
-      initialMonthlyInvestment={5000}
-      initialAnnualRate={benchmark.defaultRate}
-      initialTenureYears={15}
-      initialStepUpPercentage={10}
-      breadcrumbs={[
-        { label: "Investments", href: "/investments" },
-        { label: "Step-Up SIP Calculator", href: "/step-up-sip-calculator" },
-      ]}
-      faqs={faqs}
-      relatedLinks={relatedLinks}
-    />
+    <>
+      <JsonLd data={jsonLd} />
+      <StepUpSIPCalculatorView
+        title="Step-Up SIP Calculator"
+        badge="Top-Up Strategy"
+        description="Calculate the exponential wealth compounding created by increasing your monthly mutual fund SIP contributions annually alongside your salary growth."
+        initialMonthlyInvestment={5000}
+        initialAnnualRate={benchmark.defaultRate}
+        initialTenureYears={15}
+        initialStepUpPercentage={10}
+        breadcrumbs={[
+          { label: "Investments", href: "/investments" },
+          { label: "Step-Up SIP Calculator", href: "/step-up-sip-calculator" },
+        ]}
+        faqs={faqs}
+        relatedLinks={relatedLinks}
+      />
+    </>
   );
 }

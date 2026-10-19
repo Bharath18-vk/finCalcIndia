@@ -2,6 +2,8 @@ import React from "react";
 import { Metadata } from "next";
 import { IncomeTaxCalculatorView } from "@/components/calculators/IncomeTaxCalculatorView";
 import { FAQItem } from "@/components/ui/FAQSection";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { generateSoftwareSchema } from "@/lib/seo/schema";
 
 export const metadata: Metadata = {
   title: "Income Tax Calculator AY 2026-27 & 2025-26 - New vs Old Regime Calculator",
@@ -64,20 +66,39 @@ export default function IncomeTaxCalculatorPage() {
     },
   ];
 
+  const jsonLd = generateSoftwareSchema({
+    name: "Income Tax Calculator AY 2026-27 & 2025-26 - New vs Old Regime Calculator",
+    description:
+      "Calculate income tax for AY 2026-27 (FY 2025-26) with statutory new regime slabs (₹0-4L 0%, ₹4-8L 5%, ₹8-12L 10%, etc.), ₹75,000 standard deduction, and Section 87A rebate up to ₹60,000 (zero tax up to ₹12.75L salaried).",
+    url: "/income-tax-calculator",
+    applicationCategory: "FinanceApplication",
+    featureList: [
+      "AY 2026-27 statutory tax slabs under Section 115BAC (Finance Act 2025)",
+      "New Regime vs Old Regime automatic tax liability comparison",
+      "₹75,000 standard deduction for salaried individuals",
+      "Section 87A rebate calculation up to ₹60,000 (zero tax up to ₹12.75 Lakhs)",
+      "Statutory marginal relief calculation for income near ₹12 Lakhs",
+      "Chapter VI-A deduction modeling (80C, 80D, 80CCD(1B), 24(b))",
+    ],
+  });
+
   return (
-    <IncomeTaxCalculatorView
-      title="Income Tax Calculator AY 2026-27 & AY 2025-26 (New vs Old Regime)"
-      badge="AY 2026-27 Slabs (Finance Act 2025)"
-      description="Compare your tax liability under current AY 2026-27 statutory slabs (₹0-4L 0%, ₹4-8L 5%, etc.) vs the Old Tax Regime. Includes ₹75,000 standard deduction, Section 87A rebate up to ₹60,000, and marginal relief."
-      initialGrossIncome={1200000}
-      initialIsSalaried={true}
-      asOfDate="AY 2026-27 (Finance Act 2025)"
-      breadcrumbs={[
-        { label: "Investments", href: "/investments" },
-        { label: "Income Tax Calculator", href: "/income-tax-calculator" },
-      ]}
-      faqs={faqs}
-      relatedLinks={relatedLinks}
-    />
+    <>
+      <JsonLd data={jsonLd} />
+      <IncomeTaxCalculatorView
+        title="Income Tax Calculator AY 2026-27 & AY 2025-26 (New vs Old Regime)"
+        badge="AY 2026-27 Slabs (Finance Act 2025)"
+        description="Compare your tax liability under current AY 2026-27 statutory slabs (₹0-4L 0%, ₹4-8L 5%, etc.) vs the Old Tax Regime. Includes ₹75,000 standard deduction, Section 87A rebate up to ₹60,000, and marginal relief."
+        initialGrossIncome={1200000}
+        initialIsSalaried={true}
+        asOfDate="AY 2026-27 (Finance Act 2025)"
+        breadcrumbs={[
+          { label: "Investments", href: "/investments" },
+          { label: "Income Tax Calculator", href: "/income-tax-calculator" },
+        ]}
+        faqs={faqs}
+        relatedLinks={relatedLinks}
+      />
+    </>
   );
 }

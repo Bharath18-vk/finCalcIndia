@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { HeaderNav } from "@/components/layout/HeaderNav";
+import { generateWebsiteGraph } from "@/lib/seo/schema";
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -96,23 +97,8 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://fincalcindia.in";
   const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
-  const webAppSchema = {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    name: "FinCalc India",
-    url: siteUrl,
-    applicationCategory: "FinanceApplication",
-    operatingSystem: "All",
-    offers: {
-      "@type": "Offer",
-      price: "0",
-      priceCurrency: "INR",
-    },
-    description:
-      "Accurate Indian financial calculators for EMI, Home Loans, SIP, Step-Up SIP, and Fixed Deposits.",
-  };
+  const websiteGraph = generateWebsiteGraph();
 
   return (
     <html lang="en" className={`h-full antialiased ${plusJakarta.variable} ${jetbrainsMono.variable}`}>
@@ -149,7 +135,7 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/apple-icon.png" />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteGraph) }}
         />
       </head>
       <body className="min-h-full flex flex-col bg-slate-50 text-slate-900 selection:bg-emerald-200 selection:text-emerald-950 font-sans">

@@ -16,6 +16,8 @@ import {
   GitFork,
   Binary,
 } from "lucide-react";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { generateCollectionSchema } from "@/lib/seo/schema";
 
 export const metadata: Metadata = {
   title: "Math & Statistics Calculators Online | FinCalc India",
@@ -118,8 +120,22 @@ export default function MathHubPage() {
     },
   ];
 
+  const jsonLd = generateCollectionSchema({
+    title: "Math & Statistics Calculators Online | FinCalc India",
+    description:
+      "Free, fast, and mathematically accurate online calculators for Percentage, Probability, Fractions, Standard Deviation, LCM/GCD, Permutations, and Simple Interest.",
+    url: "/math",
+    items: mathCalculators.map((c) => ({
+      name: c.title,
+      description: c.description,
+      url: c.href,
+    })),
+  });
+
   return (
-    <div className="w-full space-y-10 py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <>
+      <JsonLd data={jsonLd} />
+      <div className="w-full space-y-10 py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* Breadcrumbs */}
       <Breadcrumbs
         items={[
@@ -222,5 +238,6 @@ export default function MathHubPage() {
         </div>
       </section>
     </div>
+    </>
   );
 }

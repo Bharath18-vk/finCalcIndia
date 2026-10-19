@@ -2,6 +2,8 @@ import React from "react";
 import type { Metadata } from "next";
 import { EMICalculatorView } from "@/components/calculators/EMICalculatorView";
 import { BENCHMARK_RATES } from "@/data/rates/benchmarks";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { generateSoftwareSchema } from "@/lib/seo/schema";
 
 export const metadata: Metadata = {
   title: "Personal Loan EMI Calculator - Monthly Payment & Interest Schedule",
@@ -68,45 +70,63 @@ export default function PersonalLoanEMICalculatorPage() {
     },
   ];
 
+  const jsonLd = generateSoftwareSchema({
+    name: "Personal Loan EMI Calculator - Monthly Payment & Interest Schedule",
+    description:
+      "Calculate your personal loan monthly EMI, total interest burden, and amortization schedule. Compare short vs long tenures with typical Indian bank interest rates.",
+    url: "/personal-loan-emi-calculator",
+    applicationCategory: "FinanceApplication",
+    featureList: [
+      "Unsecured personal loan installment computation",
+      "Rate sensitivity matrix across 9.5% to 28% APR",
+      "1 to 7 year repayment schedule analysis",
+      "Total interest vs principal payout comparison",
+      "Shareable URL calculation links",
+    ],
+  });
+
   return (
-    <EMICalculatorView
-      calculatorType="personal-loan-emi"
-      title="Personal Loan EMI Calculator"
-      badge="Unsecured Loan"
-      description="Plan your unsecured personal loan installments. Analyze how 1 to 5 year tenures and bank interest rates influence your monthly budget and overall debt interest."
-      initialPrincipal={500000}
-      initialAnnualRate={benchmark.defaultRate}
-      initialTenureYears={3}
-      minPrincipal={25000}
-      maxPrincipal={4000000}
-      principalStep={25000}
-      principalPresets={[
-        { label: "₹1 Lakh", value: 100000 },
-        { label: "₹2 Lakh", value: 200000 },
-        { label: "₹3 Lakh", value: 300000 },
-        { label: "₹5 Lakh", value: 500000 },
-        { label: "₹10 Lakh", value: 1000000 },
-      ]}
-      minRate={9.5}
-      maxRate={28}
-      rateStep={0.1}
-      benchmarkNote={`Typical Benchmark: ${benchmark.defaultRate}%`}
-      asOfDate={benchmark.verifiedAt}
-      minTenureYears={1}
-      maxTenureYears={7}
-      tenurePresets={[
-        { label: "1 Year", years: 1 },
-        { label: "2 Years", years: 2 },
-        { label: "3 Years", years: 3 },
-        { label: "4 Years", years: 4 },
-        { label: "5 Years", years: 5 },
-      ]}
-      breadcrumbs={[
-        { label: "Loans", href: "/loans" },
-        { label: "Personal Loan EMI Calculator", href: "/personal-loan-emi-calculator" },
-      ]}
-      faqs={faqs}
-      relatedLinks={relatedLinks}
-    />
+    <>
+      <JsonLd data={jsonLd} />
+      <EMICalculatorView
+        calculatorType="personal-loan-emi"
+        title="Personal Loan EMI Calculator"
+        badge="Unsecured Loan"
+        description="Plan your unsecured personal loan installments. Analyze how 1 to 5 year tenures and bank interest rates influence your monthly budget and overall debt interest."
+        initialPrincipal={500000}
+        initialAnnualRate={benchmark.defaultRate}
+        initialTenureYears={3}
+        minPrincipal={25000}
+        maxPrincipal={4000000}
+        principalStep={25000}
+        principalPresets={[
+          { label: "₹1 Lakh", value: 100000 },
+          { label: "₹2 Lakh", value: 200000 },
+          { label: "₹3 Lakh", value: 300000 },
+          { label: "₹5 Lakh", value: 500000 },
+          { label: "₹10 Lakh", value: 1000000 },
+        ]}
+        minRate={9.5}
+        maxRate={28}
+        rateStep={0.1}
+        benchmarkNote={`Typical Benchmark: ${benchmark.defaultRate}%`}
+        asOfDate={benchmark.verifiedAt}
+        minTenureYears={1}
+        maxTenureYears={7}
+        tenurePresets={[
+          { label: "1 Year", years: 1 },
+          { label: "2 Years", years: 2 },
+          { label: "3 Years", years: 3 },
+          { label: "4 Years", years: 4 },
+          { label: "5 Years", years: 5 },
+        ]}
+        breadcrumbs={[
+          { label: "Loans", href: "/loans" },
+          { label: "Personal Loan EMI Calculator", href: "/personal-loan-emi-calculator" },
+        ]}
+        faqs={faqs}
+        relatedLinks={relatedLinks}
+      />
+    </>
   );
 }

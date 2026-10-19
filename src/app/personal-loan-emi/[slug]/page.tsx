@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { getLongtailPage, getLiveLongtailPages } from "@/data/longtail-pages";
 import { computeLongtailContent } from "@/lib/longtail-content";
 import { EMICalculatorView } from "@/components/calculators/EMICalculatorView";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { generateSoftwareSchema } from "@/lib/seo/schema";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -67,24 +69,41 @@ export default async function PersonalLoanLongtailPage({ params }: Props) {
     };
   });
 
+  const jsonLd = generateSoftwareSchema({
+    name: page.title || `${page.h1} - FinCalc India`,
+    description: page.metaDescription,
+    url: `${page.baseRoute}/${page.slug}`,
+    applicationCategory: "FinanceApplication",
+    featureList: [
+      `Pre-configured personal loan scenario for ${page.h1}`,
+      "Reducing balance EMI computation engine",
+      "Interactive borrowing amount, tenure, and interest rate sliders",
+      "Detailed repayment schedule with total interest breakdown",
+      "Instant shareable calculation URL link",
+    ],
+  });
+
   return (
-    <EMICalculatorView
-      calculatorType="personal-loan-emi"
-      title={page.h1}
-      badge="Personal Loan Scenario"
-      description={`${page.metaDescription} ${computed.disclosedRateNote}`}
-      initialPrincipal={page.params.amount}
-      initialAnnualRate={rate}
-      initialTenureYears={page.params.tenureYears}
-      benchmarkNote={`Illustrative Benchmark: ${rate}%`}
-      breadcrumbs={[
-        { label: "Loans", href: "/loans" },
-        { label: "Personal Loan EMI", href: "/personal-loan-emi-calculator" },
-        { label: page.h1, href: `${page.baseRoute}/${page.slug}` },
-      ]}
-      faqs={computed.faqs}
-      relatedLinks={relatedLinks}
-      customExplainerText={computed.analysisParagraphs.join("\n\n")}
-    />
+    <>
+      <JsonLd data={jsonLd} />
+      <EMICalculatorView
+        calculatorType="personal-loan-emi"
+        title={page.h1}
+        badge="Personal Loan Scenario"
+        description={`${page.metaDescription} ${computed.disclosedRateNote}`}
+        initialPrincipal={page.params.amount}
+        initialAnnualRate={rate}
+        initialTenureYears={page.params.tenureYears}
+        benchmarkNote={`Illustrative Benchmark: ${rate}%`}
+        breadcrumbs={[
+          { label: "Loans", href: "/loans" },
+          { label: "Personal Loan EMI", href: "/personal-loan-emi-calculator" },
+          { label: page.h1, href: `${page.baseRoute}/${page.slug}` },
+        ]}
+        faqs={computed.faqs}
+        relatedLinks={relatedLinks}
+        customExplainerText={computed.analysisParagraphs.join("\n\n")}
+      />
+    </>
   );
 }

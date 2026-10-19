@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { ArrowRight, Calculator, Home, Briefcase, Car } from "lucide-react";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { generateCollectionSchema } from "@/lib/seo/schema";
 
 export const metadata: Metadata = {
   title: "Loan & EMI Calculators India",
@@ -94,8 +96,22 @@ export default function LoansHubPage() {
     },
   ];
 
+  const jsonLd = generateCollectionSchema({
+    title: "Loan & EMI Calculators India - FinCalc India",
+    description:
+      "Comprehensive suite of Indian loan calculators: General EMI, Home Loan, Personal Loan, and Car Loan with complete amortization schedules.",
+    url: "/loans",
+    items: loanCalculators.map((c) => ({
+      name: c.title,
+      description: c.description,
+      url: c.href,
+    })),
+  });
+
   return (
-    <article className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+    <>
+      <JsonLd data={jsonLd} />
+      <article className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
       <Breadcrumbs items={[{ label: "Loan Calculators", href: "/loans" }]} />
 
       <header className="space-y-3 max-w-3xl">
@@ -178,5 +194,6 @@ export default function LoansHubPage() {
         </div>
       </section>
     </article>
+    </>
   );
 }

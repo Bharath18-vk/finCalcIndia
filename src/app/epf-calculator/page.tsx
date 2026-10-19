@@ -3,6 +3,8 @@ import { Metadata } from "next";
 import { EPFCalculatorView } from "@/components/calculators/EPFCalculatorView";
 import { BENCHMARK_RATES } from "@/data/rates/benchmarks";
 import { FAQItem } from "@/components/ui/FAQSection";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { generateSoftwareSchema } from "@/lib/seo/schema";
 
 export const metadata: Metadata = {
   title: "EPF Calculator - Employees' Provident Fund Maturity & Interest Calculator India",
@@ -70,23 +72,41 @@ export default function EPFCalculatorPage() {
     },
   ];
 
+  const jsonLd = generateSoftwareSchema({
+    name: "EPF Calculator - Employees' Provident Fund Maturity & Interest Calculator India",
+    description:
+      "Calculate your EPF maturity balance, employee (12%) and employer (3.67%) contributions, and official EPFO 8.25% compound interest with annual salary hike projections.",
+    url: "/epf-calculator",
+    applicationCategory: "FinanceApplication",
+    featureList: [
+      "Official EPFO 8.25% interest rate running balance engine",
+      "Employee (12%) and employer (3.67% EPF + EPS) statutory breakdown",
+      "Annual salary increment progression up to age 58 superannuation",
+      "Section 10(11) ₹2.5 Lakh annual tax-free contribution tracking",
+      "Shareable URL calculation links",
+    ],
+  });
+
   return (
-    <EPFCalculatorView
-      title="EPF Calculator: Employees' Provident Fund Maturity & Interest"
-      description="Calculate your accumulated EPF retirement corpus at age 58. Models 12% employee share, 3.67% employer EPF allocation, annual salary increments, and the official 8.25% EPFO interest rate."
-      initialMonthlyBasic={35000}
-      initialCurrentAge={25}
-      initialRetirementAge={58}
-      initialIncrementRate={5.0}
-      initialInterestRate={benchmark.defaultRate}
-      benchmarkNote="8.25% Official EPFO Rate"
-      asOfDate={benchmark.verifiedAt}
-      breadcrumbs={[
-        { label: "Savings", href: "/savings" },
-        { label: "EPF Calculator", href: "/epf-calculator" },
-      ]}
-      faqs={faqs}
-      relatedLinks={relatedLinks}
-    />
+    <>
+      <JsonLd data={jsonLd} />
+      <EPFCalculatorView
+        title="EPF Calculator: Employees' Provident Fund Maturity & Interest"
+        description="Calculate your accumulated EPF retirement corpus at age 58. Models 12% employee share, 3.67% employer EPF allocation, annual salary increments, and the official 8.25% EPFO interest rate."
+        initialMonthlyBasic={35000}
+        initialCurrentAge={25}
+        initialRetirementAge={58}
+        initialIncrementRate={5.0}
+        initialInterestRate={benchmark.defaultRate}
+        benchmarkNote="8.25% Official EPFO Rate"
+        asOfDate={benchmark.verifiedAt}
+        breadcrumbs={[
+          { label: "Savings", href: "/savings" },
+          { label: "EPF Calculator", href: "/epf-calculator" },
+        ]}
+        faqs={faqs}
+        relatedLinks={relatedLinks}
+      />
+    </>
   );
 }

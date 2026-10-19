@@ -2,6 +2,8 @@ import React from "react";
 import type { Metadata } from "next";
 import { FDCalculatorView } from "@/components/calculators/FDCalculatorView";
 import { BENCHMARK_RATES } from "@/data/rates/benchmarks";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { generateSoftwareSchema } from "@/lib/seo/schema";
 
 export const metadata: Metadata = {
   title: "FD Calculator - Fixed Deposit Maturity & Quarterly Interest Calculator",
@@ -68,22 +70,40 @@ export default function FDCalculatorPage() {
     },
   ];
 
+  const jsonLd = generateSoftwareSchema({
+    name: "FD Calculator - Fixed Deposit Maturity & Quarterly Interest Calculator",
+    description:
+      "Calculate bank fixed deposit (FD) maturity amount and interest earned using official RBI quarterly compounding rules. Includes senior citizen slab comparisons and APY yields.",
+    url: "/fd-calculator",
+    applicationCategory: "FinanceApplication",
+    featureList: [
+      "Official Indian commercial bank quarterly compounding convention",
+      "General vs senior citizen (+0.50% p.a.) comparison",
+      "Maturity value, total interest, and effective annual yield (APY)",
+      "Section 80C 5-year tax saving deposit analysis",
+      "Shareable URL calculation links",
+    ],
+  });
+
   return (
-    <FDCalculatorView
-      title="Fixed Deposit (FD) Calculator"
-      badge="Bank Fixed Deposits"
-      description="Compute your fixed deposit maturity value, cumulative interest, and effective annual yield using standard RBI quarterly compounding rules."
-      initialPrincipal={500000}
-      initialAnnualRate={benchmark.defaultRate}
-      initialTenureYears={3}
-      benchmarkNote={`Illustrative Rate: ${benchmark.defaultRate}% (Quarterly Compounding)`}
-      asOfDate={benchmark.verifiedAt}
-      breadcrumbs={[
-        { label: "Savings", href: "/savings" },
-        { label: "FD Calculator", href: "/fd-calculator" },
-      ]}
-      faqs={faqs}
-      relatedLinks={relatedLinks}
-    />
+    <>
+      <JsonLd data={jsonLd} />
+      <FDCalculatorView
+        title="Fixed Deposit (FD) Calculator"
+        badge="Bank Fixed Deposits"
+        description="Compute your fixed deposit maturity value, cumulative interest, and effective annual yield using standard RBI quarterly compounding rules."
+        initialPrincipal={500000}
+        initialAnnualRate={benchmark.defaultRate}
+        initialTenureYears={3}
+        benchmarkNote={`Illustrative Rate: ${benchmark.defaultRate}% (Quarterly Compounding)`}
+        asOfDate={benchmark.verifiedAt}
+        breadcrumbs={[
+          { label: "Savings", href: "/savings" },
+          { label: "FD Calculator", href: "/fd-calculator" },
+        ]}
+        faqs={faqs}
+        relatedLinks={relatedLinks}
+      />
+    </>
   );
 }

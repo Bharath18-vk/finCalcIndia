@@ -2,6 +2,8 @@ import React from "react";
 import type { Metadata } from "next";
 import { LumpsumCalculatorView } from "@/components/calculators/LumpsumCalculatorView";
 import { BENCHMARK_RATES } from "@/data/rates/benchmarks";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { generateSoftwareSchema } from "@/lib/seo/schema";
 
 export const metadata: Metadata = {
   title: "Lumpsum Calculator - One-Time Mutual Fund Return & Wealth Growth",
@@ -68,20 +70,38 @@ export default function LumpsumCalculatorPage() {
     },
   ];
 
+  const jsonLd = generateSoftwareSchema({
+    name: "Lumpsum Calculator - One-Time Mutual Fund Return & Wealth Growth",
+    description:
+      "Calculate future value and returns on one-time lumpsum mutual fund investments. See holding period projections, rate sensitivity, and growth multiples in Indian Rupees.",
+    url: "/lumpsum-calculator",
+    applicationCategory: "FinanceApplication",
+    featureList: [
+      "Future value compound return projection",
+      "Rate sensitivity matrix across 8% to 16% annualized CAGR",
+      "Interactive tenure comparison from 1 to 30 years",
+      "Wealth multiple calculation (e.g. 3.1x corpus multiple)",
+      "Instant URL calculation sharing",
+    ],
+  });
+
   return (
-    <LumpsumCalculatorView
-      title="Lumpsum Calculator"
-      badge="Equity & Mutual Funds"
-      description="Estimate the long-term compounding growth of a one-time capital investment in mutual funds, index funds, or equities."
-      initialInvestment={500000}
-      initialAnnualRate={benchmark.defaultRate}
-      initialTenureYears={10}
-      breadcrumbs={[
-        { label: "Investments", href: "/investments" },
-        { label: "Lumpsum Calculator", href: "/lumpsum-calculator" },
-      ]}
-      faqs={faqs}
-      relatedLinks={relatedLinks}
-    />
+    <>
+      <JsonLd data={jsonLd} />
+      <LumpsumCalculatorView
+        title="Lumpsum Calculator"
+        badge="Equity & Mutual Funds"
+        description="Estimate the long-term compounding growth of a one-time capital investment in mutual funds, index funds, or equities."
+        initialInvestment={500000}
+        initialAnnualRate={benchmark.defaultRate}
+        initialTenureYears={10}
+        breadcrumbs={[
+          { label: "Investments", href: "/investments" },
+          { label: "Lumpsum Calculator", href: "/lumpsum-calculator" },
+        ]}
+        faqs={faqs}
+        relatedLinks={relatedLinks}
+      />
+    </>
   );
 }

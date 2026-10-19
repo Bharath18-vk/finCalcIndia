@@ -2,6 +2,8 @@ import React from "react";
 import { Metadata } from "next";
 import { CAGRCalculatorView } from "@/components/calculators/CAGRCalculatorView";
 import { FAQItem } from "@/components/ui/FAQSection";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { generateSoftwareSchema } from "@/lib/seo/schema";
 
 export const metadata: Metadata = {
   title: "CAGR Calculator - Compound Annual Growth Rate Calculator India",
@@ -68,20 +70,38 @@ export default function CAGRCalculatorPage() {
     },
   ];
 
+  const jsonLd = generateSoftwareSchema({
+    name: "CAGR Calculator - Compound Annual Growth Rate Calculator India",
+    description:
+      "Calculate the Compound Annual Growth Rate (CAGR) and absolute return of your mutual fund, equity, or real estate investment over any multi-year holding period.",
+    url: "/cagr-calculator",
+    applicationCategory: "FinanceApplication",
+    featureList: [
+      "Annualized Compound Annual Growth Rate (CAGR) computation",
+      "Absolute return percentage calculation",
+      "Total wealth multiple indicator (e.g., 2.0x capital multiple)",
+      "Multi-year investment timeline modeling from 1 to 30 years",
+      "Shareable URL calculation links",
+    ],
+  });
+
   return (
-    <CAGRCalculatorView
-      title="CAGR Calculator"
-      badge="Investment Metrics"
-      description="Calculate the true annualized growth rate (CAGR), absolute return percentage, and capital multiple of any investment portfolio across multi-year holding periods."
-      initialValue={100000}
-      finalValue={200000}
-      initialTenureYears={5}
-      breadcrumbs={[
-        { label: "Investment Calculators", href: "/investments" },
-        { label: "CAGR Calculator", href: "/cagr-calculator" },
-      ]}
-      faqs={faqs}
-      relatedLinks={relatedLinks}
-    />
+    <>
+      <JsonLd data={jsonLd} />
+      <CAGRCalculatorView
+        title="CAGR Calculator"
+        badge="Investment Metrics"
+        description="Calculate the true annualized growth rate (CAGR), absolute return percentage, and capital multiple of any investment portfolio across multi-year holding periods."
+        initialValue={100000}
+        finalValue={200000}
+        initialTenureYears={5}
+        breadcrumbs={[
+          { label: "Investment Calculators", href: "/investments" },
+          { label: "CAGR Calculator", href: "/cagr-calculator" },
+        ]}
+        faqs={faqs}
+        relatedLinks={relatedLinks}
+      />
+    </>
   );
 }

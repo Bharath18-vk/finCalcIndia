@@ -2,6 +2,8 @@ import React from "react";
 import type { Metadata } from "next";
 import { EMICalculatorView } from "@/components/calculators/EMICalculatorView";
 import { BENCHMARK_RATES } from "@/data/rates/benchmarks";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { generateSoftwareSchema } from "@/lib/seo/schema";
 
 export const metadata: Metadata = {
   title: "Home Loan EMI Calculator - Housing Loan Interest & Repayment Schedule",
@@ -68,45 +70,63 @@ export default function HomeLoanEMICalculatorPage() {
     },
   ];
 
+  const jsonLd = generateSoftwareSchema({
+    name: "Home Loan EMI Calculator - Housing Loan Interest & Repayment Schedule",
+    description:
+      "Calculate your home loan EMI online using current EBLR/RLLR benchmark rates. See monthly principal vs interest breakdown, yearly schedule, and total interest cost.",
+    url: "/home-loan-emi-calculator",
+    applicationCategory: "FinanceApplication",
+    featureList: [
+      "SBI EBLR / Repo-linked rate benchmark modeling",
+      "Principal vs interest payment schedule up to 30 years",
+      "Section 80C and Section 24(b) tax savings analysis",
+      "Reducing balance amortization breakdown in Indian Rupees",
+      "Shareable URL calculation links",
+    ],
+  });
+
   return (
-    <EMICalculatorView
-      calculatorType="home-loan-emi"
-      title="Home Loan EMI Calculator"
-      badge="Housing Loan"
-      description="Estimate your monthly mortgage payments based on current Indian banking EBLR benchmarks. Review yearly tax-deductible principal breakdowns and interest sensitivity."
-      initialPrincipal={5000000}
-      initialAnnualRate={benchmark.defaultRate}
-      initialTenureYears={20}
-      minPrincipal={500000}
-      maxPrincipal={100000000}
-      principalStep={100000}
-      principalPresets={[
-        { label: "₹25 Lakh", value: 2500000 },
-        { label: "₹40 Lakh", value: 4000000 },
-        { label: "₹50 Lakh", value: 5000000 },
-        { label: "₹75 Lakh", value: 7500000 },
-        { label: "₹1 Crore", value: 10000000 },
-      ]}
-      minRate={6.5}
-      maxRate={15}
-      rateStep={0.05}
-      benchmarkNote={`SBI EBLR Benchmark: ${benchmark.defaultRate}%`}
-      asOfDate={benchmark.verifiedAt}
-      minTenureYears={5}
-      maxTenureYears={30}
-      tenurePresets={[
-        { label: "10 Years", years: 10 },
-        { label: "15 Years", years: 15 },
-        { label: "20 Years", years: 20 },
-        { label: "25 Years", years: 25 },
-        { label: "30 Years", years: 30 },
-      ]}
-      breadcrumbs={[
-        { label: "Loans", href: "/loans" },
-        { label: "Home Loan EMI Calculator", href: "/home-loan-emi-calculator" },
-      ]}
-      faqs={faqs}
-      relatedLinks={relatedLinks}
-    />
+    <>
+      <JsonLd data={jsonLd} />
+      <EMICalculatorView
+        calculatorType="home-loan-emi"
+        title="Home Loan EMI Calculator"
+        badge="Housing Loan"
+        description="Estimate your monthly mortgage payments based on current Indian banking EBLR benchmarks. Review yearly tax-deductible principal breakdowns and interest sensitivity."
+        initialPrincipal={5000000}
+        initialAnnualRate={benchmark.defaultRate}
+        initialTenureYears={20}
+        minPrincipal={500000}
+        maxPrincipal={100000000}
+        principalStep={100000}
+        principalPresets={[
+          { label: "₹25 Lakh", value: 2500000 },
+          { label: "₹40 Lakh", value: 4000000 },
+          { label: "₹50 Lakh", value: 5000000 },
+          { label: "₹75 Lakh", value: 7500000 },
+          { label: "₹1 Crore", value: 10000000 },
+        ]}
+        minRate={6.5}
+        maxRate={15}
+        rateStep={0.05}
+        benchmarkNote={`SBI EBLR Benchmark: ${benchmark.defaultRate}%`}
+        asOfDate={benchmark.verifiedAt}
+        minTenureYears={5}
+        maxTenureYears={30}
+        tenurePresets={[
+          { label: "10 Years", years: 10 },
+          { label: "15 Years", years: 15 },
+          { label: "20 Years", years: 20 },
+          { label: "25 Years", years: 25 },
+          { label: "30 Years", years: 30 },
+        ]}
+        breadcrumbs={[
+          { label: "Loans", href: "/loans" },
+          { label: "Home Loan EMI Calculator", href: "/home-loan-emi-calculator" },
+        ]}
+        faqs={faqs}
+        relatedLinks={relatedLinks}
+      />
+    </>
   );
 }

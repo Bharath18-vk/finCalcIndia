@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { ArrowRight, TrendingUp, Sparkles, PieChart } from "lucide-react";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { generateCollectionSchema } from "@/lib/seo/schema";
 
 export const metadata: Metadata = {
   title: "Investment & Mutual Fund Calculators India",
@@ -129,8 +131,22 @@ export default function InvestmentsHubPage() {
     },
   ];
 
+  const jsonLd = generateCollectionSchema({
+    title: "Investment & Mutual Fund Calculators India - FinCalc India",
+    description:
+      "Indian investment tools: SIP, Step-Up SIP, and Lumpsum calculators with monthly compounding simulations and growth comparisons.",
+    url: "/investments",
+    items: investmentCalculators.map((c) => ({
+      name: c.title,
+      description: c.description,
+      url: c.href,
+    })),
+  });
+
   return (
-    <article className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+    <>
+      <JsonLd data={jsonLd} />
+      <article className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
       <Breadcrumbs items={[{ label: "Investment Calculators", href: "/investments" }]} />
 
       <header className="space-y-3 max-w-3xl">
@@ -213,5 +229,6 @@ export default function InvestmentsHubPage() {
         </div>
       </section>
     </article>
+    </>
   );
 }

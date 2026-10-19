@@ -3,6 +3,8 @@ import { Metadata } from "next";
 import { NPSCalculatorView } from "@/components/calculators/NPSCalculatorView";
 import { BENCHMARK_RATES } from "@/data/rates/benchmarks";
 import { FAQItem } from "@/components/ui/FAQSection";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { generateSoftwareSchema } from "@/lib/seo/schema";
 
 export const metadata: Metadata = {
   title: "NPS Calculator - National Pension System Tier-1 Pension & Corpus Calculator",
@@ -75,21 +77,39 @@ export default function NPSCalculatorPage() {
     },
   ];
 
+  const jsonLd = generateSoftwareSchema({
+    name: "NPS Calculator - National Pension System Tier-1 Pension & Corpus Calculator",
+    description:
+      "Calculate your National Pension System (NPS) retirement corpus, 60% tax-free lump sum payout, and estimated monthly pension from mandatory 40% annuity reinvestment.",
+    url: "/nps-calculator",
+    applicationCategory: "FinanceApplication",
+    featureList: [
+      "Tier-1 compounding retirement wealth accumulation engine",
+      "Statutory 60% tax-free lump sum withdrawal calculation (Section 10(12A))",
+      "40% mandatory annuity reinvestment and monthly pension projection",
+      "Section 80CCD(1), 80CCD(1B) ₹50,000, and 80CCD(2) tax evaluation",
+      "Interactive asset allocation return sensitivity slider",
+    ],
+  });
+
   return (
-    <NPSCalculatorView
-      title="NPS Calculator: National Pension System Tier-1 Corpus & Pension"
-      description="Project your retirement wealth accumulation, tax-free lump sum payout, and estimated lifetime monthly annuity pension from monthly contributions into the National Pension System."
-      initialMonthlyContribution={5000}
-      initialCurrentAge={30}
-      initialRetirementAge={60}
-      initialReturnRate={benchmark.defaultRate}
-      asOfDate={benchmark.verifiedAt}
-      breadcrumbs={[
-        { label: "Investments", href: "/investments" },
-        { label: "NPS Calculator", href: "/nps-calculator" },
-      ]}
-      faqs={faqs}
-      relatedLinks={relatedLinks}
-    />
+    <>
+      <JsonLd data={jsonLd} />
+      <NPSCalculatorView
+        title="NPS Calculator: National Pension System Tier-1 Corpus & Pension"
+        description="Project your retirement wealth accumulation, tax-free lump sum payout, and estimated lifetime monthly annuity pension from monthly contributions into the National Pension System."
+        initialMonthlyContribution={5000}
+        initialCurrentAge={30}
+        initialRetirementAge={60}
+        initialReturnRate={benchmark.defaultRate}
+        asOfDate={benchmark.verifiedAt}
+        breadcrumbs={[
+          { label: "Investments", href: "/investments" },
+          { label: "NPS Calculator", href: "/nps-calculator" },
+        ]}
+        faqs={faqs}
+        relatedLinks={relatedLinks}
+      />
+    </>
   );
 }

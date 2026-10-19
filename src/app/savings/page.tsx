@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { ArrowRight, PiggyBank, ShieldCheck } from "lucide-react";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { generateCollectionSchema } from "@/lib/seo/schema";
 
 export const metadata: Metadata = {
   title: "Savings & Fixed Deposit Calculators India",
@@ -89,8 +91,22 @@ export default function SavingsHubPage() {
     },
   ];
 
+  const jsonLd = generateCollectionSchema({
+    title: "Savings & Fixed Deposit Calculators India - FinCalc India",
+    description:
+      "Indian guaranteed savings calculators: Fixed Deposit (FD) quarterly compounding, senior citizen interest rates, and APY comparisons.",
+    url: "/savings",
+    items: savingsCalculators.map((c) => ({
+      name: c.title,
+      description: c.description,
+      url: c.href,
+    })),
+  });
+
   return (
-    <article className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+    <>
+      <JsonLd data={jsonLd} />
+      <article className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
       <Breadcrumbs items={[{ label: "Savings Calculators", href: "/savings" }]} />
 
       <header className="space-y-3 max-w-3xl">
@@ -173,5 +189,6 @@ export default function SavingsHubPage() {
         </div>
       </section>
     </article>
+    </>
   );
 }

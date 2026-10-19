@@ -3,6 +3,8 @@ import { Metadata } from "next";
 import { AmortizationCalculatorView } from "@/components/calculators/AmortizationCalculatorView";
 import { BENCHMARK_RATES } from "@/data/rates/benchmarks";
 import { FAQItem } from "@/components/ui/FAQSection";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { generateSoftwareSchema } from "@/lib/seo/schema";
 
 export const metadata: Metadata = {
   title: "Loan Amortization Schedule Calculator - Yearly & Monthly Principal Breakdown",
@@ -74,22 +76,40 @@ export default function AmortizationCalculatorPage() {
     },
   ];
 
+  const jsonLd = generateSoftwareSchema({
+    name: "Loan Amortization Schedule Calculator - Yearly & Monthly Principal Breakdown",
+    description:
+      "Generate full monthly and annual loan amortization schedules on a reducing balance basis. View interest vs principal splits and remaining loan balances.",
+    url: "/amortization-calculator",
+    applicationCategory: "FinanceApplication",
+    featureList: [
+      "Full month-by-month and year-by-year reducing balance schedule",
+      "Principal vs interest breakdown table with CSV and Excel export",
+      "Cumulative principal and cumulative interest tracking",
+      "Section 80C and Section 24(b) tax reporting values",
+      "Print and PDF export support",
+    ],
+  });
+
   return (
-    <AmortizationCalculatorView
-      title="Loan Amortization Schedule Calculator"
-      badge="Repayment Schedule"
-      description="Generate comprehensive month-by-month and year-by-year reducing balance amortization tables showing exact interest charges, principal repayment, and outstanding balances."
-      initialPrincipal={3000000}
-      initialAnnualRate={benchmark.defaultRate}
-      initialTenureYears={20}
-      benchmarkNote={`Floating Loan Benchmark: ${benchmark.defaultRate}%`}
-      asOfDate={benchmark.verifiedAt}
-      breadcrumbs={[
-        { label: "Loan Calculators", href: "/loans" },
-        { label: "Amortization Calculator", href: "/amortization-calculator" },
-      ]}
-      faqs={faqs}
-      relatedLinks={relatedLinks}
-    />
+    <>
+      <JsonLd data={jsonLd} />
+      <AmortizationCalculatorView
+        title="Loan Amortization Schedule Calculator"
+        badge="Repayment Schedule"
+        description="Generate comprehensive month-by-month and year-by-year reducing balance amortization tables showing exact interest charges, principal repayment, and outstanding balances."
+        initialPrincipal={3000000}
+        initialAnnualRate={benchmark.defaultRate}
+        initialTenureYears={20}
+        benchmarkNote={`Floating Loan Benchmark: ${benchmark.defaultRate}%`}
+        asOfDate={benchmark.verifiedAt}
+        breadcrumbs={[
+          { label: "Loan Calculators", href: "/loans" },
+          { label: "Amortization Calculator", href: "/amortization-calculator" },
+        ]}
+        faqs={faqs}
+        relatedLinks={relatedLinks}
+      />
+    </>
   );
 }

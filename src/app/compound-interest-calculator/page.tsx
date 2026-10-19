@@ -2,6 +2,8 @@ import React from "react";
 import { Metadata } from "next";
 import { CompoundInterestCalculatorView } from "@/components/calculators/CompoundInterestCalculatorView";
 import { FAQItem } from "@/components/ui/FAQSection";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { generateSoftwareSchema } from "@/lib/seo/schema";
 
 export const metadata: Metadata = {
   title: "Compound Interest Calculator - Annual, Quarterly & Monthly Compounding",
@@ -68,21 +70,39 @@ export default function CompoundInterestCalculatorPage() {
     },
   ];
 
+  const jsonLd = generateSoftwareSchema({
+    name: "Compound Interest Calculator - Annual, Quarterly & Monthly Compounding",
+    description:
+      "Calculate compound interest and maturity amounts across annual, half-yearly, quarterly, monthly, and daily frequencies. Compare against simple interest to see compounding power.",
+    url: "/compound-interest-calculator",
+    applicationCategory: "FinanceApplication",
+    featureList: [
+      "Annual, semi-annual, quarterly, monthly, and daily compounding frequencies",
+      "Side-by-side comparison against simple interest",
+      "Effective Annual Rate (APY) calculation",
+      "Year-by-year compounding progression schedule",
+      "Shareable URL calculation links",
+    ],
+  });
+
   return (
-    <CompoundInterestCalculatorView
-      title="Compound Interest Calculator"
-      badge="Compounding Power"
-      description="Calculate maturity amounts, total compound interest, and effective annual yields (APY) across annual, semi-annual, quarterly, monthly, and daily compounding frequencies."
-      initialPrincipal={100000}
-      initialAnnualRate={8.0}
-      initialTenureYears={5}
-      initialFrequency="quarterly"
-      breadcrumbs={[
-        { label: "Investment Calculators", href: "/investments" },
-        { label: "Compound Interest Calculator", href: "/compound-interest-calculator" },
-      ]}
-      faqs={faqs}
-      relatedLinks={relatedLinks}
-    />
+    <>
+      <JsonLd data={jsonLd} />
+      <CompoundInterestCalculatorView
+        title="Compound Interest Calculator"
+        badge="Compounding Power"
+        description="Calculate maturity amounts, total compound interest, and effective annual yields (APY) across annual, semi-annual, quarterly, monthly, and daily compounding frequencies."
+        initialPrincipal={100000}
+        initialAnnualRate={8.0}
+        initialTenureYears={5}
+        initialFrequency="quarterly"
+        breadcrumbs={[
+          { label: "Investment Calculators", href: "/investments" },
+          { label: "Compound Interest Calculator", href: "/compound-interest-calculator" },
+        ]}
+        faqs={faqs}
+        relatedLinks={relatedLinks}
+      />
+    </>
   );
 }

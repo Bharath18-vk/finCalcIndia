@@ -2,6 +2,8 @@ import React from "react";
 import type { Metadata } from "next";
 import { EMICalculatorView } from "@/components/calculators/EMICalculatorView";
 import { BENCHMARK_RATES } from "@/data/rates/benchmarks";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { generateSoftwareSchema } from "@/lib/seo/schema";
 
 export const metadata: Metadata = {
   title: "EMI Calculator - Loan Equated Monthly Installment & Amortization",
@@ -80,44 +82,63 @@ export default function EMICalculatorPage() {
     },
   ];
 
+  const jsonLd = generateSoftwareSchema({
+    name: "EMI Calculator - Loan Equated Monthly Installment & Amortization",
+    description:
+      "Free online EMI calculator for loans in India. Calculate monthly EMI, total interest payable, and full year-by-year amortization schedule formatted in Indian Rupees.",
+    url: "/emi-calculator",
+    applicationCategory: "FinanceApplication",
+    featureList: [
+      "Reducing balance EMI computation matching Indian banking standards",
+      "Principal vs interest breakdown with interactive sliders",
+      "Comprehensive year-by-year and month-by-month amortization schedule",
+      "Rate sensitivity matrix across loan tenures from 1 to 30 years",
+      "Shareable URL calculation links",
+      "Printable and PDF-ready loan report",
+    ],
+  });
+
   return (
-    <EMICalculatorView
-      calculatorType="emi"
-      title="EMI Calculator"
-      badge="All Loans"
-      description="Calculate your equated monthly installment, total interest burden, and download or review your complete yearly repayment amortization schedule."
-      initialPrincipal={1000000}
-      initialAnnualRate={9.5}
-      initialTenureYears={5}
-      minPrincipal={10000}
-      maxPrincipal={100000000}
-      principalPresets={[
-        { label: "₹2 Lakh", value: 200000 },
-        { label: "₹5 Lakh", value: 500000 },
-        { label: "₹10 Lakh", value: 1000000 },
-        { label: "₹25 Lakh", value: 2500000 },
-        { label: "₹50 Lakh", value: 5000000 },
-      ]}
-      minRate={1}
-      maxRate={30}
-      rateStep={0.1}
-      benchmarkNote="Standard Banking Benchmark"
-      asOfDate={benchmark.verifiedAt}
-      minTenureYears={1}
-      maxTenureYears={30}
-      tenurePresets={[
-        { label: "1 Year", years: 1 },
-        { label: "3 Years", years: 3 },
-        { label: "5 Years", years: 5 },
-        { label: "10 Years", years: 10 },
-        { label: "20 Years", years: 20 },
-      ]}
-      breadcrumbs={[
-        { label: "Loans", href: "/loans" },
-        { label: "EMI Calculator", href: "/emi-calculator" },
-      ]}
-      faqs={faqs}
-      relatedLinks={relatedLinks}
-    />
+    <>
+      <JsonLd data={jsonLd} />
+      <EMICalculatorView
+        calculatorType="emi"
+        title="EMI Calculator"
+        badge="All Loans"
+        description="Calculate your equated monthly installment, total interest burden, and download or review your complete yearly repayment amortization schedule."
+        initialPrincipal={1000000}
+        initialAnnualRate={9.5}
+        initialTenureYears={5}
+        minPrincipal={10000}
+        maxPrincipal={100000000}
+        principalPresets={[
+          { label: "₹2 Lakh", value: 200000 },
+          { label: "₹5 Lakh", value: 500000 },
+          { label: "₹10 Lakh", value: 1000000 },
+          { label: "₹25 Lakh", value: 2500000 },
+          { label: "₹50 Lakh", value: 5000000 },
+        ]}
+        minRate={1}
+        maxRate={30}
+        rateStep={0.1}
+        benchmarkNote="Standard Banking Benchmark"
+        asOfDate={benchmark.verifiedAt}
+        minTenureYears={1}
+        maxTenureYears={30}
+        tenurePresets={[
+          { label: "1 Year", years: 1 },
+          { label: "3 Years", years: 3 },
+          { label: "5 Years", years: 5 },
+          { label: "10 Years", years: 10 },
+          { label: "20 Years", years: 20 },
+        ]}
+        breadcrumbs={[
+          { label: "Loans", href: "/loans" },
+          { label: "EMI Calculator", href: "/emi-calculator" },
+        ]}
+        faqs={faqs}
+        relatedLinks={relatedLinks}
+      />
+    </>
   );
 }

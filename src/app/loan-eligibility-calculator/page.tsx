@@ -3,6 +3,8 @@ import { Metadata } from "next";
 import { LoanEligibilityView } from "@/components/calculators/LoanEligibilityView";
 import { BENCHMARK_RATES } from "@/data/rates/benchmarks";
 import { FAQItem } from "@/components/ui/FAQSection";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { generateSoftwareSchema } from "@/lib/seo/schema";
 
 export const metadata: Metadata = {
   title: "Home Loan Eligibility Calculator - Borrowing Power by Salary",
@@ -74,24 +76,42 @@ export default function LoanEligibilityPage() {
     },
   ];
 
+  const jsonLd = generateSoftwareSchema({
+    name: "Home Loan Eligibility Calculator - Borrowing Power by Salary",
+    description:
+      "Calculate your maximum home loan and personal loan eligibility based on monthly take-home salary, existing EMIs, and standard Indian bank FOIR ratios.",
+    url: "/loan-eligibility-calculator",
+    applicationCategory: "FinanceApplication",
+    featureList: [
+      "Maximum eligible loan sanction estimation",
+      "Fixed Obligation to Income Ratio (FOIR) modeling (40% to 60%)",
+      "Net take-home salary and existing EMI deductions",
+      "Affordable monthly EMI threshold calculation",
+      "Shareable URL calculation links",
+    ],
+  });
+
   return (
-    <LoanEligibilityView
-      title="Loan Eligibility Calculator"
-      badge="Borrowing Capacity"
-      description="Determine your maximum borrowing power, allowable debt obligations, and monthly repayment limits based on your take-home salary and standard bank FOIR ratios."
-      initialIncome={100000}
-      initialExistingEMIs={10000}
-      initialAnnualRate={benchmark.defaultRate}
-      initialTenureYears={20}
-      initialFOIR={50}
-      benchmarkNote={`Floating Home Loan Benchmark: ${benchmark.defaultRate}%`}
-      asOfDate={benchmark.verifiedAt}
-      breadcrumbs={[
-        { label: "Loan Calculators", href: "/loans" },
-        { label: "Loan Eligibility Calculator", href: "/loan-eligibility-calculator" },
-      ]}
-      faqs={faqs}
-      relatedLinks={relatedLinks}
-    />
+    <>
+      <JsonLd data={jsonLd} />
+      <LoanEligibilityView
+        title="Loan Eligibility Calculator"
+        badge="Borrowing Capacity"
+        description="Determine your maximum borrowing power, allowable debt obligations, and monthly repayment limits based on your take-home salary and standard bank FOIR ratios."
+        initialIncome={100000}
+        initialExistingEMIs={10000}
+        initialAnnualRate={benchmark.defaultRate}
+        initialTenureYears={20}
+        initialFOIR={50}
+        benchmarkNote={`Floating Home Loan Benchmark: ${benchmark.defaultRate}%`}
+        asOfDate={benchmark.verifiedAt}
+        breadcrumbs={[
+          { label: "Loan Calculators", href: "/loans" },
+          { label: "Loan Eligibility Calculator", href: "/loan-eligibility-calculator" },
+        ]}
+        faqs={faqs}
+        relatedLinks={relatedLinks}
+      />
+    </>
   );
 }

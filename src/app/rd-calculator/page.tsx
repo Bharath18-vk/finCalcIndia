@@ -3,6 +3,8 @@ import { Metadata } from "next";
 import { RDCalculatorView } from "@/components/calculators/RDCalculatorView";
 import { BENCHMARK_RATES } from "@/data/rates/benchmarks";
 import { FAQItem } from "@/components/ui/FAQSection";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { generateSoftwareSchema } from "@/lib/seo/schema";
 
 export const metadata: Metadata = {
   title: "RD Calculator - Recurring Deposit Maturity & Quarterly Interest Calculator",
@@ -74,22 +76,40 @@ export default function RDCalculatorPage() {
     },
   ];
 
+  const jsonLd = generateSoftwareSchema({
+    name: "RD Calculator - Recurring Deposit Maturity & Quarterly Interest Calculator",
+    description:
+      "Calculate Recurring Deposit (RD) maturity amount and interest earned using official Indian banking quarterly compounding rules. Compare senior citizen rates across 1 to 10 years.",
+    url: "/rd-calculator",
+    applicationCategory: "FinanceApplication",
+    featureList: [
+      "Official IBA quarterly compounding RD engine",
+      "Cumulative invested amount vs interest earned schedule",
+      "General vs senior citizen (+0.50% p.a.) comparison",
+      "Monthly deposit presets from ₹1,000 to ₹50,000",
+      "Shareable URL calculation links",
+    ],
+  });
+
   return (
-    <RDCalculatorView
-      title="Recurring Deposit (RD) Calculator"
-      badge="Bank Deposits"
-      description="Estimate your maturity payout, total interest accrued, and effective annual yield (APY) on monthly recurring deposits using standard RBI quarterly compounding conventions."
-      initialMonthlyDeposit={5000}
-      initialAnnualRate={benchmark.defaultRate}
-      initialTenureMonths={36}
-      benchmarkNote={`Bank RD Benchmark: ${benchmark.defaultRate}%`}
-      asOfDate={benchmark.verifiedAt}
-      breadcrumbs={[
-        { label: "Savings Calculators", href: "/savings" },
-        { label: "RD Calculator", href: "/rd-calculator" },
-      ]}
-      faqs={faqs}
-      relatedLinks={relatedLinks}
-    />
+    <>
+      <JsonLd data={jsonLd} />
+      <RDCalculatorView
+        title="Recurring Deposit (RD) Calculator"
+        badge="Bank Deposits"
+        description="Estimate your maturity payout, total interest accrued, and effective annual yield (APY) on monthly recurring deposits using standard RBI quarterly compounding conventions."
+        initialMonthlyDeposit={5000}
+        initialAnnualRate={benchmark.defaultRate}
+        initialTenureMonths={36}
+        benchmarkNote={`Bank RD Benchmark: ${benchmark.defaultRate}%`}
+        asOfDate={benchmark.verifiedAt}
+        breadcrumbs={[
+          { label: "Savings Calculators", href: "/savings" },
+          { label: "RD Calculator", href: "/rd-calculator" },
+        ]}
+        faqs={faqs}
+        relatedLinks={relatedLinks}
+      />
+    </>
   );
 }

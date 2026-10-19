@@ -2,6 +2,8 @@ import React from "react";
 import { Metadata } from "next";
 import { GratuityCalculatorView } from "@/components/calculators/GratuityCalculatorView";
 import { FAQItem } from "@/components/ui/FAQSection";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { generateSoftwareSchema } from "@/lib/seo/schema";
 
 export const metadata: Metadata = {
   title: "Gratuity Calculator - Payment of Gratuity Act 1972 Calculator India",
@@ -64,19 +66,37 @@ export default function GratuityCalculatorPage() {
     },
   ];
 
+  const jsonLd = generateSoftwareSchema({
+    name: "Gratuity Calculator - Payment of Gratuity Act 1972 Calculator India",
+    description:
+      "Calculate your gratuity payout under the Payment of Gratuity Act, 1972 using the 15/26 working days formula. Check 5-year eligibility and Section 10(10) ₹20 Lakh tax exemption.",
+    url: "/gratuity-calculator",
+    applicationCategory: "FinanceApplication",
+    featureList: [
+      "Statutory 15/26 working days gratuity calculation formula",
+      "5-year mandatory continuous service eligibility verification",
+      "Section 10(10) ₹20 Lakh lifetime tax-exemption ceiling check",
+      "Half-year rounding convention calculation",
+      "Shareable URL calculation links",
+    ],
+  });
+
   return (
-    <GratuityCalculatorView
-      title="Gratuity Calculator: Payment of Gratuity Act, 1972"
-      description="Estimate your statutory retirement or resignation gratuity payout based on last drawn monthly basic salary and years of continuous service. Verifies 5-year eligibility and Section 10(10) ₹20 Lakh tax exemption."
-      initialMonthlyBasic={50000}
-      initialTenureYears={10}
-      asOfDate="Payment of Gratuity Act, 1972"
-      breadcrumbs={[
-        { label: "Savings", href: "/savings" },
-        { label: "Gratuity Calculator", href: "/gratuity-calculator" },
-      ]}
-      faqs={faqs}
-      relatedLinks={relatedLinks}
-    />
+    <>
+      <JsonLd data={jsonLd} />
+      <GratuityCalculatorView
+        title="Gratuity Calculator: Payment of Gratuity Act, 1972"
+        description="Estimate your statutory retirement or resignation gratuity payout based on last drawn monthly basic salary and years of continuous service. Verifies 5-year eligibility and Section 10(10) ₹20 Lakh tax exemption."
+        initialMonthlyBasic={50000}
+        initialTenureYears={10}
+        asOfDate="Payment of Gratuity Act, 1972"
+        breadcrumbs={[
+          { label: "Savings", href: "/savings" },
+          { label: "Gratuity Calculator", href: "/gratuity-calculator" },
+        ]}
+        faqs={faqs}
+        relatedLinks={relatedLinks}
+      />
+    </>
   );
 }

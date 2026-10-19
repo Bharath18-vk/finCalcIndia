@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { getLongtailPage, getLiveLongtailPages } from "@/data/longtail-pages";
 import { computeLongtailContent } from "@/lib/longtail-content";
 import { EMICalculatorView } from "@/components/calculators/EMICalculatorView";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { generateSoftwareSchema } from "@/lib/seo/schema";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -67,24 +69,41 @@ export default async function CarLoanLongtailPage({ params }: Props) {
     };
   });
 
+  const jsonLd = generateSoftwareSchema({
+    name: page.title || `${page.h1} - FinCalc India`,
+    description: page.metaDescription,
+    url: `${page.baseRoute}/${page.slug}`,
+    applicationCategory: "FinanceApplication",
+    featureList: [
+      `Pre-configured car loan scenario for ${page.h1}`,
+      "Auto loan monthly installment reducing balance engine",
+      "Interactive vehicle loan amount, tenure, and rate sliders",
+      "Amortization schedule and total interest burden visualization",
+      "Instant shareable calculation URL link",
+    ],
+  });
+
   return (
-    <EMICalculatorView
-      calculatorType="car-loan-emi"
-      title={page.h1}
-      badge="Auto Loan Scenario"
-      description={`${page.metaDescription} ${computed.disclosedRateNote}`}
-      initialPrincipal={page.params.amount}
-      initialAnnualRate={rate}
-      initialTenureYears={page.params.tenureYears}
-      benchmarkNote={`Auto Benchmark: ${rate}%`}
-      breadcrumbs={[
-        { label: "Loans", href: "/loans" },
-        { label: "Car Loan EMI", href: "/car-loan-emi-calculator" },
-        { label: page.h1, href: `${page.baseRoute}/${page.slug}` },
-      ]}
-      faqs={computed.faqs}
-      relatedLinks={relatedLinks}
-      customExplainerText={computed.analysisParagraphs.join("\n\n")}
-    />
+    <>
+      <JsonLd data={jsonLd} />
+      <EMICalculatorView
+        calculatorType="car-loan-emi"
+        title={page.h1}
+        badge="Auto Loan Scenario"
+        description={`${page.metaDescription} ${computed.disclosedRateNote}`}
+        initialPrincipal={page.params.amount}
+        initialAnnualRate={rate}
+        initialTenureYears={page.params.tenureYears}
+        benchmarkNote={`Auto Benchmark: ${rate}%`}
+        breadcrumbs={[
+          { label: "Loans", href: "/loans" },
+          { label: "Car Loan EMI", href: "/car-loan-emi-calculator" },
+          { label: page.h1, href: `${page.baseRoute}/${page.slug}` },
+        ]}
+        faqs={computed.faqs}
+        relatedLinks={relatedLinks}
+        customExplainerText={computed.analysisParagraphs.join("\n\n")}
+      />
+    </>
   );
 }

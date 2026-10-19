@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { getLongtailPage, getLiveLongtailPages } from "@/data/longtail-pages";
 import { computeLongtailContent } from "@/lib/longtail-content";
 import { LumpsumCalculatorView } from "@/components/calculators/LumpsumCalculatorView";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { generateSoftwareSchema } from "@/lib/seo/schema";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -67,22 +69,39 @@ export default async function LumpsumLongtailPage({ params }: Props) {
     };
   });
 
+  const jsonLd = generateSoftwareSchema({
+    name: page.title || `${page.h1} - FinCalc India`,
+    description: page.metaDescription,
+    url: `${page.baseRoute}/${page.slug}`,
+    applicationCategory: "FinanceApplication",
+    featureList: [
+      `Pre-configured lumpsum investment scenario for ${page.h1}`,
+      "Compound growth future value mathematical engine",
+      "Interactive one-time investment, tenure, and return sliders",
+      "Annual wealth growth progression and gain breakdown",
+      "Instant shareable calculation URL link",
+    ],
+  });
+
   return (
-    <LumpsumCalculatorView
-      title={page.h1}
-      badge="Lumpsum Scenario"
-      description={`${page.metaDescription} ${computed.disclosedRateNote}`}
-      initialInvestment={page.params.amount}
-      initialAnnualRate={rate}
-      initialTenureYears={page.params.tenureYears}
-      breadcrumbs={[
-        { label: "Investments", href: "/investments" },
-        { label: "Lumpsum Calculator", href: "/lumpsum-calculator" },
-        { label: page.h1, href: `${page.baseRoute}/${page.slug}` },
-      ]}
-      faqs={computed.faqs}
-      relatedLinks={relatedLinks}
-      customExplainerText={computed.analysisParagraphs.join("\n\n")}
-    />
+    <>
+      <JsonLd data={jsonLd} />
+      <LumpsumCalculatorView
+        title={page.h1}
+        badge="Lumpsum Scenario"
+        description={`${page.metaDescription} ${computed.disclosedRateNote}`}
+        initialInvestment={page.params.amount}
+        initialAnnualRate={rate}
+        initialTenureYears={page.params.tenureYears}
+        breadcrumbs={[
+          { label: "Investments", href: "/investments" },
+          { label: "Lumpsum Calculator", href: "/lumpsum-calculator" },
+          { label: page.h1, href: `${page.baseRoute}/${page.slug}` },
+        ]}
+        faqs={computed.faqs}
+        relatedLinks={relatedLinks}
+        customExplainerText={computed.analysisParagraphs.join("\n\n")}
+      />
+    </>
   );
 }

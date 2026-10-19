@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { getLongtailPage, getLiveLongtailPages } from "@/data/longtail-pages";
 import { computeLongtailContent } from "@/lib/longtail-content";
 import { FDCalculatorView } from "@/components/calculators/FDCalculatorView";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { generateSoftwareSchema } from "@/lib/seo/schema";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -67,23 +69,40 @@ export default async function FDLongtailPage({ params }: Props) {
     };
   });
 
+  const jsonLd = generateSoftwareSchema({
+    name: page.title || `${page.h1} - FinCalc India`,
+    description: page.metaDescription,
+    url: `${page.baseRoute}/${page.slug}`,
+    applicationCategory: "FinanceApplication",
+    featureList: [
+      `Pre-configured fixed deposit scenario for ${page.h1}`,
+      "Indian banking quarterly compounding interest engine",
+      "Regular vs senior citizen preferential rate toggle",
+      "Maturity value and total interest yield calculation",
+      "Instant shareable calculation URL link",
+    ],
+  });
+
   return (
-    <FDCalculatorView
-      title={page.h1}
-      badge="Fixed Deposit Scenario"
-      description={`${page.metaDescription} ${computed.disclosedRateNote}`}
-      initialPrincipal={page.params.amount}
-      initialAnnualRate={rate}
-      initialTenureYears={page.params.tenureYears}
-      benchmarkNote={`Bank Benchmark: ${rate}%`}
-      breadcrumbs={[
-        { label: "Savings", href: "/savings" },
-        { label: "FD Calculator", href: "/fd-calculator" },
-        { label: page.h1, href: `${page.baseRoute}/${page.slug}` },
-      ]}
-      faqs={computed.faqs}
-      relatedLinks={relatedLinks}
-      customExplainerText={computed.analysisParagraphs.join("\n\n")}
-    />
+    <>
+      <JsonLd data={jsonLd} />
+      <FDCalculatorView
+        title={page.h1}
+        badge="Fixed Deposit Scenario"
+        description={`${page.metaDescription} ${computed.disclosedRateNote}`}
+        initialPrincipal={page.params.amount}
+        initialAnnualRate={rate}
+        initialTenureYears={page.params.tenureYears}
+        benchmarkNote={`Bank Benchmark: ${rate}%`}
+        breadcrumbs={[
+          { label: "Savings", href: "/savings" },
+          { label: "FD Calculator", href: "/fd-calculator" },
+          { label: page.h1, href: `${page.baseRoute}/${page.slug}` },
+        ]}
+        faqs={computed.faqs}
+        relatedLinks={relatedLinks}
+        customExplainerText={computed.analysisParagraphs.join("\n\n")}
+      />
+    </>
   );
 }

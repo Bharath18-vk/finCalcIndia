@@ -2,6 +2,8 @@ import React from "react";
 import type { Metadata } from "next";
 import { EMICalculatorView } from "@/components/calculators/EMICalculatorView";
 import { BENCHMARK_RATES } from "@/data/rates/benchmarks";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { generateSoftwareSchema } from "@/lib/seo/schema";
 
 export const metadata: Metadata = {
   title: "Car Loan EMI Calculator - Auto Loan Monthly Payment & Amortization",
@@ -68,44 +70,62 @@ export default function CarLoanEMICalculatorPage() {
     },
   ];
 
+  const jsonLd = generateSoftwareSchema({
+    name: "Car Loan EMI Calculator - Auto Loan Monthly Payment & Amortization",
+    description:
+      "Calculate your new or used car loan EMI. Compare 3, 5, and 7-year auto loan tenures, total interest outgo, and monthly repayment schedules.",
+    url: "/car-loan-emi-calculator",
+    applicationCategory: "FinanceApplication",
+    featureList: [
+      "New vs used automobile loan EMI calculations",
+      "Principal vs interest payment breakdown across 1 to 7 years",
+      "Interactive auto loan interest rate sensitivity",
+      "Down payment and loan-to-value (LTV) planning",
+      "Shareable URL calculation links",
+    ],
+  });
+
   return (
-    <EMICalculatorView
-      calculatorType="car-loan-emi"
-      title="Car Loan EMI Calculator"
-      badge="Auto Loan"
-      description="Estimate your monthly automobile loan payment, total interest outlay, and full repayment schedule across 1 to 7 year financing options."
-      initialPrincipal={800000}
-      initialAnnualRate={benchmark.defaultRate}
-      initialTenureYears={5}
-      minPrincipal={50000}
-      maxPrincipal={15000000}
-      principalStep={25000}
-      principalPresets={[
-        { label: "₹5 Lakh", value: 500000 },
-        { label: "₹8 Lakh", value: 800000 },
-        { label: "₹12 Lakh", value: 1200000 },
-        { label: "₹18 Lakh", value: 1800000 },
-        { label: "₹25 Lakh", value: 2500000 },
-      ]}
-      minRate={7.5}
-      maxRate={18}
-      rateStep={0.05}
-      benchmarkNote={`Auto Loan Benchmark: ${benchmark.defaultRate}%`}
-      asOfDate={benchmark.verifiedAt}
-      minTenureYears={1}
-      maxTenureYears={7}
-      tenurePresets={[
-        { label: "3 Years", years: 3 },
-        { label: "4 Years", years: 4 },
-        { label: "5 Years", years: 5 },
-        { label: "7 Years", years: 7 },
-      ]}
-      breadcrumbs={[
-        { label: "Loans", href: "/loans" },
-        { label: "Car Loan EMI Calculator", href: "/car-loan-emi-calculator" },
-      ]}
-      faqs={faqs}
-      relatedLinks={relatedLinks}
-    />
+    <>
+      <JsonLd data={jsonLd} />
+      <EMICalculatorView
+        calculatorType="car-loan-emi"
+        title="Car Loan EMI Calculator"
+        badge="Auto Loan"
+        description="Estimate your monthly automobile loan payment, total interest outlay, and full repayment schedule across 1 to 7 year financing options."
+        initialPrincipal={800000}
+        initialAnnualRate={benchmark.defaultRate}
+        initialTenureYears={5}
+        minPrincipal={50000}
+        maxPrincipal={15000000}
+        principalStep={25000}
+        principalPresets={[
+          { label: "₹5 Lakh", value: 500000 },
+          { label: "₹8 Lakh", value: 800000 },
+          { label: "₹12 Lakh", value: 1200000 },
+          { label: "₹18 Lakh", value: 1800000 },
+          { label: "₹25 Lakh", value: 2500000 },
+        ]}
+        minRate={7.5}
+        maxRate={18}
+        rateStep={0.05}
+        benchmarkNote={`Auto Loan Benchmark: ${benchmark.defaultRate}%`}
+        asOfDate={benchmark.verifiedAt}
+        minTenureYears={1}
+        maxTenureYears={7}
+        tenurePresets={[
+          { label: "3 Years", years: 3 },
+          { label: "4 Years", years: 4 },
+          { label: "5 Years", years: 5 },
+          { label: "7 Years", years: 7 },
+        ]}
+        breadcrumbs={[
+          { label: "Loans", href: "/loans" },
+          { label: "Car Loan EMI Calculator", href: "/car-loan-emi-calculator" },
+        ]}
+        faqs={faqs}
+        relatedLinks={relatedLinks}
+      />
+    </>
   );
 }

@@ -3,6 +3,8 @@ import { Metadata } from "next";
 import { LoanPrepaymentView } from "@/components/calculators/LoanPrepaymentView";
 import { BENCHMARK_RATES } from "@/data/rates/benchmarks";
 import { FAQItem } from "@/components/ui/FAQSection";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { generateSoftwareSchema } from "@/lib/seo/schema";
 
 export const metadata: Metadata = {
   title: "Home Loan Prepayment Calculator - Tenure Reduction & Interest Savings",
@@ -74,22 +76,40 @@ export default function LoanPrepaymentPage() {
     },
   ];
 
+  const jsonLd = generateSoftwareSchema({
+    name: "Home Loan Prepayment Calculator - Tenure Reduction & Interest Savings",
+    description:
+      "Calculate how partial lump-sum prepayments, extra monthly EMIs, and annual bonus prepayments reduce your home loan tenure and save lakhs in compound interest.",
+    url: "/loan-prepayment-calculator",
+    applicationCategory: "FinanceApplication",
+    featureList: [
+      "Lump-sum part-payment and recurring extra EMI simulations",
+      "Tenure reduction vs EMI reduction comparison",
+      "Exact compound interest saved in Indian Rupees",
+      "Revised loan payoff calendar and amortization schedule",
+      "Shareable URL calculation links",
+    ],
+  });
+
   return (
-    <LoanPrepaymentView
-      title="Loan Prepayment Calculator"
-      badge="Debt Reduction"
-      description="Discover how extra monthly installments, lump-sum part-payments, or annual bonus prepayments can eliminate years from your debt and save lakhs of rupees in compound interest."
-      initialPrincipal={3000000}
-      initialAnnualRate={benchmark.defaultRate}
-      initialTenureYears={20}
-      benchmarkNote={`Floating Home Loan Benchmark: ${benchmark.defaultRate}%`}
-      asOfDate={benchmark.verifiedAt}
-      breadcrumbs={[
-        { label: "Loan Calculators", href: "/loans" },
-        { label: "Loan Prepayment Calculator", href: "/loan-prepayment-calculator" },
-      ]}
-      faqs={faqs}
-      relatedLinks={relatedLinks}
-    />
+    <>
+      <JsonLd data={jsonLd} />
+      <LoanPrepaymentView
+        title="Loan Prepayment Calculator"
+        badge="Debt Reduction"
+        description="Discover how extra monthly installments, lump-sum part-payments, or annual bonus prepayments can eliminate years from your debt and save lakhs of rupees in compound interest."
+        initialPrincipal={3000000}
+        initialAnnualRate={benchmark.defaultRate}
+        initialTenureYears={20}
+        benchmarkNote={`Floating Home Loan Benchmark: ${benchmark.defaultRate}%`}
+        asOfDate={benchmark.verifiedAt}
+        breadcrumbs={[
+          { label: "Loan Calculators", href: "/loans" },
+          { label: "Loan Prepayment Calculator", href: "/loan-prepayment-calculator" },
+        ]}
+        faqs={faqs}
+        relatedLinks={relatedLinks}
+      />
+    </>
   );
 }
