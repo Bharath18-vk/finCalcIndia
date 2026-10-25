@@ -1,6 +1,7 @@
 import React from "react";
 import { Metadata } from "next";
 import { IncomeTaxCalculatorView } from "@/components/calculators/IncomeTaxCalculatorView";
+import { IncomeTaxContent } from "@/components/calculators/content/IncomeTaxContent";
 import { FAQItem } from "@/components/ui/FAQSection";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { generateSoftwareSchema } from "@/lib/seo/schema";
@@ -42,6 +43,21 @@ export default function IncomeTaxCalculatorPage() {
       question: "Which regime is better: New Tax Regime or Old Tax Regime?",
       answer:
         "With the AY 2026-27 New Regime offering zero tax up to ₹12.75 Lakhs (salaried) and lower slab rates across all brackets, the New Regime is more beneficial for the vast majority of taxpayers. The Old Regime is typically advantageous only if total eligible deductions (Standard deduction + 80C + 80D + 24(b) home loan + HRA) exceed ₹4.5 to ₹5 Lakhs.",
+    },
+    {
+      question: "Can salaried employees switch between New and Old regimes every year?",
+      answer:
+        "Yes. Salaried individuals without income from business or profession can switch between the New Tax Regime and Old Tax Regime each financial year at the time of filing their Income Tax Return (ITR-1 or ITR-2) under Section 139(1). However, individuals with business or professional income (ITR-3/ITR-4) can opt out of the New Regime only once in their lifetime.",
+    },
+    {
+      question: "Is standard deduction available under both New and Old regimes?",
+      answer:
+        "Yes, but the amounts differ: Under the New Tax Regime (AY 2026-27), the standard deduction for salaried employees and pensioners is ₹75,000. Under the Old Tax Regime, the standard deduction remains capped at ₹50,000.",
+    },
+    {
+      question: "What is the maximum surcharge rate under the New Tax Regime?",
+      answer:
+        "Under the New Tax Regime, the highest surcharge on individuals with taxable income exceeding ₹2 Crores is capped at 25%, resulting in a maximum marginal tax rate of 39% (including 4% cess). Under the Old Regime, the surcharge for income exceeding ₹5 Crores is 37%, pushing the effective peak rate to 42.74%.",
     },
   ];
 
@@ -98,6 +114,7 @@ export default function IncomeTaxCalculatorPage() {
         ]}
         faqs={faqs}
         relatedLinks={relatedLinks}
+        explainerContent={<IncomeTaxContent />}
       />
     </>
   );

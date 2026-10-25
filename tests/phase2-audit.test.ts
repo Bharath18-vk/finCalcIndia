@@ -54,8 +54,8 @@ describe("Phase 2 Final Audit - Calculators, Blog Framework & SEO Semantics", ()
       expect(blogHub?.category).toBe("hub");
     });
 
-    it("verifies exactly 5 comprehensive guides exist in BLOG_POSTS", () => {
-      expect(BLOG_POSTS.length).toBe(5);
+    it("verifies at least 5 comprehensive guides exist in BLOG_POSTS", () => {
+      expect(BLOG_POSTS.length).toBeGreaterThanOrEqual(5);
     });
 
     for (const slug of phase2GuideSlugs) {

@@ -1,6 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
 import { EMICalculatorView } from "@/components/calculators/EMICalculatorView";
+import { EMIContent } from "@/components/calculators/content/EMIContent";
 import { BENCHMARK_RATES } from "@/data/rates/benchmarks";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { generateSoftwareSchema } from "@/lib/seo/schema";
@@ -35,14 +36,29 @@ export default function EMICalculatorPage() {
         "A longer loan tenure lowers your monthly EMI burden, making repayment easier on a monthly cash-flow basis. However, because interest accrues over more months, the total interest paid to the lender increases dramatically. A shorter tenure increases monthly EMI but significantly cuts lifetime interest.",
     },
     {
-      question: "Does this EMI calculator use the reducing balance method?",
+      question: "Does this EMI calculator use the reducing balance method or flat rate?",
       answer:
-        "Yes. Standard Indian commercial banks and NBFCs compute EMIs using the reducing balance method. Interest for each monthly cycle is calculated solely on the outstanding principal balance, not the original sanctioned loan amount.",
+        "Yes, our calculator strictly uses the reducing balance method mandated by the Reserve Bank of India (RBI) for commercial banks and NBFCs. Interest for each monthly installment is calculated solely on the outstanding principal balance, not the original sanctioned amount.",
     },
     {
-      question: "Can I prepay my loan to reduce EMI or tenure?",
+      question: "What is the difference between reducing balance and flat interest rate?",
       answer:
-        "Under Reserve Bank of India (RBI) guidelines, individual floating-rate retail loans (such as home loans) attract zero prepayment or foreclosure penalties. Prepaying principal directly reduces your outstanding balance, reducing either your ongoing EMI or the remaining tenure.",
+        "In a flat rate loan, interest is calculated on the entire initial principal across all years, regardless of how much you have already repaid. An 8.00% flat rate on a 5-year loan is equivalent to an effective reducing balance rate of ~14.5% to 15.0%. Always ensure your bank quotes the effective reducing rate.",
+    },
+    {
+      question: "Can I prepay my loan to reduce EMI or tenure without penalty?",
+      answer:
+        "Under Reserve Bank of India (RBI) directives, individual floating-rate retail loans (such as home loans) attract zero prepayment or foreclosure penalties. Prepaying principal directly reduces your outstanding balance, allowing you to choose between lowering your ongoing monthly EMI or shortening your remaining tenure.",
+    },
+    {
+      question: "How does RBI Repo Rate changes affect my floating rate EMI?",
+      answer:
+        "Floating rate loans in India are linked to an External Benchmark Lending Rate (EBLR), typically the RBI Repo Rate. When the RBI adjusts the repo rate, banks automatically revise their lending benchmark. By default, most lenders adjust the remaining loan tenure rather than changing the monthly EMI, though borrowers can request an EMI reset.",
+    },
+    {
+      question: "What happens if I make one extra EMI payment every year?",
+      answer:
+        "Paying just 1 extra EMI every calendar year directly towards the principal on a 20-year home loan reduces your total tenure by roughly 4 to 4.5 years and eliminates up to 20% of your total lifetime interest burden, saving lakhs of rupees.",
     },
   ];
 
@@ -138,6 +154,7 @@ export default function EMICalculatorPage() {
         ]}
         faqs={faqs}
         relatedLinks={relatedLinks}
+        explainerContent={<EMIContent />}
       />
     </>
   );

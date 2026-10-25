@@ -40,6 +40,7 @@ export interface EMICalculatorViewProps {
   faqs: FAQItem[];
   relatedLinks: RelatedLink[];
   customExplainerText?: string;
+  explainerContent?: React.ReactNode;
 }
 
 export const EMICalculatorView: React.FC<EMICalculatorViewProps> = ({
@@ -66,6 +67,7 @@ export const EMICalculatorView: React.FC<EMICalculatorViewProps> = ({
   faqs,
   relatedLinks,
   customExplainerText,
+  explainerContent,
 }) => {
   const [principal, setPrincipal] = useState(initialPrincipal);
   const [annualRate, setAnnualRate] = useState(initialAnnualRate);
@@ -340,7 +342,9 @@ export const EMICalculatorView: React.FC<EMICalculatorViewProps> = ({
         </div>
       }
       contentSlot={
-        customExplainerText ? (
+        explainerContent ? (
+          <div className="w-full">{explainerContent}</div>
+        ) : customExplainerText ? (
           <div className="prose prose-slate max-w-none">
             <p>{customExplainerText}</p>
           </div>

@@ -22,6 +22,8 @@ export interface SalaryCalculatorViewProps {
   breadcrumbs: BreadcrumbItem[];
   faqs: FAQItem[];
   relatedLinks: RelatedLink[];
+  customExplainerText?: string;
+  explainerContent?: React.ReactNode;
 }
 
 export const SalaryCalculatorView: React.FC<SalaryCalculatorViewProps> = ({
@@ -33,6 +35,8 @@ export const SalaryCalculatorView: React.FC<SalaryCalculatorViewProps> = ({
   breadcrumbs,
   faqs,
   relatedLinks,
+  customExplainerText,
+  explainerContent,
 }) => {
   const [annualCTC, setAnnualCTC] = useState(initialAnnualCTC);
   const [basicPercentage, setBasicPercentage] = useState(40);
@@ -394,6 +398,15 @@ export const SalaryCalculatorView: React.FC<SalaryCalculatorViewProps> = ({
             </div>
           </div>
         </div>
+      }
+      contentSlot={
+        explainerContent ? (
+          <div className="w-full">{explainerContent}</div>
+        ) : customExplainerText ? (
+          <div className="prose prose-slate max-w-none">
+            <p>{customExplainerText}</p>
+          </div>
+        ) : null
       }
       formulaExplanationSlot={
         <FormulaExplanation

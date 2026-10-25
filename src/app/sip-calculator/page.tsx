@@ -1,6 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
 import { SIPCalculatorView } from "@/components/calculators/SIPCalculatorView";
+import { SIPContent } from "@/components/calculators/content/SIPContent";
 import { BENCHMARK_RATES } from "@/data/rates/benchmarks";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { generateSoftwareSchema } from "@/lib/seo/schema";
@@ -40,9 +41,24 @@ export default function SIPCalculatorPage() {
         "Historically, broad Indian market indices like the Nifty 50 and BSE Sensex have delivered long-term multi-cycle returns in the 12% to 14% range. A 12% illustrative annual return assumption is commonly used as a planning baseline for long-term equity mutual fund modeling. Mutual fund returns are market-linked, non-linear, and neither guaranteed nor fixed by any fund house or regulatory body.",
     },
     {
-      question: "How are mutual fund SIP gains taxed in India?",
+      question: "How does Rupee Cost Averaging work in volatile equity markets?",
+      answer:
+        "Rupee Cost Averaging automatically allocates your fixed monthly sum regardless of market conditions. When markets decline, your SIP purchases more mutual fund units at lower NAVs. When markets rise, those extra units accelerate compounding. This eliminates the emotional and mathematical pitfalls of trying to time market bottoms.",
+    },
+    {
+      question: "How are mutual fund SIP gains taxed in India after Budget 2024?",
       answer:
         "For equity mutual funds (under Budget 2024 tax rules), Long-Term Capital Gains (LTCG) on units held for more than 12 months are taxed at 12.5% on gains exceeding ₹1.25 Lakh per financial year. Short-Term Capital Gains (STCG) on units redeemed within 12 months are taxed at 20%. Note: Each monthly SIP installment has its own separate 1-year holding clock.",
+    },
+    {
+      question: "How does the 1-year holding period apply to monthly SIP installments?",
+      answer:
+        "Under Indian tax rules, mutual fund units are redeemed on a First-In, First-Out (FIFO) basis. Each monthly SIP installment is considered an independent purchase with its own 365-day holding clock. When you redeem, only units bought more than 365 days prior qualify for the 12.5% LTCG rate; units bought within the last 12 months attract 20% STCG.",
+    },
+    {
+      question: "What is the difference between a Regular SIP and a Step-Up SIP?",
+      answer:
+        "A Regular SIP invests a constant fixed rupee amount every month. A Step-Up (top-up) SIP automatically increases your contribution by a fixed percentage (typically 10%) each year to mirror annual salary increments. Over a 15 to 20-year horizon, an annual 10% step-up can more than double your terminal corpus.",
     },
   ];
 
@@ -105,6 +121,7 @@ export default function SIPCalculatorPage() {
         ]}
         faqs={faqs}
         relatedLinks={relatedLinks}
+        explainerContent={<SIPContent />}
       />
     </>
   );

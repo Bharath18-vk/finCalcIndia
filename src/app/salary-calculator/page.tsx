@@ -1,6 +1,7 @@
 import React from "react";
 import { Metadata } from "next";
 import { SalaryCalculatorView } from "@/components/calculators/SalaryCalculatorView";
+import { SalaryContent } from "@/components/calculators/content/SalaryContent";
 import { FAQItem } from "@/components/ui/FAQSection";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { generateSoftwareSchema } from "@/lib/seo/schema";
@@ -42,6 +43,21 @@ export default function SalaryCalculatorPage() {
       question: "Can I choose not to contribute to EPF to increase take-home pay?",
       answer:
         "If your basic salary at your very first job is above ₹15,000 per month, EPF is voluntary and you can opt out by submitting Form 11 at the time of joining. However, if you are already an active EPF member, continuing contributions is mandatory.",
+    },
+    {
+      question: "What is Professional Tax and why does it vary by state?",
+      answer:
+        "Professional Tax (PT) is levied by individual state governments under Article 276(2) of the Indian Constitution, capped at ₹2,500 annually. States like Maharashtra, Karnataka, and Telangana deduct up to ₹200/month, whereas states like Delhi, Haryana, and Rajasthan levy zero Professional Tax.",
+    },
+    {
+      question: "How does my choice of New vs Old Tax Regime affect monthly TDS and in-hand pay?",
+      answer:
+        "Under the New Tax Regime (AY 2026-27), salaried individuals earning up to ₹12.75 Lakhs pay zero income tax due to the ₹75,000 standard deduction and Section 87A rebate. This eliminates monthly TDS deductions entirely for gross salaries up to ₹1.06 Lakh/month, substantially increasing net take-home cash.",
+    },
+    {
+      question: "How is monthly gratuity contribution calculated in my CTC?",
+      answer:
+        "Under the Payment of Gratuity Act 1972, gratuity is payable upon completing 5 years of continuous service, calculated as (15 × Last Drawn Basic × Tenure) / 26. Employers provision approximately 4.81% of your Basic Salary annually within your CTC structure to fund this future liability.",
     },
   ];
 
@@ -95,6 +111,7 @@ export default function SalaryCalculatorPage() {
         ]}
         faqs={faqs}
         relatedLinks={relatedLinks}
+        explainerContent={<SalaryContent />}
       />
     </>
   );

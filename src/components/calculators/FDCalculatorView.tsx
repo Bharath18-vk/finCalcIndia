@@ -29,6 +29,7 @@ export interface FDCalculatorViewProps {
   faqs: FAQItem[];
   relatedLinks: RelatedLink[];
   customExplainerText?: string;
+  explainerContent?: React.ReactNode;
 }
 
 export const FDCalculatorView: React.FC<FDCalculatorViewProps> = ({
@@ -45,6 +46,7 @@ export const FDCalculatorView: React.FC<FDCalculatorViewProps> = ({
   faqs,
   relatedLinks,
   customExplainerText,
+  explainerContent,
 }) => {
   const [principal, setPrincipal] = useState(initialPrincipal);
   const [annualRate, setAnnualRate] = useState(initialAnnualRate);
@@ -277,7 +279,9 @@ export const FDCalculatorView: React.FC<FDCalculatorViewProps> = ({
         </div>
       }
       contentSlot={
-        customExplainerText ? (
+        explainerContent ? (
+          <div className="w-full">{explainerContent}</div>
+        ) : customExplainerText ? (
           <div className="prose prose-slate max-w-none">
             <p>{customExplainerText}</p>
           </div>

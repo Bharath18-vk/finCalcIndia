@@ -32,6 +32,7 @@ export interface SIPCalculatorViewProps {
   faqs: FAQItem[];
   relatedLinks: RelatedLink[];
   customExplainerText?: string;
+  explainerContent?: React.ReactNode;
 }
 
 export const SIPCalculatorView: React.FC<SIPCalculatorViewProps> = ({
@@ -58,6 +59,7 @@ export const SIPCalculatorView: React.FC<SIPCalculatorViewProps> = ({
   faqs,
   relatedLinks,
   customExplainerText,
+  explainerContent,
 }) => {
   const [monthlyInvestment, setMonthlyInvestment] = useState(initialMonthlyInvestment);
   const [annualReturnRate, setAnnualReturnRate] = useState(initialAnnualRate);
@@ -345,7 +347,9 @@ export const SIPCalculatorView: React.FC<SIPCalculatorViewProps> = ({
         </div>
       }
       contentSlot={
-        customExplainerText ? (
+        explainerContent ? (
+          <div className="w-full">{explainerContent}</div>
+        ) : customExplainerText ? (
           <div className="prose prose-slate max-w-none">
             <p>{customExplainerText}</p>
           </div>

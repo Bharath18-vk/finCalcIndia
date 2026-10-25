@@ -22,6 +22,8 @@ export interface IncomeTaxCalculatorViewProps {
   breadcrumbs: BreadcrumbItem[];
   faqs: FAQItem[];
   relatedLinks: RelatedLink[];
+  customExplainerText?: string;
+  explainerContent?: React.ReactNode;
 }
 
 export const IncomeTaxCalculatorView: React.FC<IncomeTaxCalculatorViewProps> = ({
@@ -34,6 +36,8 @@ export const IncomeTaxCalculatorView: React.FC<IncomeTaxCalculatorViewProps> = (
   breadcrumbs,
   faqs,
   relatedLinks,
+  customExplainerText,
+  explainerContent,
 }) => {
   const [assessmentYear, setAssessmentYear] = useState<"2026-27" | "2025-26">("2026-27");
   const [grossAnnualIncome, setGrossAnnualIncome] = useState(initialGrossIncome);
@@ -427,6 +431,15 @@ export const IncomeTaxCalculatorView: React.FC<IncomeTaxCalculatorViewProps> = (
             </div>
           </div>
         </div>
+      }
+      contentSlot={
+        explainerContent ? (
+          <div className="w-full">{explainerContent}</div>
+        ) : customExplainerText ? (
+          <div className="prose prose-slate max-w-none">
+            <p>{customExplainerText}</p>
+          </div>
+        ) : null
       }
       formulaExplanationSlot={
         <FormulaExplanation
