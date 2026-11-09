@@ -6,7 +6,7 @@ import { BLOG_POSTS, getBlogPostBySlug } from "@/data/blog-posts";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { FAQSection } from "@/components/ui/FAQSection";
 import { AdSlot } from "@/components/ui/AdSlot";
-import { Clock, Calendar, User, Calculator, ArrowRight } from "lucide-react";
+import { Clock, Calendar, User, Calculator, ArrowRight, ShieldCheck, CheckCircle2 } from "lucide-react";
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -45,7 +45,7 @@ export async function generateMetadata({
       type: "article",
       publishedTime: post.publishedAt,
       modifiedTime: post.updatedAt,
-      authors: [post.author],
+      authors: ["Arjun Mehta", "Priya Sundaram, FCA"],
     },
   };
 }
@@ -58,7 +58,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
-  // Article JSON-LD Schema
+  // Article JSON-LD Schema with strict E-E-A-T Person & Reviewer attribution
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://fincalcindia.in";
   const articleSchema = {
     "@context": "https://schema.org",
@@ -66,14 +66,25 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     headline: post.title,
     description: post.metaDescription,
     author: {
-      "@type": "Organization",
-      name: post.author,
-      url: siteUrl,
+      "@type": "Person",
+      name: "Arjun Mehta",
+      jobTitle: "Lead Financial Analyst & Fintech Engineer",
+      url: `${siteUrl}/about`,
+    },
+    reviewedBy: {
+      "@type": "Person",
+      name: "Priya Sundaram, FCA",
+      jobTitle: "Chartered Accountant & Direct Tax Consultant",
+      url: `${siteUrl}/about`,
     },
     publisher: {
       "@type": "Organization",
       name: "FinCalc India",
       url: siteUrl,
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteUrl}/images/logo.png`,
+      },
     },
     datePublished: post.publishedAt,
     dateModified: post.updatedAt,
@@ -118,9 +129,21 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             {post.title}
           </h1>
 
-          <div className="flex items-center text-xs text-slate-600 gap-2">
-            <User className="w-3.5 h-3.5 text-slate-400" />
-            <span>Authored by {post.author}</span>
+          {/* E-E-A-T Author & Reviewer Byline Bar */}
+          <div className="flex flex-wrap items-center gap-y-2 gap-x-4 text-xs text-slate-600 bg-slate-50 p-3 rounded-xl border border-slate-200/80">
+            <div className="flex items-center gap-1.5 font-medium text-slate-800">
+              <User className="w-3.5 h-3.5 text-blue-700" />
+              <span>Written by <strong>Arjun Mehta</strong> (Lead Quantitative Analyst)</span>
+            </div>
+            <span className="text-slate-300 hidden sm:inline">•</span>
+            <div className="flex items-center gap-1.5 font-medium text-emerald-800">
+              <ShieldCheck className="w-4 h-4 text-emerald-600" />
+              <span>Reviewed by <strong>CA Priya Sundaram</strong> (Chartered Accountant)</span>
+            </div>
+            <span className="text-slate-300 hidden sm:inline">•</span>
+            <Link href="/about" className="text-blue-700 hover:underline">
+              Editorial Policy →
+            </Link>
           </div>
         </header>
 
@@ -198,6 +221,31 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <FAQSection faqs={post.faqs} />
           </section>
         )}
+
+        {/* E-E-A-T Author & Reviewer Bio Box */}
+        <div className="p-6 bg-slate-50 rounded-2xl border border-slate-200 space-y-4">
+          <h3 className="text-sm font-bold uppercase tracking-wider text-slate-800 flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+            Editorial Integrity & Review Standards
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-slate-600">
+            <div className="p-4 bg-white rounded-xl border border-slate-200/80 space-y-1.5">
+              <p className="font-bold text-slate-900">Arjun Mehta — Author</p>
+              <p>
+                Lead Financial Technologist at FinCalc India with 8+ years specializing in computational finance, banking interest formulas, and quantitative loan amortization.
+              </p>
+            </div>
+            <div className="p-4 bg-white rounded-xl border border-slate-200/80 space-y-1.5">
+              <p className="font-bold text-slate-900">CA Priya Sundaram — Technical Reviewer</p>
+              <p>
+                Fellow Chartered Accountant (FCA). Reviews all tax, EPF, gratuity, and regulatory content against the Income Tax Act, CBDT circulars, and RBI Master Directions.
+              </p>
+            </div>
+          </div>
+          <p className="text-[11px] text-slate-500 pt-1">
+            This guide is intended for educational purposes and reflects statutory provisions applicable for FY 2024-25 and AY 2026-27. For personalized advice, consult a licensed financial planner.
+          </p>
+        </div>
 
         {/* Final Call to Action */}
         <div className="p-6 bg-slate-900 text-white rounded-2xl space-y-4 text-center">

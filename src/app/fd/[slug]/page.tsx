@@ -37,6 +37,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: page.metaDescription,
       url,
     },
+    robots: {
+      index: false,
+      follow: true,
+    },
   };
 }
 

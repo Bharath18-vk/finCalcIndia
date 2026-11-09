@@ -17,6 +17,10 @@ export const metadata: Metadata = {
     url: "https://fincalcindia.in/calorie-calculator",
     type: "website",
   },
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function CalorieCalculatorPage() {
